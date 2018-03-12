@@ -1,7 +1,82 @@
-27/02/2018 15:30-16:00: Requirements document
-27/02/2018 16:00-16:30: Requirements document
-27/02/2018 16:30-17:00: Requirements document
-27/02/2018 17:00-17:30: Requirements document
-27/02/2018 17:30-18:00: Requirements document
+===================== week 9 =====================
 
-02/03/2018 13:30-14:00: Making framework section in the requirements document
+--- 27/02/2018 ---
+15:30-16:00: Requirements document
+16:00-16:30: Requirements document
+16:30-17:00: Requirements document
+17:00-17:30: Requirements document
+17:30-18:00: Requirements document
+
+--- 02/03/2018 ---
+13:30-14:00: Making framework section in the requirements document
+15:00-15:30: Customer meeting
+15:30-16:00: Customer meeting
+
+--- 03/03/2018 ---
+12:30-13:00: Team meeting.
+13:00-13:30: I leave to go use the UB computers. The first floor was under
+	     construction so I took the day of from this work.
+
+Approx sum: 4.5H
+
+===================== week 10 =====================
+
+--- Monday 05/03/2018 ---
+09:30-10:00: Setting up zeeguu core; Waiting for university computer
+	     admin to give me access to python 3. Right now I have the 403 ssl
+	     error installing newspaper with python 2.7.12.
+09:30-10:00: Still waiting..
+10:30-11:00: Went to the CIT service desk. They told me to email them
+	     instead.
+11:30-12:00: General attempting of getting the Zeeguu-Core going.
+12:00-12:30: Installing windows VM on university computer.
+16:00-16:30: Installing mysql for CLI and Toad Edge for windows mysql
+	     gui software.
+16:30-17:00: Setting up windows vm dev environment.
+17:00-17:30: Setting up windows vm dev environment.
+17:30-18:00: Setting up windows vm dev environment.
+18:00-18:30: Setting up windows vm dev environment.
+18:30-19:00: Setting up windows vm dev environment.
+19:00-19:30: Setting up windows vm dev environment.
+
+--- Tuesday 06/03/2018 ---
+09:30-10:00: Resolving new problems with CIT about my virtualbox
+	     missing.
+10:00-10:30: Resolving new problems with CIT about my virtualbox
+	     missing.
+10:30-11:00: Resolving new problems with CIT about my virtualbox
+	     missing.
+11:00-11:30: Resolving new problems with CIT about my virtualbox
+	     missing.
+
+--- Thursday 08/03/2018 ---
+09:30-10:00: Making a linux VM instead & setting up dev environment
+10:00-10:30: Making a linux VM instead & setting up dev environment
+10:30-11:00: Making a linux VM instead & setting up dev environment
+11:00-11:30: Making a linux VM instead & setting up dev environment
+11:30-12:00: Making a linux VM instead & setting up dev environment
+14:00-14:30: Making a linux VM instead & setting up dev environment
+15:30-16:00: Setting up zeeguu core
+16:00-16:30: Setting up zeeguu core
+16:30-17:00: Setting up zeeguu core
+17:30-18:00: Setting up zeeguu core
+18:00-18:30: Setting up zeeguu core
+18:30-19:00: Setting up zeeguu core & success
+
+
+Approx sum: 14H
+
+===================== week 11 =====================
+
+--- Monday 12/03/2018 ---
+16:00-16:30: Team meeting to discuss the closing of the 2nd sprint and what we
+	     will do for the 2nd sprint
+18:00-18:30: Working on this file + requirements document
+18:30-19:00: Requirements document
+19:00-19:30: Requirements document
+19:30-20:00: Requirements document
+20:00-20:30: Requirements document
+20:30-21:00: Requirements document
+21:00-21:30: Requirements document
+
+Approx sum:
