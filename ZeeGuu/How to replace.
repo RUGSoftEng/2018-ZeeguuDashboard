@@ -1,0 +1,8 @@
+Replace 
+	test_zeeguu
+	zeeguu
+in ZeeGuu-Core folder.
+
+Replace
+	zeeguu_api
+in ZeeGuu-Api folder.
