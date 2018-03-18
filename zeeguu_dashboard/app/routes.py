@@ -4,7 +4,7 @@ from app.createcohort import CreateCohort
 
 @app.route('/')
 def template():
-	classes = [
+    classes = [
         {
             'class': 'chinese',
             'id': '1'
@@ -16,9 +16,9 @@ def template():
         {
             'class': 'german',
             'id': '3'
-         }
-	]
-	return render_template('homepage.html', title='Zeeguu2.0', classes=classes)
+        }
+    ]
+    return render_template('homepage.html', title='Zeeguu2.0', classes=classes)
 
 @app.route('/class/<idx>')
 def spanish(idx):
