@@ -66,15 +66,16 @@ def template():
 #Try add a new class, it works! (if class_id exists. And if teacher_id exists)
 @app.route('/class/<teacher_id>/<class_id>')
 def load_class(teacher_id, class_id):
+    print("class id is " + str(class_id))
     #This loads in the JavaScript object notation of the class id's
     returned_class_ids_string = requests.get(path + "get_classes_by_teacher_id/"+str(teacher_id)).text
     #This convers the notation to an int list
     returned_class_ids = json.loads(returned_class_ids_string)
     classes = []
     #For each int in the int list, this will return class_name and add it to classes.
-    for class_id in returned_class_ids:
+    for id in returned_class_ids:
         #This loads in json for info(Dictionary) of class with id class_Id
-        class_info_string = requests.get(path+'get_class_info/' + str(class_id)).text
+        class_info_string = requests.get(path+'get_class_info/' + str(id)).text
         #This convers json to dictionary
         class_info = json.loads(class_info_string)
         new_class = {
@@ -83,7 +84,9 @@ def load_class(teacher_id, class_id):
         }
         classes.append(new_class)
 
+    print("class id is " + str(class_id))
     returned_student_ids_string = requests.get(path + "get_users_from_class/"+str(class_id)).text
+    print(returned_student_ids_string)
     returned_student_ids = json.loads(returned_student_ids_string)
     students = []
     for id in returned_student_ids:
