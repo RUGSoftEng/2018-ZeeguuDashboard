@@ -4,4 +4,39 @@
 27/02: Creating requirements document: 4:00-4:30.
 27/02: Creating requirements document: 4:30-5:00.
 27/02: Creating requirements document: 5:00-5:30.
-27/02: Creating requirements document: 5:30-6:00.
+01/03: Learning flask
+01/03: Learning flask
+01/03: Learning flask
+01/03: Learning flask
+01/03: Learning flask
+01/03: Learning flask
+01/03: Attempting to understand databases in flask.
+03/03: Setting up ZeeGuu Core - inital fail
+03/03: Setting up ZeeGuu Core - inital fail
+03/03: Setting up ZeeGuu Core - inital fail
+03/03: Setting up ZeeGuu Core - inital fail
+03/03: Setting up ZeeGuu Core - inital fail
+03/03: Setting up ZeeGuu Core - inital fail
+03/03: Setting up ZeeGuu Core - inital fail
+06/03: Setting up ZeeGuu Core
+06/03: Setting up ZeeGuu Core
+06/03: Setting up ZeeGuu Core
+06/03: Setting up ZeeGuu Core
+06/03: Setting up ZeeGuu Core
+08/03: Setting up ZeeGuu API
+08/03: Setting up ZeeGuu Web
+08/03: Setting up ZeeGuu Web
+10/03: Setting up ZeeGuu again after it broke
+10/03: Setting up ZeeGuu again after it broke
+10/03: Setting up ZeeGuu again after it broke
+10/03: Setting up ZeeGuu again after it broke
+10/03: Setting up ZeeGuu again after it broke
+10/03: Setting up ZeeGuu again after it broke
+10/03: Setting up ZeeGuu again after it broke
+10/03: Setting up ZeeGuu - Working!
+10/03: Automating env path and creating .sh file to run zeeguu_web on auto.
+11/03: Meeting around with data in database, trying to get create account working.
+12/03: Drawing up a plan for ClassRoom
+12/03: Drawing up a plan for ClassRoom
+12/03: Drawing up a plan for ClassRoom
+12/03: Drawing up a plan for ClassRoom

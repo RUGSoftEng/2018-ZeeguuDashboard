@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+            <div class="card-title">
+                <h4>{{classes[0].get('class')}}</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+
+                        <tr>
+                            <th>Name</th>
+                            <th>Reading</th>
+                            <th>Exercises</th>
+                            <th>Last Activity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        {% for student in students %}
+                        <tr>
+                            <td width="15%">{{ student.student }}</td>
+                            <td width="35%">
+                               <div class="pull-right"> <h7 class="m-t-0" style="padding-left:10px;">{{ student.reading}}min</h7></div>
+                                <div class="progress " style="margin-bottom: 5%; margin-top: 5%">
+                                    <div class="progress-bar bg-danger wow animated progress-animated" style="width: {{ (student.reading/60)*100 }}%;" role="progressbar"> </div>
+                                </div>
+                            </td>
+                            <td width="35%">
+                                <div class="pull-right"> <h7 class="m-t-0" style="padding-left: 10px">{{ student.exercises}}min</h7></div>
+                                <div class="progress " style="margin-bottom: 5%; margin-top: 5%">
+                                    <div class="progress-bar bg-warning wow animated progress-animated" style="width:{{(student.exercises/60)*100}}%;" role="progressbar"> </div>
+                                </div>
+                            </td>
+                            <td width="15%">
+                                {% if student.article %}
+                                <span class="badge badge-inverse">{{ student.article}}</span>
+                                {% else %}
+                                <span class="badge badge-sm">{{ student.exercise}}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+{% endblock %}

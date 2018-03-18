@@ -1,7 +1,8 @@
 # OS generated files #
 ######################
 *.DS_Store
-
+__pycache__
+*.pyc
 # Text editor backup files #
 ############################
 *~
