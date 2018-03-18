@@ -5,26 +5,41 @@
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
-          {{ form.cohort_name.label }}<br>
-          {{ form.cohort_name(size=32) }}
-            {% for error in form.cohort_name.errors %}
+          {{ form.teacher_id.label }}<br>
+          {{ form.teacher_id(size=32) }}
+            {% for error in form.teacher_id.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+          {{ form.class_name.label }}<br>
+          {{ form.class_name(size=32) }}
+            {% for error in form.class_name.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
 	<p>
-          {{ form.language.label }}<br>
-          {{ form.language(size=32) }}
-        {% for error in form.language.errors %}
+          {{ form.class_language_id.label }}<br>
+          {{ form.class_language_id(size=32) }}
+        {% for error in form.class_language_id.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
 	<p>
-          {{ form.invite_code.label }}<br>
-          {{ form.language(size=32) }}
-        {% for error in form.invite_code.errors %}
+          {{ form.inv_code.label }}<br>
+          {{ form.inv_code(size=32) }}
+        {% for error in form.inv_code.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
+        <p>
+          {{ form.max_students.label }}<br>
+          {{ form.max_students(size=32) }}
+            {% for error in form.max_students.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}
