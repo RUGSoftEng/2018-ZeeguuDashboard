@@ -11,12 +11,18 @@ def template():
     classes = [
         {
             'class': 'Spanish A1',
+            'id':1,
+            'teacher_id':1,
         },
         {
             'class': 'Spanish B2',
+            'id':1,
+            'teacher_id':1,
         },
         {
             'class': 'Spanish C1',
+            'id':1,
+            'teacher_id':1,
         }
     ]
     students = [
@@ -54,7 +60,7 @@ def template():
             'student': student_name,
             'reading':20,
             'exercises':30,
-            'article':'place holder'
+            'article':'place holder',
         }
         students.append(new_student)
     ###############################################################################
@@ -80,7 +86,9 @@ def load_class(teacher_id, class_id):
         class_info = json.loads(class_info_string)
         new_class = {
             #This gets 'class_name' from class_info dictionary
-            'class':class_info['class_name']
+            'class':class_info['class_name'],
+            'id':class_info['class_id'],
+            'teacher_id':teacher_id,
         }
         classes.append(new_class)
 
