@@ -53,7 +53,7 @@ def get_class_info(id):
     max_students = c.max_students
     cur_students = c.cur_students
     class_language_id = c.class_language_id
-    d = {'class_name':class_name, 'inv_code':inv_code, 'max_students':max_students,'cur_students':cur_students,'class_language_id':class_language_id}
+    d = {'class_name':class_name, 'inv_code':inv_code, 'max_students':max_students,'cur_students':cur_students,'class_language_id':class_language_id, 'class_id':id}
     return jsonify(d)
 
 
@@ -79,15 +79,22 @@ def add_class():
     class_language = Language.find_or_create(class_language_id)
     teacher_id = request.form.get("teacher_id")
     max_students = request.form.get("max_students")
+    print("gets here")
     try:
+        print("gets into try")
         c = Cohort(inv_code, class_name, class_language, max_students)
+        print("created class")
         zeeguu.db.session.add(c)
         zeeguu.db.session.commit()
+        print("added class to database")
         link_teacher_class(teacher_id,c.id)
+        print("linked class to teacher")
         return 'added class complete.'
     except ValueError:
+        print("value error")
         flask.abort(400)
     except sqlalchemy.exc.IntegrityError:
+        print("integ error")
         flask.abort(400)
 
 # creates user and adds them to a cohort
