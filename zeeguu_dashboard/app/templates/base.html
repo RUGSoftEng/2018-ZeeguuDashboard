@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Your DashBoard</title>
+    <title>{{ title }}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -31,12 +31,16 @@
 </head>
 <body>
 
-    {% include 'sidebar.html' %}
+
+<div class="page-wrapper" style="height:1200px;">
+
     {% include 'navbar.html' %}
 
-    <div id="page-wrapper">
-    {% block content  %} {% endblock %}
+    <div class="row page-titles">
+        {% block content  %} {% endblock %}
     </div>
+
+</div>
 
 <!-- jQuery -->
 <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
