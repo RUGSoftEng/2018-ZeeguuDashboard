@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Your Zeeguu DashBoard</title>
+    <title>{{ title }}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -37,7 +37,7 @@
     {% include 'navbar.html' %}
 
     <div class="row page-titles">
-    {% block content  %} {% endblock %}
+        {% block content  %} {% endblock %}
     </div>
 
 </div>
