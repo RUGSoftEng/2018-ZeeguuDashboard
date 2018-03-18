@@ -1,6 +1,9 @@
 from flask import render_template, flash, redirect
 from app import app
 from app.createcohort import CreateCohort
+import requests
+path = "http://51.15.89.64:9001/"
+
 
 @app.route('/')
 def template():
@@ -77,6 +80,6 @@ def create_classroom():
         class_language_id = form.class_language_id.data
         package = {'class_name': class_name, 'inv_code': inv_code, 'max_students': max_students,
                    'teacher_id': teacher_id, 'class_language_id': class_language_id}
-        response = requests.post("http://0.0.0.0:9001/add_class", data=package)
+        response = requests.post(path+ "add_class", data=package)
         return redirect('/')
     return render_template('createcohort.html', title = 'Create classroom', form=form)
