@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect
 from app import app
 from app.createcohort import CreateCohort
+from app.loginform import CreateLogin
 import requests
 import json
 path = "http://51.15.89.64:9001/"
@@ -8,9 +9,9 @@ path = "http://51.15.89.64:9001/"
 
 @app.route('/')
 def homepage():
-    return redirect("/1")
+    return redirect("/teacher_id/1")
 
-@app.route('/<teacher_id>/')
+@app.route('/teacher_id/<teacher_id>/')
 def template(teacher_id):
     #This loads in the JavaScript object notation of the class id's
     returned_class_ids_string = requests.get(path + "get_classes_by_teacher_id/"+str(teacher_id)).text
@@ -74,6 +75,16 @@ def create_classroom():
         return redirect('/')
     return render_template('createcohort.html', title = 'Create classroom', form=form)
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('loginpage.html')
+    form = CreateLogin()
+    print("gets here")
+    if form.validate_on_submit():
+        print("also gets here")
+        email = form.email.data
+        password = form.password.data
+        dict = {'password':password}
+        response = requests.post(path+"session/"+email, data =dict)
+
+        print(response.text)
+    return render_template('loginpage.html', form=form)
