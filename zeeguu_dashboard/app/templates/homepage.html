@@ -1,7 +1,56 @@
 {% extends "base.html" %}
 
 {% block content %}
-    Homepage
+
+    <!-- These are the classes  -->
+    <div class="container-fluid">
+
+        <div class="row">
+
+            {% for class in classes %}
+
+                <div class="col-md-3">
+                    <a href={{class.id}}>
+                        <div class="card bg-primary p-20">
+                            <div class="media widget-ten">
+                                <div class="media-left meida media-middle">
+                                    <span><i class="ti-bag f-s-40"></i></span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2 class="color-white"> {{  class.class }} </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            {% endfor %}
+
+            {#                <div class="card bg-primary p-20">#}
+            {#                <div class="card bg-pink p-20">#}
+            {#                <div class="card bg-success p-20">#}
+
+            <div class="col-md-3">
+                <a href="/create_classroom">
+                    <div class="card bg-danger p-20">
+                        <div class="media widget-ten">
+                            <div class="media-left meida media-middle">
+                                <span><i class="ti-location-pin f-s-40"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class="color-white">Create new class</h2>
+                                <p class="m-b-0"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- End Container fluid  -->
+
 
 
 

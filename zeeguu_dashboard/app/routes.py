@@ -7,72 +7,11 @@ path = "http://51.15.89.64:9001/"
 
 
 @app.route('/')
-def template():
-    classes = [
-        {
-            'class': 'Spanish A1',
-            'id':1,
-            'teacher_id':1,
-        },
-        {
-            'class': 'Spanish B2',
-            'id':1,
-            'teacher_id':1,
-        },
-        {
-            'class': 'Spanish C1',
-            'id':1,
-            'teacher_id':1,
-        }
-    ]
-    students = [
-        {
-            'student': 'Evi',
-            'reading': 20,
-            'exercises': 30,
-            'article': 'skheukf'
-        },
+def homepage():
+    return redirect("/1")
 
-        {
-            'student': 'Jakob',
-            'reading': 30,
-            'exercises': 5,
-            'exercise': 'fwgeuiftuwek'
-        },
-        {
-            'student': 'Ai',
-            'reading': 1,
-            'exercises': 55,
-            'exercise': 'haahahha'
-        }
-    ]
-
-
-    #### Example of pulling user data from API #######################################
-    returned_student_ids_string = requests.get(path+"get_users_from_class/1").text
-    print(returned_student_ids_string)
-    returned_student_ids = json.loads(returned_student_ids_string)
-    print(returned_student_ids)
-    for id in returned_student_ids:
-        student_name = requests.get(path+'get_user_name/'+str(id)).text
-        print("Adding student " + student_name)
-        new_student = {
-            'student': student_name,
-            'reading':20,
-            'exercises':30,
-            'article':'place holder',
-        }
-        students.append(new_student)
-    ###############################################################################
-
-
-    return render_template('classpage.html', title=classes[0].get('class'), classes=classes, students=students)
-
-#I updated this function to show some functionality to loading data from api.
-#Try add a new class, it works! (if class_id exists. And if teacher_id exists)
-@app.route('/class/<teacher_id>/<class_id>')
-def load_class(teacher_id, class_id):
-    print("class id is " + str(class_id))
+@app.route('/<teacher_id>/')
+def template(teacher_id):
     #This loads in the JavaScript object notation of the class id's
     returned_class_ids_string = requests.get(path + "get_classes_by_teacher_id/"+str(teacher_id)).text
     #This convers the notation to an int list
@@ -92,6 +31,14 @@ def load_class(teacher_id, class_id):
         }
         classes.append(new_class)
 
+    return render_template('homepage.html', title="Homepage", classes=classes)
+
+
+#I updated this function to show some functionality to loading data from api.
+#Try add a new class, it works! (if class_id exists. And if teacher_id exists)
+@app.route('/class/<teacher_id>/<class_id>')
+def load_class(teacher_id, class_id):
+    #this returns all the students of a class
     print("class id is " + str(class_id))
     returned_student_ids_string = requests.get(path + "get_users_from_class/"+str(class_id)).text
     print(returned_student_ids_string)
@@ -107,7 +54,8 @@ def load_class(teacher_id, class_id):
             'article': 'place holder'
         }
         students.append(new_student)
-    return render_template('classpage.html', title = 'Spanish class', classes=classes, students=students, range=range(3))
+
+    return render_template('classpage.html', title=str(class_id), students=students)
 
 
 # This works if class_inv is not taken and teacher_id exists.
@@ -125,3 +73,7 @@ def create_classroom():
         response = requests.post(path+ "add_class", data=package)
         return redirect('/')
     return render_template('createcohort.html', title = 'Create classroom', form=form)
+
+@app.route('/login')
+def login():
+    return render_template('loginpage.html')
