@@ -1,4 +1,5 @@
-from flask import render_template, flash, redirect, session
+import flask
+from flask import render_template, flash, redirect, session, Flask, make_response
 from app import app
 from app.createcohort import CreateCohort
 from app.loginform import CreateLogin
@@ -56,7 +57,7 @@ def load_class(teacher_id, class_id):
         }
         students.append(new_student)
 
-    return render_template('classpage.html', title=str(class_id), students=students)
+    return render_template('classpage.html', title=str(class_id), students=students, classes=[])
 
 
 # This works if class_inv is not taken and teacher_id exists.
@@ -71,7 +72,8 @@ def create_classroom():
         class_language_id = form.class_language_id.data
         package = {'class_name': class_name, 'inv_code': inv_code, 'max_students': max_students,
                    'teacher_id': teacher_id, 'class_language_id': class_language_id}
-        response = requests.post(path+ "add_class", data=package)
+        post_api('add_class',package)
+        #response = requests.post(path+ "add_class", data=package)
         return redirect('/')
     return render_template('createcohort.html', title = 'Create classroom', form=form)
 
@@ -84,11 +86,30 @@ def login():
         email = form.email.data
         password = form.password.data
         dict = {'password':password}
-        response = requests.post(path+"session/"+email, data =dict)
-        session['session'] = response.text
-        print(response.text)
+        res = requests.post(path+"session/"+email, data =dict).text
+
+
+        # As far a i can tell this does nothing but will be useful later!
+        response = make_response('cookie',200)
+        response.set_cookie('sessionID', str(res), max_age=1000000)
+        #############################################
+
+        #This actually sets the session that is used.
+        flask.session['sessionID'] = res
+
     return render_template('loginpage.html', title = "login page",form=form)
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html", e=e)
+
+
+
+
+def post_api(function, package):
+    params = {
+        'session':flask.session['sessionID']
+    }
+    requests.post(path+function, data=package, params=params)
+
+
