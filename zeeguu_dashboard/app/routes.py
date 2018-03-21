@@ -14,24 +14,7 @@ def homepage():
 
 @app.route('/teacher_id/<teacher_id>/')
 def template(teacher_id):
-    #This loads in the JavaScript object notation of the class id's
-    returned_class_ids_string = requests.get(path + "get_classes_by_teacher_id/"+str(teacher_id)).text
-    #This convers the notation to an int list
-    returned_class_ids = json.loads(returned_class_ids_string)
-    classes = []
-    #For each int in the int list, this will return class_name and add it to classes.
-    for id in returned_class_ids:
-        #This loads in json for info(Dictionary) of class with id class_Id
-        class_info_string = requests.get(path+'get_class_info/' + str(id)).text
-        #This convers json to dictionary
-        class_info = json.loads(class_info_string)
-        new_class = {
-            #This gets 'class_name' from class_info dictionary
-            'class':class_info['class_name'],
-            'id':class_info['class_id'],
-            'teacher_id':teacher_id,
-        }
-        classes.append(new_class)
+    classes = load_classes(teacher_id)
 
     return render_template('homepage.html', title="Homepage", classes=classes)
 
@@ -40,24 +23,10 @@ def template(teacher_id):
 #Try add a new class, it works! (if class_id exists. And if teacher_id exists)
 @app.route('/class/<teacher_id>/<class_id>')
 def load_class(teacher_id, class_id):
-    #this returns all the students of a class
-    print("class id is " + str(class_id))
-    returned_student_ids_string = requests.get(path + "get_users_from_class/"+str(class_id)).text
-    print(returned_student_ids_string)
-    returned_student_ids = json.loads(returned_student_ids_string)
-    students = []
-    for id in returned_student_ids:
-        student_name = requests.get(path + 'get_user_name/' + str(id)).text
-        print("Adding student " + student_name)
-        new_student = {
-            'student': student_name,
-            'reading': 20,
-            'exercises': 30,
-            'article': 'place holder'
-        }
-        students.append(new_student)
+    classes = load_classes(teacher_id)
+    students = load_students(class_id)
 
-    return render_template('classpage.html', title=str(class_id), students=students, classes=[])
+    return render_template('classpage.html', title=str(class_id), students=students, classes=classes)
 
 
 # This works if class_inv is not taken and teacher_id exists.
@@ -72,17 +41,14 @@ def create_classroom():
         class_language_id = form.class_language_id.data
         package = {'class_name': class_name, 'inv_code': inv_code, 'max_students': max_students,
                    'teacher_id': teacher_id, 'class_language_id': class_language_id}
-        post_api('add_class',package)
-        #response = requests.post(path+ "add_class", data=package)
+        api_post('add_class',package)
         return redirect('/')
     return render_template('createcohort.html', title = 'Create classroom', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = CreateLogin()
-    print("gets here")
     if form.validate_on_submit():
-        print("also gets here")
         email = form.email.data
         password = form.password.data
         dict = {'password':password}
@@ -105,11 +71,59 @@ def page_not_found(e):
 
 
 
+def load_classes(teacher_id):
+    # This loads in the JavaScript object notation of the class id's
+    returned_class_ids_string = api_get("get_classes_by_teacher_id/" + str(teacher_id)).text
+    # This convers the notation to an int list
+    returned_class_ids = json.loads(returned_class_ids_string)
+    classes = []
+    # For each int in the int list, this will return class_name and add it to classes.
+    for id in returned_class_ids:
+        # This loads in json for info(Dictionary) of class with id class_Id
+        class_info_string = api_get('get_class_info/' + str(id)).text
+        # This convers json to dictionary
+        class_info = json.loads(class_info_string)
+        new_class = {
+            # This gets 'class_name' from class_info dictionary
+            'class': class_info['class_name'],
+            'id': class_info['class_id'],
+            'teacher_id': teacher_id,
+        }
+        classes.append(new_class)
+    return classes
 
-def post_api(function, package):
+
+def load_students(class_id):
+    # this returns all the students of a class
+    print("class id is " + str(class_id))
+    returned_student_ids_string = api_get("get_users_from_class/" + str(class_id)).text
+    # returned_student_ids_string = requests.get(path + "get_users_from_class/"+str(class_id)).text
+    print(returned_student_ids_string)
+    returned_student_ids = json.loads(returned_student_ids_string)
+    students = []
+    for id in returned_student_ids:
+        student_name = api_get('get_user_name/' + str(id)).text
+        # student_name = requests.get(path + 'get_user_name/' + str(id)).text
+        print("Adding student " + student_name)
+        new_student = {
+            'student': student_name,
+            'reading': 20,
+            'exercises': 30,
+            'article': 'place holder'
+        }
+        students.append(new_student)
+    return students
+
+def api_post(function, package):
     params = {
         'session':flask.session['sessionID']
     }
     requests.post(path+function, data=package, params=params)
 
 
+def api_get(function):
+    params = {
+        'session': flask.session['sessionID']
+    }
+    returned = requests.get(path+function, params = params)
+    return returned
