@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect
+from flask import render_template, flash, redirect, session
 from app import app
 from app.createcohort import CreateCohort
 from app.loginform import CreateLogin
@@ -85,9 +85,9 @@ def login():
         password = form.password.data
         dict = {'password':password}
         response = requests.post(path+"session/"+email, data =dict)
-
+        session['session'] = response.text
         print(response.text)
-    return render_template('loginpage.html', form=form)
+    return render_template('loginpage.html', title = "login page",form=form)
 
 @app.errorhandler(404)
 def page_not_found(e):
