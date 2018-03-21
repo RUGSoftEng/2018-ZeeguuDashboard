@@ -10,9 +10,9 @@ path = "http://51.15.89.64:9001/"
 
 @app.route('/')
 def homepage():
-    return redirect("/teacher_id/1")
+    return redirect("/teacher/1")
 
-@app.route('/teacher_id/<teacher_id>/')
+@app.route('/teacher/<teacher_id>/')
 def template(teacher_id):
     classes = load_classes(teacher_id)
 
@@ -21,12 +21,10 @@ def template(teacher_id):
 
 #I updated this function to show some functionality to loading data from api.
 #Try add a new class, it works! (if class_id exists. And if teacher_id exists)
-@app.route('/class/<teacher_id>/<class_id>')
-def load_class(teacher_id, class_id):
-    classes = load_classes(teacher_id)
+@app.route('/teacher/<teacher_id>/class/<class_id>')
+def load_class(teacher_id,class_id):
     students = load_students(class_id)
-
-    return render_template('classpage.html', title=str(class_id), students=students, classes=classes)
+    return render_template('classpage.html', title=str(class_id), students=students)
 
 
 # This works if class_inv is not taken and teacher_id exists.
