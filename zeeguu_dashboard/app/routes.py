@@ -7,24 +7,22 @@ import requests
 import json
 path = "http://51.15.89.64:9001/"
 
-
 @app.route('/')
 def homepage():
-    return redirect("/teacher/1")
+    return redirect("teacher")
 
-@app.route('/teacher/<teacher_id>/')
-def template(teacher_id):
-    classes = load_classes(teacher_id)
-
+@app.route('/teacher')
+def template():
+    classes = load_classes()
     return render_template('homepage.html', title="Homepage", classes=classes)
 
 
 #I updated this function to show some functionality to loading data from api.
 #Try add a new class, it works! (if class_id exists. And if teacher_id exists)
-@app.route('/teacher/<teacher_id>/class/<class_id>')
-def load_class(teacher_id,class_id):
+@app.route('/class/<class_id>')
+def load_class(class_id):
     students = load_students(class_id)
-    return render_template('classpage.html', title=str(class_id), students=students)
+    return render_template('classpage.html', title='DashBoard!', students=students)
 
 
 # This works if class_inv is not taken and teacher_id exists.
@@ -69,9 +67,9 @@ def page_not_found(e):
 
 
 
-def load_classes(teacher_id):
+def load_classes():
     # This loads in the JavaScript object notation of the class id's
-    returned_class_ids_string = api_get("get_classes_by_teacher_id/" + str(teacher_id)).text
+    returned_class_ids_string = api_get("get_classes").text
     # This convers the notation to an int list
     returned_class_ids = json.loads(returned_class_ids_string)
     classes = []
@@ -85,7 +83,7 @@ def load_classes(teacher_id):
             # This gets 'class_name' from class_info dictionary
             'class': class_info['class_name'],
             'id': class_info['class_id'],
-            'teacher_id': teacher_id,
+            'teacher_id': 1 #this needs to be coded in if you need teacher_id
         }
         classes.append(new_class)
     return classes
@@ -100,14 +98,14 @@ def load_students(class_id):
     returned_student_ids = json.loads(returned_student_ids_string)
     students = []
     for id in returned_student_ids:
-        student_name = api_get('get_user_name/' + str(id)).text
-        # student_name = requests.get(path + 'get_user_name/' + str(id)).text
-        print("Adding student " + student_name)
+
+        user_info = json.loads(api_get('get_user_info/'+str(id)).text)
+        print("Adding student " + user_info['name'])
         new_student = {
-            'student': student_name,
-            'reading': 20,
-            'exercises': 30,
-            'article': 'place holder'
+            'student': user_info['name'],
+            'reading': user_info['reading_time'],
+            'exercises': user_info['exercises_done'],
+            'article': user_info['last_article']
         }
         students.append(new_student)
     return students
