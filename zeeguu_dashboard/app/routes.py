@@ -6,6 +6,7 @@ from app.loginform import CreateLogin
 import requests
 import json
 path = "http://51.15.89.64:9001/"
+#path = "http://0.0.0.0:9001/"
 
 @app.route('/')
 def homepage():
@@ -22,6 +23,8 @@ def template():
 @app.route('/class/<class_id>')
 def load_class(class_id):
     students = load_students(class_id)
+    if(students is None):
+        return redirect('/')
     return render_template('classpage.html', title='DashBoard!', students=students)
 
 
@@ -65,19 +68,19 @@ def login():
 def page_not_found(e):
     return render_template("404.html", e=e)
 
+@app.errorhandler(401)
+def invalid_credentials(e):
+    return render_template("404.html", e=e)
 
 
 def load_classes():
-    # This loads in the JavaScript object notation of a list of dictionaries
     returned_class_infos_string = api_get("get_classes").text
-    # This convers the notation to an list of dictionaries
     returned_class_infos = json.loads(returned_class_infos_string)
     classes = returned_class_infos
     return classes
 
 
 def load_students(class_id):
-    print("class id is " + str(class_id))
     returned_student_infos_string = api_get("get_users_from_class/"+str(class_id)).text
     returned_student_infos = json.loads(returned_student_infos_string)
     students = returned_student_infos
