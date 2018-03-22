@@ -68,46 +68,19 @@ def page_not_found(e):
 
 
 def load_classes():
-    # This loads in the JavaScript object notation of the class id's
-    returned_class_ids_string = api_get("get_classes").text
-    # This convers the notation to an int list
-    returned_class_ids = json.loads(returned_class_ids_string)
-    classes = []
-    # For each int in the int list, this will return class_name and add it to classes.
-    for id in returned_class_ids:
-        # This loads in json for info(Dictionary) of class with id class_Id
-        class_info_string = api_get('get_class_info/' + str(id)).text
-        # This convers json to dictionary
-        class_info = json.loads(class_info_string)
-        new_class = {
-            # This gets 'class_name' from class_info dictionary
-            'class': class_info['class_name'],
-            'id': class_info['class_id'],
-            'teacher_id': 1 #this needs to be coded in if you need teacher_id
-        }
-        classes.append(new_class)
+    # This loads in the JavaScript object notation of a list of dictionaries
+    returned_class_infos_string = api_get("get_classes").text
+    # This convers the notation to an list of dictionaries
+    returned_class_infos = json.loads(returned_class_infos_string)
+    classes = returned_class_infos
     return classes
 
 
 def load_students(class_id):
-    # this returns all the students of a class
     print("class id is " + str(class_id))
-    returned_student_ids_string = api_get("get_users_from_class/" + str(class_id)).text
-    # returned_student_ids_string = requests.get(path + "get_users_from_class/"+str(class_id)).text
-    print(returned_student_ids_string)
-    returned_student_ids = json.loads(returned_student_ids_string)
-    students = []
-    for id in returned_student_ids:
-
-        user_info = json.loads(api_get('get_user_info/'+str(id)).text)
-        print("Adding student " + user_info['name'])
-        new_student = {
-            'student': user_info['name'],
-            'reading': user_info['reading_time'],
-            'exercises': user_info['exercises_done'],
-            'article': user_info['last_article']
-        }
-        students.append(new_student)
+    returned_student_infos_string = api_get("get_users_from_class/"+str(class_id)).text
+    returned_student_infos = json.loads(returned_student_infos_string)
+    students = returned_student_infos
     return students
 
 def api_post(function, package):
