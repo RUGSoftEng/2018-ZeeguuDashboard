@@ -5,7 +5,7 @@
 
 
             <div class="card-title">
-                <h4>class</h4>
+                <h4>Class</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -17,45 +17,34 @@
                             <th>Reading</th>
                             <th>Exercises</th>
                             <th>Last Activity</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        {% set i = 0 %}
-                        {% for student in students %}
 
+                        {% for student in students %}
                         <tr>
-                            <td width="15%">{{ student.student }}</td>
+                            <td width="15%">{{ student.name }}</td>
                             <td width="35%">
-                               <div class="pull-right"> <h7 class="m-t-0" style="padding-left:10px;">{{ student.reading}}min</h7></div>
+                               <div class="pull-right"> <h7 class="m-t-0" style="padding-left:10px;">{{ student.reading_time}}min</h7></div>
                                 <div class="progress " style="margin-bottom: 5%; margin-top: 5%">
-                                    <div class="progress-bar bg-danger wow animated progress-animated" style="width: {{ (student.reading/60)*100 }}%;" role="progressbar"> </div>
+                                    <div class="progress-bar bg-danger wow animated progress-animated" style="width: {{ (student.reading_time/60)*100 }}%;" role="progressbar"> </div>
                                 </div>
                             </td>
                             <td width="35%">
-                                <div class="pull-right"> <h7 class="m-t-0" style="padding-left: 10px">{{ student.exercises}}min</h7></div>
+                                <div class="pull-right"> <h7 class="m-t-0" style="padding-left: 10px">{{ student.exercises_done}}min</h7></div>
                                 <div class="progress " style="margin-bottom: 5%; margin-top: 5%">
-                                    <div class="progress-bar bg-warning wow animated progress-animated" style="width:{{(student.exercises/60)*100}}%;" role="progressbar"> </div>
+                                    <div class="progress-bar bg-warning wow animated progress-animated" style="width:{{(student.exercises_done/60)*100}}%;" role="progressbar"> </div>
                                 </div>
                             </td>
                             <td width="15%">
-                                {% if student.article %}
-                                <span class="badge badge-inverse">{{ student.article}}</span>
+                                {% if student.last_article %}
+                                <span class="badge badge-inverse">{{ student.last_article}}</span>
                                 {% else %}
-                                <span class="badge badge-sm">{{ student.exercise}}</span>
+                                <span class="badge badge-sm">{{ student.last_acticle}}</span>
                                 {% endif %}
                             </td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ i }}">
-                                    Details {{ i }}
-                                </button>
-
-                                {% include 'student_modal.html' %}
-
-                            </td>
                         </tr>
-                            {% set i = i + 1 %}
                         {% endfor %}
 
 
