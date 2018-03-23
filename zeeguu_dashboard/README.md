@@ -18,6 +18,8 @@ You will need to install the separate packages:
  1. Flask-bootstrap
  2. Flask
  3. Flask-WTF
+ 4. json
+ 5. requests
 
 
 #Run with main.py
