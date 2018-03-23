@@ -5,7 +5,7 @@
 
 
             <div class="card-title">
-                <h4>{{classes[0].get('class')}}</h4>
+                <h4>class</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -17,12 +17,14 @@
                             <th>Reading</th>
                             <th>Exercises</th>
                             <th>Last Activity</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
 
-
+                        {% set i = 0 %}
                         {% for student in students %}
+
                         <tr>
                             <td width="15%">{{ student.student }}</td>
                             <td width="35%">
@@ -44,7 +46,16 @@
                                 <span class="badge badge-sm">{{ student.exercise}}</span>
                                 {% endif %}
                             </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ i }}">
+                                    Details {{ i }}
+                                </button>
+
+                                {% include 'student_modal.html' %}
+
+                            </td>
                         </tr>
+                            {% set i = i + 1 %}
                         {% endfor %}
 
 

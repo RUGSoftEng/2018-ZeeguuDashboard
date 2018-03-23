@@ -9,10 +9,10 @@ path = "http://51.15.89.64:9001/"
 
 @app.route('/')
 def homepage():
-    return redirect("/teacher_id/1")
+    return redirect("/teacher_id/1/")
 
 @app.route('/teacher_id/<teacher_id>/')
-def template(teacher_id):
+def loadHomepage(teacher_id):
     #This loads in the JavaScript object notation of the class id's
     returned_class_ids_string = requests.get(path + "get_classes_by_teacher_id/"+str(teacher_id)).text
     #This convers the notation to an int list
@@ -37,8 +37,8 @@ def template(teacher_id):
 
 #I updated this function to show some functionality to loading data from api.
 #Try add a new class, it works! (if class_id exists. And if teacher_id exists)
-@app.route('/class/<teacher_id>/<class_id>')
-def load_class(teacher_id, class_id):
+@app.route('/class/<teacher_id>/<class_id>/')
+def load_classpage(teacher_id, class_id):
     #this returns all the students of a class
     print("class id is " + str(class_id))
     returned_student_ids_string = requests.get(path + "get_users_from_class/"+str(class_id)).text
@@ -60,7 +60,7 @@ def load_class(teacher_id, class_id):
 
 
 # This works if class_inv is not taken and teacher_id exists.
-@app.route('/create_classroom',  methods=['GET', 'POST'])
+@app.route('/create_classroom/',  methods=['GET', 'POST'])
 def create_classroom():
     form = CreateCohort()
     if form.validate_on_submit():
@@ -75,7 +75,7 @@ def create_classroom():
         return redirect('/')
     return render_template('createcohort.html', title = 'Create classroom', form=form)
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login/', methods=['GET', 'POST'])
 def login():
     form = CreateLogin()
     print("gets here")
