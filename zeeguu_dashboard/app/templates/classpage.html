@@ -17,6 +17,7 @@
                             <th>Reading</th>
                             <th>Exercises</th>
                             <th>Last Activity</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -43,6 +44,14 @@
                                 {% else %}
                                 <span class="badge badge-sm">{{ student.last_acticle}}</span>
                                 {% endif %}
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExample">
+                                    Details {{ i }}
+                                </button>
+
+                                {% include 'student_modal.html' %}
+
                             </td>
                         </tr>
                         {% endfor %}
