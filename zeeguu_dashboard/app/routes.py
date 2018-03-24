@@ -3,6 +3,8 @@ from flask import render_template, flash, redirect, session, Flask, make_respons
 from app import app
 from app.createcohort import CreateCohort
 from app.loginform import CreateLogin
+from app.util import load_students, load_classes, api_get, api_post
+from app.permissions import has_session, has_permission
 import requests
 import json
 path = "http://51.15.89.64:9001/"
@@ -13,6 +15,7 @@ def homepage():
     return redirect("teacher")
 
 @app.route('/teacher')
+@has_session
 def template():
     classes = load_classes()
     return render_template('homepage.html', title="Homepage", classes=classes)
@@ -21,6 +24,7 @@ def template():
 #I updated this function to show some functionality to loading data from api.
 #Try add a new class, it works! (if class_id exists. And if teacher_id exists)
 @app.route('/class/<class_id>')
+@has_permission
 def load_class(class_id):
     students = load_students(class_id)
     if(students is None):
@@ -30,6 +34,7 @@ def load_class(class_id):
 
 # This works if class_inv is not taken and teacher_id exists.
 @app.route('/create_classroom',  methods=['GET', 'POST'])
+@has_session
 def create_classroom():
     form = CreateCohort()
     if form.validate_on_submit():
@@ -72,29 +77,3 @@ def invalid_credentials(e):
     return render_template("404.html", e=e)
 
 
-def load_classes():
-    returned_class_infos_string = api_get("get_classes").text
-    returned_class_infos = json.loads(returned_class_infos_string)
-    classes = returned_class_infos
-    return classes
-
-
-def load_students(class_id):
-    returned_student_infos_string = api_get("get_users_from_class/"+str(class_id)).text
-    returned_student_infos = json.loads(returned_student_infos_string)
-    students = returned_student_infos
-    return students
-
-def api_post(function, package):
-    params = {
-        'session':flask.session['sessionID']
-    }
-    requests.post(path+function, data=package, params=params)
-
-
-def api_get(function):
-    params = {
-        'session': flask.session['sessionID']
-    }
-    returned = requests.get(path+function, params = params)
-    return returned
