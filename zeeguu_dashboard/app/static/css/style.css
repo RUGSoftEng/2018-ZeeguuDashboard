@@ -221,7 +221,7 @@ h6 {
 }
 @media (max-width: 1023px) {
   .page-wrapper {
-    margin-left: 60px;
+    margin-left: 10%;
     -webkit-transition: 0.2s ease-in;
     -o-transition: 0.2s ease-in;
     transition: 0.2s ease-in;
@@ -5494,11 +5494,11 @@ tbody tr td:last-child {
   height: 75px;
 }
 .login-content {
-  margin: 100px 0;
+  margin: 0 0;
 }
 .login-form {
   background: #ffffff;
-  padding: 30px 30px 20px;
+  padding: 0px 30px 20px;
   border-radius: 2px;
 }
 .login-form h4 {
