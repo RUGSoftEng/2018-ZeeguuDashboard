@@ -91,11 +91,12 @@ body {
   margin: 0;
   overflow-x: hidden;
   color: #67757c;
+  background: #f8f8f8;
 }
 html {
   position: relative;
   min-height: 100%;
-  background: #ffffff;
+  background: #f8f8f8;
 }
 a:focus,
 a:hover {
@@ -206,10 +207,10 @@ h6 {
   display: none;
 }
 .page-wrapper {
-  padding-bottom: 100%;
+  /*padding-bottom: 100%;*/
 }
 .container-fluid {
-  padding: 0 30px 25px;
+  padding: 0 30px 30px;
 }
 @media (min-width: 1024px) {
   .page-wrapper {
@@ -220,6 +221,8 @@ h6 {
 @media (max-width: 1023px) {
   .page-wrapper {
     margin-left: 10%;
+    min-height: 100%;
+    max-height: 100%;
     -webkit-transition: 0.2s ease-in;
     -o-transition: 0.2s ease-in;
     transition: 0.2s ease-in;
