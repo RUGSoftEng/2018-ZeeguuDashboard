@@ -1,38 +1,86 @@
 {% extends "base.html" %}
 
-{% block content %}
- <h1>Create classroom</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-          {{ form.class_name.label }}<br>
-          {{ form.class_name(size=32) }}
-            {% for error in form.class_name.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-	<p>
-          {{ form.class_language_id.label }}<br>
-          {{ form.class_language_id(size=32) }}
-        {% for error in form.class_language_id.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-	<p>
-          {{ form.inv_code.label }}<br>
-          {{ form.inv_code(size=32) }}
-        {% for error in form.inv_code.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-          {{ form.max_students.label }}<br>
-          {{ form.max_students(size=32) }}
-            {% for error in form.max_students.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
 
-        <p>{{ form.submit() }}</p>
-    </form>
+{% block content %}
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    <html>
+    <head>
+        <title>Reusable Form Demo</title>
+        <link rel="stylesheet" media="screen" href ="static/bootstrap.min.css">
+        <link rel="stylesheet" href="static/bootstrap-theme.min.css">
+        <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+
+    </head>
+    <body>
+
+    <div class="container">
+
+        <h1>Create classroom</h1>
+        <form  action="" method="post" role="form">
+            {{ form.csrf }}
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+
+                <label for="name">Class room name:</label>
+                <input type="text" class="form-control" id="class_name" name="class_name" placeholder="">
+
+                <label for="name">Language:</label>
+                <input type="text" class="form-control" id="class_language_id" name="class_language_id" placeholder="">
+
+                <label for="name">Invite Code:</label>
+                <input type="text" class="form-control" id="inv_code" name="inv_code" placeholder="">
+
+                <label for="name">Max Students:</label>
+                <input type="text" class="form-control" id="max_students" name="max_students" placeholder="">
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+
+        </form>
+
+        <br>
+    </div>
+
+
+
+
+{##}
+{##}
+{# <h1>Create classroom</h1>#}
+{#    <form action="" method="post">#}
+{#        {{ form.hidden_tag() }}#}
+{#        <p>#}
+{#          {{ form.class_name.label }}<br>#}
+{#          {{ form.class_name(size=32) }}#}
+{#            {% for error in form.class_name.errors %}#}
+{#            <span style="color: red;">[{{ error }}]</span>#}
+{#            {% endfor %}#}
+{#        </p>#}
+{#	<p>#}
+{#          {{ form.class_language_id.label }}<br>#}
+{#          {{ form.class_language_id(size=32) }}#}
+{#        {% for error in form.class_language_id.errors %}#}
+{#            <span style="color: red;">[{{ error }}]</span>#}
+{#            {% endfor %}#}
+{#        </p>#}
+{#	<p>#}
+{#          {{ form.inv_code.label }}<br>#}
+{#          {{ form.inv_code(size=32) }}#}
+{#        {% for error in form.inv_code.errors %}#}
+{#            <span style="color: red;">[{{ error }}]</span>#}
+{#            {% endfor %}#}
+{#        </p>#}
+{#        <p>#}
+{#          {{ form.max_students.label }}<br>#}
+{#          {{ form.max_students(size=32) }}#}
+{#            {% for error in form.max_students.errors %}#}
+{#            <span style="color: red;">[{{ error }}]</span>#}
+{#            {% endfor %}#}
+{#        </p>#}
+{##}
+{#        <p>{{ form.submit() }}</p>#}
+{#        <br>#}
+{#    </form>#}
+
+
 {% endblock %}
