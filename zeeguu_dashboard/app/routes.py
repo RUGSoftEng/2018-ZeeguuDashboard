@@ -25,7 +25,7 @@ def load_class(class_id):
     students = load_students(class_id)
     if(students is None):
         return redirect('/')
-    return render_template('classpage.html', title='DashBoard!', students=students)
+    return render_template('classpage.html', title='DashBoard', students=students)
 
 
 # This works if class_inv is not taken and teacher_id exists.
@@ -36,10 +36,9 @@ def create_classroom():
         class_name = form.class_name.data
         inv_code = form.inv_code.data
         max_students = form.max_students.data
-        teacher_id = form.teacher_id.data
         class_language_id = form.class_language_id.data
         package = {'class_name': class_name, 'inv_code': inv_code, 'max_students': max_students,
-                   'teacher_id': teacher_id, 'class_language_id': class_language_id}
+                  'class_language_id': class_language_id}
         api_post('add_class',package)
         return redirect('/')
     return render_template('createcohort.html', title = 'Create classroom', form=form)
