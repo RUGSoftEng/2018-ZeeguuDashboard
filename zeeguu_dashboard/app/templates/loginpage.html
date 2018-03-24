@@ -25,79 +25,34 @@
 <![endif]-->
 </head>
 
-{#   <form action="" method="post">#}
-{#        {{ form.hidden_tag() }}#}
-{#        <p>#}
-{#          {{ form.email.label}}<br>#}
-{#          {{ form.email(size=32) }}#}
-{#            {% for error in form.email.errors %}#}
-{#            <span style="color: red;">[{{ error }}]</span>#}
-{#            {% endfor %}#}
-{#        </p>#}
-{#        <p>#}
-{#          {{ form.password.label }}<br>#}
-{#          {{ form.password(size=32) }}#}
-{#            {% for error in form.password.errors %}#}
-{#            <span style="color: red;">[{{ error }}]</span>#}
-{#            {% endfor %}#}
-{#        </p>#}
-{##}
-{##}
-{##}
-{#        <p>{{ form.submit() }}</p>#}
-{#    </form>#}
-{##}
+   <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+          {{ form.email.label}}<br>
+          {{ form.email(size=32) }}
+            {% for error in form.email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+          {{ form.password.label }}<br>
+          {{ form.password(size=32) }}
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+
+
+        <p>{{ form.submit() }}</p>
+    </form>
 
 
 
 
 
 
-    <div id="main-wrapper">
 
-        <div class="unix-login" method="post">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-lg-4">
-                        <div class="login-content card">
-                            <div class="login-form">
-                                <h4>Login</h4>
-                                <form>
-                                    <div class="form-group">
-
-                                        {{ form.email.label}}<br>
-                                        {{ form.email(size=32) }}
-                                        {% for error in form.email.errors %}
-                                            <span style="color: red;">[{{ error }}]</span>
-                                        {% endfor %}
-
-                                    </div>
-                                    <div class="form-group">
-
-                                        {{ form.password.label }}<br>
-                                        {{ form.password(size=32) }}
-                                        {% for error in form.password.errors %}
-                                            <span style="color: red;">[{{ error }}]</span>
-                                        {% endfor %}
-
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Remember Me
-                                        </label>
-
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"> {{ form.submit() }} </button>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
 
 
 
