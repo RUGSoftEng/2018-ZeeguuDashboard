@@ -3,8 +3,8 @@ from flask import render_template, flash, redirect, session, Flask, make_respons
 from app import app
 from app.createcohort import CreateCohort
 from app.loginform import CreateLogin
-from app.util import load_students, load_classes, api_get, api_post
-from app.permissions import has_session, has_permission
+from app.util import load_students, load_classes, api_get, api_post, load_user_data
+from app.permissions import has_session, has_class_permission, has_student_permission
 import requests
 import json
 path = "http://51.15.89.64:9001/"
@@ -24,13 +24,20 @@ def template():
 #I updated this function to show some functionality to loading data from api.
 #Try add a new class, it works! (if class_id exists. And if teacher_id exists)
 @app.route('/class/<class_id>')
-@has_permission
+@has_class_permission
 def load_class(class_id):
     students = load_students(class_id)
     if(students is None):
         return redirect('/')
     return render_template('classpage.html', title='DashBoard', students=students)
 
+## FRONT END TEAM -- USE THIS
+# @app.route('/user_stats/<user_id>')
+# @has_student_permission
+# def load_user(user_id):
+#     load_user_data(user_id=user_id)
+#     ## implement HTML here
+#     return render_template()
 
 # This works if class_inv is not taken and teacher_id exists.
 @app.route('/create_classroom',  methods=['GET', 'POST'])

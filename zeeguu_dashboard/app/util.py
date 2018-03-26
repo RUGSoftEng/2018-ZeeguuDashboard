@@ -13,12 +13,16 @@ def load_classes():
     classes = returned_class_infos
     return classes
 
-
 def load_students(class_id):
     returned_student_infos_string = api_get("get_users_from_class/"+str(class_id)).text
     returned_student_infos = json.loads(returned_student_infos_string)
     students = returned_student_infos
     return students
+
+def load_user_data(user_id, filtered = True):
+    stats_json = api_get("get_user_stats/"+str(user_id)).text
+    stats = json.loads(stats_json)
+    return stats[0]["bookmarks"]
 
 
 def api_post(function, package):

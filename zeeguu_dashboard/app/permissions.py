@@ -1,4 +1,4 @@
-import functools
+from functools import wraps
 
 from flask import redirect, session
 import app as application
@@ -6,16 +6,16 @@ import app.util
 import json
 
 def check_session():
-    my_boolean = app.util.api_get('has_session').text
-    my_boolean = json.loads(my_boolean)
-    if my_boolean == 1:
+    permission_bool = app.util.api_get('has_session').text
+    permission_bool = json.loads(permission_bool)
+    if permission_bool == 1:
         return True
     return False
 
 #General decorator to check if the teacher is logged in
 def has_session(func):
 
-    @functools.wraps(func)
+    @wraps(func)
     def session_wrapper(*args, **kwargs):
 
         if check_session():
@@ -27,19 +27,32 @@ def has_session(func):
 
 
 #Decorator to check if the teacher has access to a page. CURRENTLY ONLY WORKS FOR CLASS PERMISSIONS
-def has_permission(func):
+def has_class_permission(func):
 
-
-    @functools.wraps(func)
-    def permission_wrapper(class_id):
+    @wraps(func)
+    def class_permission_wrapper(class_id):
         if not check_session():
             return redirect('401')
-        my_boolean = app.util.api_get('get_class_permissions/' + str(class_id)).text
-        my_boolean = json.loads(my_boolean)
-        print(my_boolean)
-        if my_boolean == 1:
+        permission_bool = app.util.api_get('get_class_permissions/' + str(class_id)).text
+        permission_bool = json.loads(permission_bool)
+        if permission_bool == 1:
             return func(class_id)
         else:
             return redirect('401')
 
-    return permission_wrapper
+    return class_permission_wrapper
+
+def has_student_permission(func):
+
+    @wraps(func)
+    def student_permission_wrapper(user_id):
+        if not check_session():
+            return redirect('401')
+        permission_bool = app.util.api_get('get_user_permissions/' + str(user_id)).text
+        permission_bool = json.loads(permission_bool)
+        if permission_bool == 1:
+            return func(user_id)
+        else:
+            return redirect('401')
+
+    return student_permission_wrapper
