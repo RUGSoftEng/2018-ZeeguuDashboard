@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, session, Flask, make_respons
 from app import app
 from app.createcohort import CreateCohort
 from app.loginform import CreateLogin
-from app.util import load_students, load_classes, api_get, api_post, load_user_data
+from app.util import load_students, load_classes, api_get, api_post, load_user_data, filter_user_bookmarks
 from app.permissions import has_session, has_class_permission, has_student_permission
 import requests
 import json
@@ -36,7 +36,8 @@ def load_class(class_id):
 @has_student_permission
 def load_user(user_id):
     stats = load_user_data(user_id=user_id)
-    ## implement HTML here
+    filter_user_bookmarks(stats)
+
     return render_template()
 
 
