@@ -9,7 +9,7 @@
         {% set i = class.id | int %}
         {% set i = i % 6 %}
         <div class="col-md-3">
-            <a href={{'class/'+class.id}}>
+            <a href={{'/class/'+class.id}}>
                 <div class="card {{ color[i] }} p-20">
                     <div class="media widget-ten">
                         <div class="media-left media media-middle">

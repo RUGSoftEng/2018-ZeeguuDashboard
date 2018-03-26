@@ -1,0 +1,12 @@
+# OS generated files #
+######################
+*.DS_Store
+__pycache__
+*.pyc
+*.idea*
+venv
+.idea
+
+# Text editor backup files #
+############################
+*~
