@@ -4,11 +4,13 @@
 
     <div class="row page-titles" style="border-radius: 10px">
     <!-- These are the classes  -->
-
+    {% set color = ['bg-warning', 'bg-info', 'bg-success', 'bg-danger', 'bg-warning-dark', 'bg-dark'] %}
     {% for class in classes %}
+        {% set i = class.id | int %}
+        {% set i = i % 6 %}
         <div class="col-md-3">
             <a href={{'class/'+class.id}}>
-                <div class="card bg-primary p-20">
+                <div class="card {{ color[i] }} p-20">
                     <div class="media widget-ten">
                         <div class="media-left media media-middle">
                             <span><i class="ti-bag f-s-40"></i></span>
@@ -24,7 +26,7 @@
 
     <div class="col-md-3">
         <a href="/create_classroom">
-            <div class="card bg-danger p-20">
+            <div class="card bg-info-dark p-20">
                 <div class="media widget-ten">
                     <div class="media-left meida media-middle">
                         <span><i class="ti-location-pin f-s-40"></i></span>
