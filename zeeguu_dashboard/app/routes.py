@@ -31,6 +31,10 @@ def load_class(class_id):
         return redirect('/')
     return render_template('classpage.html', title='DashBoard', students=students)
 
+@app.route('/student/<student_id>')
+def load_student(student_id):
+    return render_template('studentpage.html', student_id = student_id, title = 'StudentActivity')
+
 ## FRONT END TEAM -- USE THIS
 # @app.route('/user_stats/<user_id>')
 # @has_student_permission
