@@ -32,13 +32,12 @@ def load_class(class_id):
     return render_template('classpage.html', title='DashBoard', students=students)
 
 ## FRONT END TEAM -- USE
-@app.route('/user_stats/<user_id>')
+@app.route('/class/student/<user_id>')
 @has_student_permission
 def load_user(user_id):
-    stats = load_user_data(user_id=user_id)
-    filter_user_bookmarks(stats)
-
-    return render_template()
+    stats = load_user_data(user_id = user_id)
+    ## implement HTML here
+    return render_template("studentpage.html", title = "activity", stats = stats)
 
 
 # This works if class_inv is not taken and teacher_id exists.
