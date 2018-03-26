@@ -87,16 +87,16 @@
   outline: none;
 }
 body {
-  background: #fff;
   font-family: 'Open Sans', sans-serif;
   margin: 0;
   overflow-x: hidden;
   color: #67757c;
+  background: #f8f8f8;
 }
 html {
   position: relative;
   min-height: 100%;
-  background: #ffffff;
+  background: #f8f8f8;
 }
 a:focus,
 a:hover {
@@ -207,11 +207,10 @@ h6 {
   display: none;
 }
 .page-wrapper {
-  background: #fafafa;
-  padding-bottom: 60px;
+  /*padding-bottom: 100%;*/
 }
 .container-fluid {
-  padding: 0 30px 25px;
+  padding: 0 30px 30px;
 }
 @media (min-width: 1024px) {
   .page-wrapper {
@@ -221,7 +220,9 @@ h6 {
 }
 @media (max-width: 1023px) {
   .page-wrapper {
-    margin-left: 60px;
+    margin-left: 10%;
+    min-height: 100%;
+    max-height: 100%;
     -webkit-transition: 0.2s ease-in;
     -o-transition: 0.2s ease-in;
     transition: 0.2s ease-in;
@@ -1914,7 +1915,7 @@ textarea {
 }
 .page-titles {
   background: #ffffff;
-  margin: 0 0 30px;
+  margin: 0 0 2%;
   padding: 15px 10px;
   position: relative;
   z-index: 10;
@@ -5494,11 +5495,11 @@ tbody tr td:last-child {
   height: 75px;
 }
 .login-content {
-  margin: 100px 0;
+  margin: 0 0;
 }
 .login-form {
   background: #ffffff;
-  padding: 30px 30px 20px;
+  padding: 0px 30px 20px;
   border-radius: 2px;
 }
 .login-form h4 {

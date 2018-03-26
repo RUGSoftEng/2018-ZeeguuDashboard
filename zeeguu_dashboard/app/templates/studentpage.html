@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <br>
+{#    <div class="row page-titles" style="border-radius: 10px">#}
+        {% for block in stats %}
+            <h1>{{ block.date }}</h1>
+
+            {% for bookmark in block.bookmarks %}
+
+            <div class="card">
+                    <div class="d-flex w-100 justify-content-between">
+                        {{ bookmark.from }}
+                       <span class="glyphicon glyphicon-chevron-right"></span>
+                        {{ bookmark.to }}
+
+                        <div class="pull-right">
+                            <a href={{ bookmark.url }}>
+                                <button type="button" class="btn btn-success m-b-10 m-l-5">Go to article</button>
+                            </a>
+                        </div>
+
+                    </div>
+                    <small>{{ bookmark.context }}</small>
+
+            </div>
+
+            {% endfor %}
+            <br>
+        {% endfor %}
+{#    </div>#}
+
+
+
+{% endblock %}

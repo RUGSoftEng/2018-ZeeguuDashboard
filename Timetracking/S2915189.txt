@@ -39,4 +39,83 @@
 12/03: Drawing up a plan for ClassRoom
 12/03: Drawing up a plan for ClassRoom
 12/03: Drawing up a plan for ClassRoom
-12/03: Drawing up a plan for ClassRoom
+13/03: Understanding WEB->API interation and drawing up more plans for Cohort and users.
+13/03: Understanding WEB->API interation and drawing up more plans for Cohort and users.
+13/03: Understanding WEB->API interation and drawing up more plans for Cohort and users.
+13/03: Understanding WEB->API interation and drawing up more plans for Cohort and users.
+14/03: Meeting with Mircea and Lars
+14/03: Meeting with Mircea and Lars
+14/03: Adding in my implementations for the API and CORE
+14/03: Adding in my implementations for the API and CORE
+14/03: Adding in my implementations for the API and CORE
+14/03: Adding in my implementations for the API and CORE
+14/03: Adding in my implementations for the API and CORE
+14/03: Adding in my implementations for the API and CORE and comments
+14/03: Adding in my implementations for the API and CORE and comments
+14/03: Creating Documentation for API and CORE changes for middle-end team.
+16/03: TA meeting
+16/03: Customer meeting
+16/03: Customer meeting
+17/03: API - Flask connection
+17/03: API - Flask connection
+17/03: API - Flask connection
+17/03: API - Flask connection
+17/03: API - Flask connection
+17/03: API - Flask connection
+17/03: API - Flask connection
+17/03: API - Flask connection
+18/03: API - Flask connection
+18/03: API - Flask connection
+18/03: API - Flask connection
+18/03: API - Flask connection
+18/03: API - Flask connection
+18/03: API - Flask connection
+18/03: API - Flask connection
+18/03: API - Flask connection
+18/03: breaking lars remote API while trying to fix SQL :(
+18/03: setting up remove api
+18/03: setting up remove api
+18/03: fixing code that got wiped on github merge
+18/03: adding in website functionality
+18/03: adding in website functionality
+18/03: adding in website functionality
+18/03: adding in website functionality
+18/03: adding in website functionality
+19/03: adding in website and API functionality with help from mircea
+19/03: adding in website and API functionality with help from mircea
+19/03: adding in website and API functionality with help from mircea
+19/03: adding in website and API functionality with help from mircea
+19/03: adding in website and API functionality with help from mircea
+19/03: adding in website and API functionality with help from mircea
+19/03: adding in website and API functionality with help from mircea
+19/03: adding in website and API functionality with help from mircea
+19/03: adding in website and API functionality with help from mircea
+19/03: adding in website and API functionality with help from mircea
+19/03: adding in website and API functionality with help from mircea
+21/03: implementing sesssons
+21/03: implementing sesssons
+21/03: implementing sesssons
+21/03: implementing sesssons
+21/03: implementing sesssons
+21/03: implementing sesssons
+21/03: still implementing sessions and security around it
+21/03: still implementing sessions and security around it
+21/03: still implementing sessions and security around it
+21/03: still implementing sessions and security around it
+23/03: Working on user bookmark data
+23/03: Working on user bookmark data
+23/03: Working on permissions detection client side
+23/03: Working on permissions detection client side
+23/03: Working on permissions detection client side
+24/03: Working on permissions detection and other stuff
+24/03: Working on permissions detection and other stuff
+24/03: Working on permissions detection and other stuff
+24/03: Working on permissions detection and other stuff
+24/03: Working on permissions detection and other stuff
+24/03: Working on permissions detection and other stuff
+24/03: Working on permissions detection and other stuff
+24/03: Working on permissions detection and other stuff
+26/03: Working on Getting user data with jakob
+26/03: Working on Getting user data with jakob
+26/03: Working on Getting user data with jakob
+26/03: Working on updating and reformating Documentation
