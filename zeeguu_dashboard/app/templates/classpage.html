@@ -46,11 +46,12 @@
                                 {% endif %}
                             </td>
                             <td>
+                                <a href={{'student/'+student.id}}>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ student.id }}">
                                     Details
                                 </button>
+                                </a>
 
-                                {% include 'student_modal.html' %}
 
                             </td>
                         </tr>

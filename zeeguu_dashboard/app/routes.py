@@ -39,6 +39,7 @@ def load_user(user_id):
     ## implement HTML here
     return render_template()
 
+
 # This works if class_inv is not taken and teacher_id exists.
 @app.route('/create_classroom',  methods=['GET', 'POST'])
 @has_session
