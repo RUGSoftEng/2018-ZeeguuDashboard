@@ -22,8 +22,12 @@ def load_students(class_id):
 def load_user_data(user_id, filtered = True):
     stats_json = api_get("get_user_stats/"+str(user_id)).text
     stats = json.loads(stats_json)
-    return stats[0]["bookmarks"]
+    return stats
 
+def filter_user_bookmarks(dict):
+    for day in dict:
+        for bookmark in day:
+            print(json.dump(bookmark))
 
 def api_post(function, package):
     params = {

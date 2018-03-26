@@ -31,13 +31,13 @@ def load_class(class_id):
         return redirect('/')
     return render_template('classpage.html', title='DashBoard', students=students)
 
-## FRONT END TEAM -- USE THIS
-# @app.route('/user_stats/<user_id>')
-# @has_student_permission
-# def load_user(user_id):
-#     load_user_data(user_id=user_id)
-#     ## implement HTML here
-#     return render_template()
+## FRONT END TEAM -- USE
+@app.route('/user_stats/<user_id>')
+@has_student_permission
+def load_user(user_id):
+    stats = load_user_data(user_id=user_id)
+    ## implement HTML here
+    return render_template()
 
 # This works if class_inv is not taken and teacher_id exists.
 @app.route('/create_classroom',  methods=['GET', 'POST'])
