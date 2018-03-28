@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="row page-titles" style="border-radius: 10px">
+
+            <div class="card-title">
+                <h4>Class</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+
+                        <tr>
+                            <th>Name</th>
+                            <th>Reading</th>
+                            <th>Exercises</th>
+                            <th>Last Activity</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        {% for student in students %}
+                        <tr>
+                            <td width="15%">{{ student.name }}</td>
+                            <td width="35%">
+                               <div class="pull-right"> <h7 class="m-t-0" style="padding-left:10px;">{{ student.reading_time}}min</h7></div>
+                                <div class="progress " style="margin-bottom: 5%; margin-top: 5%">
+                                    <div class="progress-bar bg-danger wow animated progress-animated" style="width: {{ (student.reading_time/60)*100 }}%;" role="progressbar"> </div>
+                                </div>
+                            </td>
+                            <td width="35%">
+                                <div class="pull-right"> <h7 class="m-t-0" style="padding-left: 10px">{{ student.exercises_done}}min</h7></div>
+                                <div class="progress " style="margin-bottom: 5%; margin-top: 5%">
+                                    <div class="progress-bar bg-warning wow animated progress-animated" style="width:{{(student.exercises_done/60)*100}}%;" role="progressbar"> </div>
+                                </div>
+                            </td>
+                            <td width="15%">
+                                {% if student.last_article %}
+                                <span class="badge badge-inverse">{{ student.last_article}}</span>
+                                {% else %}
+                                <span class="badge badge-sm">{{ student.last_acticle}}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href={{'/student/'+student.id}}>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ student.id }}">
+                                    Details
+                                </button>
+                                </a>
+
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+
+
+{% endblock %}
