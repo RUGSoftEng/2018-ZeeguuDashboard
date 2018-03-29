@@ -34,6 +34,13 @@ def filter_user_bookmarks(dict):
                 word_string = bookmark["from"]
     return dict
 
+def verify_invite_code(inv_code):
+    inv_code_bool = api_get('check_invite_code/' + str(inv_code)).text
+    inv_code_bool = json.loads(inv_code_bool)
+    if inv_code_bool == 1:
+        return True
+    return False
+
 def api_post(function, package):
     params = {
         'session':flask.session['sessionID']
