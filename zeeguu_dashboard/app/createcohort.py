@@ -12,7 +12,7 @@ class CreateCohort(FlaskForm):
     submit = SubmitField('Create classroom')
 
     def validate(self):
-        if verify_invite_code(self.inv_code):
+        if not verify_invite_code(self.inv_code):
             tmp = list(self.inv_code.errors)
             tmp.append("Code already in use!")
             self.inv_code.errors = tuple(tmp)
