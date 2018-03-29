@@ -54,6 +54,9 @@ def create_classroom():
                   'class_language_id': class_language_id}
         api_post('add_class',package)
         return redirect('/')
+    else:
+        for error in form.errors:
+            flash(error)
     return render_template('createcohort.html', title = 'Create classroom', form=form)
 
 @app.route('/login/', methods=['GET', 'POST'])
