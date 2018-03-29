@@ -55,7 +55,6 @@ def create_classroom():
         api_post('add_class',package)
         return redirect('/')
     else:
-        print(1)
         for error in form.errors:
             flash(error)
     return render_template('createcohort.html', title = 'Create classroom', form=form)

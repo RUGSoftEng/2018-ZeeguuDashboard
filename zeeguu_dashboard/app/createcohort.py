@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm, validators
 from wtforms import StringField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
-from app.util import verify_invite_code
+from app.util import verify_invite_code_exists
 
 
 class CreateCohort(FlaskForm):
@@ -12,7 +12,7 @@ class CreateCohort(FlaskForm):
     submit = SubmitField('Create classroom')
 
     def validate(self):
-        if not verify_invite_code(self.inv_code):
+        if verify_invite_code_exists(self.inv_code.data):
             tmp = list(self.inv_code.errors)
             tmp.append("Code already in use!")
             self.inv_code.errors = tuple(tmp)
