@@ -4,22 +4,44 @@
 
     <div class="row page-titles" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
 
+{#        {% set color = ['#546e7a', '#01579b', '#d32f2f', '#f4511e', '#673ab7', '#bf360c'] %}#}
+{#        {% for class in classes %}#}
+{#        {% set i = class.id | int %}#}
+{#        {% set i = i % 4 %}#}
+{#        <div class="row">#}
+{#            <div class="col-xs-3" style = "width: 35%">#}
+{#                <div class="card darken-1 waves-effect" style = "background: {{ color[i] }}">#}
+{#                    <div class="card-content white-text">#}
+{#                        <span class="card-title">{{  class.class_name }}</span>#}
+{#                        <p>I am a very simple card. I am good at containing small bits of information.#}
+{#                            I am convenient because I require little markup to use effectively.</p>#}
+{#                    </div>#}
+{#                    <div class="card-action">#}
+{#                        <a href={{'/class/'+class.id}}>Go To Class</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        {% endfor %}#}
+
 
         <!-- these are the classes  -->
+    {% set color = ['#546e7a', '#4680ff'] %}
     {% for class in classes %}
+
         <div class="col-md-4">
-            <a href={{'/class/'+class.id}}>
-                <div class="card bg-primary btn-outline-secondary p-30 waves-effect">
-                    <div class="media widget-ten">
-                        <div class="media-left media media-middle">
-                            <span><i class="ti-bag f-s-40"></i></span>
-                        </div>
-                        <div class="media-body media-text-right">
-                            <h2 class="color-white"> {{  class.class_name }} </h2>
-                        </div>
-                    </div>
+            <div class="card btn-outline-secondary p-30" style="background:{{ color[loop.index%2] }}">
+                <div class="media widget-ten">
+                <div class="card-content white-text">
+                    <span class="card-title">{{  class.class_name }}</span>
+                    <p>Students: studentsNr</p>
+                    <p>Language: es</p>
                 </div>
-            </a>
+                <div class="card-action">
+                    <a href={{'/class/'+class.id}}>Go To Class</a>
+                </div>
+                </div>
+            </div>
         </div>
     {% endfor %}
 
