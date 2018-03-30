@@ -1,68 +1,100 @@
 {% extends "base.html" %}
 
+
+
+
+
+
 {% block content %}
 
-    <div class="row page-titles" style="border-radius: 10px">
+    <div class="row page-titles" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
 
-            <div class="card-title">
-                <h4>Class</h4>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
+{#        <div class="card-title">#}
+{#            <div class="row">#}
+{##}
+{#                <div class="col-sm-4"><dt>Class</dt></div>#}
+{#                <div class="col-sm-8"><div class="text-right"><h6>Invite code: 12345</h6></div> </div>#}
+{##}
+{#            </div>#}
+{##}
+{#            <hr>#}
+{#        </div>#}
 
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Reading / Exercises</th>
+                        <th></th>
+                        <th>Last Activity</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+                    {% for student in students %}
                         <tr>
-                            <th>Name</th>
-                            <th>Reading</th>
-                            <th>Exercises</th>
-                            <th>Last Activity</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-
-                        {% for student in students %}
-                        <tr>
-                            <td width="15%">{{ student.name }}</td>
-                            <td width="35%">
-                               <div class="pull-right"> <h7 class="m-t-0" style="padding-left:10px;">{{ student.reading_time}}min</h7></div>
-                                <div class="progress " style="margin-bottom: 5%; margin-top: 5%">
-                                    <div class="progress-bar bg-danger wow animated progress-animated" style="width: {{ (student.reading_time/60)*100 }}%;" role="progressbar"> </div>
-                                </div>
+                            <td width="30%">
+                                <h5><a href={{'/student/'+student.id }}> <div class="text-inverse">{{ student.name }}</div></a></h5>
                             </td>
-                            <td width="35%">
-                                <div class="pull-right"> <h7 class="m-t-0" style="padding-left: 10px">{{ student.exercises_done}}min</h7></div>
-                                <div class="progress " style="margin-bottom: 5%; margin-top: 5%">
-                                    <div class="progress-bar bg-warning wow animated progress-animated" style="width:{{(student.exercises_done/60)*100}}%;" role="progressbar"> </div>
+
+                            <td width="60%">
+                                <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
+                                    <div class="progress-bar bg-primary" role="progressbar"
+                                         style="width: {{100*student.reading_time/(student.exercises_done+student.reading_time)}}%;">
+                                        {{(100*student.reading_time/(student.exercises_done+student.reading_time))|int}}%
+                                    </div>
+                                    <div class="progress-bar bg-success" role="progressbar"
+                                         style="width: {{100*student.exercises_done/(student.exercises_done+student.reading_time)}}%; background-color: #607D8B !important;">
+                                        {{(100*student.exercises_done/(student.exercises_done+student.reading_time))|int}}%
+                                    </div>
+
                                 </div>
                             </td>
                             <td width="15%">
-                                {% if student.last_article %}
-                                <span class="badge badge-inverse">{{ student.last_article}}</span>
-                                {% else %}
-                                <span class="badge badge-sm">{{ student.last_acticle}}</span>
-                                {% endif %}
+                                <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
+                                    {{ ((student.exercises_done + student.reading_time)/60)|int}} h
+                                    {{ ((student.exercises_done + student.reading_time)%60)|int}} m
+                                </div>
+
+
                             </td>
-                            <td>
-                                <a href={{'/student/'+student.id}}>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ student.id }}">
-                                    Details
-                                </button>
-                                </a>
-
-
+                            <td width="15%">
+                                <span class="badge badge-inverse" style="margin-bottom: 1%; margin-top: 6.5%">{{ student.last_article}}</span>
                             </td>
                         </tr>
-                        {% endfor %}
+                    {% endfor %}
 
 
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
+        </div>
     </div>
 
+{% endblock %}
+
+
+
+{% block buttons %}
+
+    <a href={{'#'}}>
+        <button type="btn" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important">-</button>
+    </a>
+
+    <a href={{'#'}}>
+        <button type="btn" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important">+</button>
+    </a>
+
+    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"><</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
 {% endblock %}

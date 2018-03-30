@@ -297,7 +297,7 @@ h6 {
   color: #1976d2;
 }
 .bg-primary {
-  background-color: #5c4ac7 !important;
+  background-color: #4680ff !important;
 }
 .bg-success {
   background-color: #26dad2 !important;
@@ -331,6 +331,9 @@ h6 {
 }
 .bg-light-success {
   background-color: #e8fdeb;
+}
+.bg-henry {
+  background-color: #00cc00;
 }
 .bg-light-info {
   background-color: #cfecfe;
@@ -861,7 +864,6 @@ h6.h1 {
 /*    Background Mixins
 --------------------------*/
 .bg-primary {
-  background: #4680ff !important;
   color: #ffffff;
   fill: #4680ff;
 }
@@ -1833,7 +1835,7 @@ textarea {
   background-color: #fb3a3a;
 }
 .badge-inverse {
-  background-color: #2f3d4a;
+  background-color: #4680ff;
 }
 .label {
   padding: 3px 10px;
