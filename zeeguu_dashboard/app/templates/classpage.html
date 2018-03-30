@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 
-{% block content %}
 
+{% block content %}
 
     <div class="row page-titles" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
 
             <div class="card-title">
-                <h7>Class</h7>
+                <div class="row">
+
+                    <div class="col-sm-4"><dt>Class</dt></div>
+                    <div class="col-sm-8"><div class="text-right"><h6>Invite code: 12345</h6></div> </div>
+
+                </div>
+
+                <hr>
             </div>
+
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table">
@@ -27,7 +36,7 @@
                         <tr>
 
                             <td width="25%">
-                                <h4><a href={{'/student/'+student.id }}> <p class="text-dark">{{ student.name }}</p></a></h4>
+                                <h5><a href={{'/student/'+student.id }}> <div class="text-inverse">{{ student.name }}</div></a></h5>
                             </td>
 
 
@@ -61,5 +70,27 @@
             </div>
     </div>
 
+
+{% endblock %}
+
+
+
+{% block buttons %}
+
+    <a href={{'#'}}>
+        <button type="btn" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important">-</button>
+    </a>
+
+    <a href={{'#'}}>
+        <button type="btn" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important">+</button>
+    </a>
+
+    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"><</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
 {% endblock %}

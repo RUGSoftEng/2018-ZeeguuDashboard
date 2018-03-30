@@ -48,19 +48,6 @@
     </form>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- End Wrapper -->
 <!-- All Jquery -->
 <script src="js/lib/jquery/jquery.min.js"></script>
@@ -77,5 +64,19 @@
 <script src="js/custom.min.js"></script>
 
 
+
+
+{% endblock %}
+
+{% block buttons %}
+
+
+    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"><</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
 {% endblock %}

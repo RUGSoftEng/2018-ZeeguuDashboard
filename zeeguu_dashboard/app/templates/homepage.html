@@ -3,11 +3,13 @@
 {% block content %}
 
     <div class="row page-titles" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
-    <!-- These are the classes  -->
+
+
+        <!-- these are the classes  -->
     {% for class in classes %}
         <div class="col-md-4">
             <a href={{'/class/'+class.id}}>
-                <div class="card bg-primary p-30">
+                <div class="card bg-primary btn-outline-secondary p-30 waves-effect">
                     <div class="media widget-ten">
                         <div class="media-left media media-middle">
                             <span><i class="ti-bag f-s-40"></i></span>
@@ -22,9 +24,17 @@
     {% endfor %}
 
 
-    <!-- End Container fluid  -->
+    <!-- end container fluid  -->
 
 
 </div>
+
+{% endblock %}
+
+{% block buttons %}
+
+<a href={{'/create_classroom'}}>
+    <button type="btn" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important">+</button>
+</a>
 
 {% endblock %}

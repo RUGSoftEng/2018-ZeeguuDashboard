@@ -5,11 +5,15 @@
     <br>
 {#    <div class="row page-titles" style="border-radius: 10px">#}
         {% for block in stats %}
-            <h1>{{ block.date }}</h1>
+
+
+            <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
+                <h1>{{ block.date }}</h1>
+            </div>
 
             {% for bookmark in block.bookmarks %}
 
-            <div class="card">
+            <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
                     <div class="d-flex w-100 justify-content-between">
                         {{ bookmark.from }}
                        <span class="glyphicon glyphicon-chevron-right"></span>
@@ -32,5 +36,18 @@
 {#    </div>#}
 
 
+
+{% endblock %}
+
+
+{% block buttons %}
+
+    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"><</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
 {% endblock %}
