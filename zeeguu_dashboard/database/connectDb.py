@@ -16,6 +16,7 @@ def init_db():
 
     return cursor
 
+
 def update_db(cursor):
     # change name to class_name
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
@@ -60,6 +61,7 @@ def update_db(cursor):
     if not result:
         cursor.execute("ALTER TABLE cohort "
                        "ADD class_language_id int NOT NULL DEFAULT 4")
+
 
 def get_cohort(cursor):
     query = "SELECT * FROM cohort "
