@@ -34,8 +34,8 @@
                 <div class="media widget-ten">
                 <div class="card-content white-text">
                     <span class="card-title">{{  class.class_name }}</span>
-                    <p>Students: studentsNr</p>
-                    <p>Language: es</p>
+                    <p>Language: {{ class.class_language_name }}</p>
+                    <p>Invite Code: {{ class.inv_code }}</p>
                 </div>
                 <div class="card-action">
                     <a href={{'/class/'+class.id}}>Go To Class</a>
@@ -56,7 +56,7 @@
 {% block buttons %}
 
 <a href={{'/create_classroom'}}>
-    <button type="btn" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important">+</button>
+    <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important">+</button>
 </a>
 
 {% endblock %}
