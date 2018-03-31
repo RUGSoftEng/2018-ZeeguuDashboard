@@ -7,6 +7,20 @@ path = "http://51.15.89.64:9001/"
 #path = "http://0.0.0.0:9001/"
 
 
+def load_user_info(user_id):
+    student_info = api_get('get_user_info/'+str(user_id))
+    return json.loads(student_info.text)
+
+def remove_class(class_id):
+    dict = {}
+    api_post('remove_class/'+str(class_id), dict)
+
+def load_class_info(id):
+    returned_class_infos_string = api_get("get_class_info/"+str(id)).text
+    returned_class_info = json.loads(returned_class_infos_string)
+    class_info = returned_class_info
+    return class_info
+
 def load_classes():
     returned_class_infos_string = api_get("get_classes").text
     returned_class_infos = json.loads(returned_class_infos_string)

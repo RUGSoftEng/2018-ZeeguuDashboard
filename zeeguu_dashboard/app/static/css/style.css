@@ -2362,6 +2362,9 @@ textarea {
 }
 .modal-content {
   border-radius: 3px;
+  margin-left: 30%;
+  margin-right: 30%;
+  background: #546e7a;
 }
 .timeline {
   list-style: none;

@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, session, Flask, make_respons
 from app import app
 from app.createcohort import CreateCohort
 from app.loginform import CreateLogin
-from app.util import load_students, load_classes, api_get, api_post, load_user_data
+from app.util import *
 from app.permissions import has_session, has_class_permission, has_student_permission
 import requests
 import json
@@ -29,16 +29,24 @@ def load_class(class_id):
     students = load_students(class_id)
     if(students is None):
         return redirect('/')
-    return render_template('classpage.html', title='DashBoard', students=students)
+    class_info = load_class_info(class_id)
+    return render_template('classpage.html', title= class_info['class_name'], students=students, class_info = class_info)
 
 ## FRONT END TEAM -- USE
 @app.route('/student/<user_id>/')
 @has_student_permission
 def load_user(user_id):
     stats = load_user_data(user_id = user_id)
+    info = load_user_info(user_id)
     ## implement HTML here
-    return render_template("studentpage.html", title = "activity", stats = stats)
+    return render_template("studentpage.html", title=info['name'], info = info, stats = stats)
 
+
+@app.route('/remove_class/<class_id>/')
+@has_class_permission
+def remove_classroom(class_id):
+    remove_class(class_id)
+    return redirect('/')
 
 # This works if class_inv is not taken and teacher_id exists.
 @app.route('/create_classroom/',  methods=['GET', 'POST'])
