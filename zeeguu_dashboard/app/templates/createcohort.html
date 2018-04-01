@@ -21,6 +21,9 @@
                             <label>Classroom Name:</label>
                             <input type="text" class="form-control" id="class_name" name="class_name"
                                    placeholder="Classroom Name">
+                            {% for error in form.class_name.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
                         </div>
 
 {#                        <div class="form-group">#}
@@ -30,6 +33,7 @@
 {#                        </div>#}
 
                         <div class="form-group">
+
                             <label>Input Select</label>
                             <select class="form-control" class="form-control" id="class_language_id" name="class_language_id">
                                 <option>nl</option>
@@ -38,12 +42,23 @@
                                 <option>es</option>
                                 <option>fr</option>
                             </select>
+
+                            <label>Class language:</label>
+                            <input type="text" class="form-control" id="class_language_id" name="class_language_id"
+                                   placeholder="Class Language">
+                            {% for error in form.class_language_id.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+
                         </div>
 
                         <div class="form-group">
                             <label>Invitation Code:</label>
                             <input type="text" class="form-control" id="inv_code" name="inv_code"
                                    placeholder="Invitation Code">
+                            {% for error in form.inv_code.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
                         </div>
 
 
@@ -52,6 +67,9 @@
                             <label>Max Students:</label>
                             <input type="text" class="form-control" id="max_students" name="max_students"
                                    placeholder="Max Students">
+                            {% for error in form.max_students.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary" style="background: #4680ff">Submit</button>
