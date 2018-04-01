@@ -1,7 +1,7 @@
 import flask
 from flask import render_template, flash, redirect, session, Flask, make_response
 from app import app
-from app.createcohort import CreateCohort
+from app.createcohort import CreateCohort, EditCohort
 from app.loginform import CreateLogin
 from app.util import *
 from app.permissions import has_session, has_class_permission, has_student_permission
@@ -31,6 +31,21 @@ def load_class(class_id):
         return redirect('/')
     class_info = load_class_info(class_id)
     return render_template('classpage.html', title= class_info['class_name'], students=students, class_info = class_info)
+
+@app.route('/edit_class/<class_id>/', methods=['GET','POST'])
+@has_class_permission
+def edit_class(class_id):
+    class_info = load_class_info(class_id)
+    form = EditCohort()
+    if form.validate_on_submit():
+        inv_code = form.inv_code.data
+        class_name = form.class_name.data
+        max_students = form.max_students.data
+        package = {'class_name': class_name, 'inv_code': inv_code, 'max_students': max_students}
+        api_post('update_class/'+str(class_id),package)
+        return redirect('/')
+    return render_template('edit_class.html', title = 'Edit classroom', form=form, class_info = class_info)
+
 
 ## FRONT END TEAM -- USE
 @app.route('/student/<user_id>/')

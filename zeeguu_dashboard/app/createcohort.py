@@ -11,6 +11,13 @@ class CreateCohort(FlaskForm):
     max_students = StringField('Max students', validators=[DataRequired()])
     submit = SubmitField('Create classroom')
 
+
+class EditCohort(FlaskForm):
+    class_name = StringField('Class room name', validators=[DataRequired()])
+    inv_code = StringField('Invite code')
+    max_students = StringField('Max students', validators=[DataRequired()])
+    submit = SubmitField('Create classroom')
+
     def validate(self):
         if verify_invite_code_exists(self.inv_code.data):
             tmp = list(self.inv_code.errors)
@@ -18,3 +25,4 @@ class CreateCohort(FlaskForm):
             self.inv_code.errors = tuple(tmp)
             return False
         return True
+
