@@ -8,3 +8,9 @@ class CreateCohort(FlaskForm):
     class_language_id = StringField('Language', validators=[DataRequired()])
     max_students = StringField('Max students', validators=[DataRequired()])
     submit = SubmitField('Create classroom')
+
+class EditCohort(FlaskForm):
+    class_name = StringField('Class room name', validators=[DataRequired()])
+    inv_code = StringField('Invite code')
+    max_students = StringField('Max students', validators=[DataRequired()])
+    submit = SubmitField('Create classroom')

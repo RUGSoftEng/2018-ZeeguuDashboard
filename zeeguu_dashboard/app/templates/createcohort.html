@@ -23,10 +23,21 @@
                                    placeholder="Classroom Name">
                         </div>
 
+{#                        <div class="form-group">#}
+{#                            <label>Class language:</label>#}
+{#                            <input type="text" class="form-control" id="class_language_id" name="class_language_id"#}
+{#                                   placeholder="Class Language">#}
+{#                        </div>#}
+
                         <div class="form-group">
-                            <label>Class language:</label>
-                            <input type="text" class="form-control" id="class_language_id" name="class_language_id"
-                                   placeholder="Class Language">
+                            <label>Input Select</label>
+                            <select class="form-control" class="form-control" id="class_language_id" name="class_language_id">
+                                <option>nl</option>
+                                <option>en</option>
+                                <option>de</option>
+                                <option>es</option>
+                                <option>fr</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -35,7 +46,9 @@
                                    placeholder="Invitation Code">
                         </div>
 
-                        <div class="form-group">
+
+
+                                                <div class="form-group">
                             <label>Max Students:</label>
                             <input type="text" class="form-control" id="max_students" name="max_students"
                                    placeholder="Max Students">
@@ -61,6 +74,15 @@
     <script>
         function goBack() {
             window.history.back();
+        }
+
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider.oninput = function() {
+            output.innerHTML = this.value;
         }
     </script>
 
