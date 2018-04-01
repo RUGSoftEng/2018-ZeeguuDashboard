@@ -74,7 +74,7 @@ def login():
         email = form.email.data
         password = form.password.data
         dict = {'password':password}
-        res = requests.post(path+"session/"+email, data =dict).text
+        res = requests.post(app.config['API_PATH']+"session/"+email, data =dict).text
 
 
         # As far a i can tell this does nothing but will be useful later!
