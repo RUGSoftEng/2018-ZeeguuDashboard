@@ -2,25 +2,12 @@ import sys
 import MySQLdb
 
 
-def init_db():
-    try:
-        connection = MySQLdb.connect (host = "localhost",
-                                      user = "root",
-                                      passwd = "12345678",
-                                      db = "zeeguu_chi")
-    except MySQLdb.Error as e:
-        print("Error %d: %s" % (e.args[0], e.args[1]))
-        sys.exit(1)
-
-    cursor = connection.cursor()
-
-    return cursor
-
-
-def update_db(cursor):
+def update_cohort_db(cursor, database):
     # change name to class_name
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
-                   "WHERE TABLE_SCHEMA = 'zeeguu_chi' AND TABLE_NAME = 'cohort' AND COLUMN_NAME = 'class_name'")
+                   "WHERE TABLE_SCHEMA = '" + database +
+                   "' AND TABLE_NAME = 'cohort' "
+                   "AND COLUMN_NAME = 'class_name'")
     result = cursor.fetchall()
     if not result:
         cursor.execute("ALTER TABLE cohort "
@@ -28,11 +15,15 @@ def update_db(cursor):
 
     # add inv_code column
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
-                   "WHERE TABLE_SCHEMA = 'zeeguu_chi' AND TABLE_NAME = 'cohort' AND COLUMN_NAME = 'inv_code'")
+                   "WHERE TABLE_SCHEMA = '" + database +
+                   "' AND TABLE_NAME = 'cohort' "
+                   "AND COLUMN_NAME = 'inv_code'")
     result = cursor.fetchall()
     if not result:
         cursor.execute("ALTER TABLE cohort "
                        "ADD inv_code char(50)")
+        cursor.execute("ALTER TABLE cohort "
+                       "ADD UNIQUE (inv_code) ")
         cursor.execute("SELECT id, class_name FROM cohort")
         rows = cursor.fetchall()
         for row in rows:
@@ -40,7 +31,9 @@ def update_db(cursor):
 
     # add column max_students
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
-                   "WHERE TABLE_SCHEMA = 'zeeguu_chi' AND TABLE_NAME = 'cohort' AND COLUMN_NAME = 'max_students'")
+                   "WHERE TABLE_SCHEMA = '" + database +
+                   "' AND TABLE_NAME = 'cohort' "
+                   "AND COLUMN_NAME = 'max_students'")
     result = cursor.fetchall()
     if not result:
         cursor.execute("ALTER TABLE cohort "
@@ -48,7 +41,9 @@ def update_db(cursor):
 
     # add cur_students column
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
-                   "WHERE TABLE_SCHEMA = 'zeeguu_chi' AND TABLE_NAME = 'cohort' AND COLUMN_NAME = 'cur_students'")
+                   "WHERE TABLE_SCHEMA = '" + database +
+                   "'AND TABLE_NAME = 'cohort' "
+                   "AND COLUMN_NAME = 'cur_students'")
     result = cursor.fetchall()
     if not result:
         cursor.execute("ALTER TABLE cohort "
@@ -56,7 +51,9 @@ def update_db(cursor):
 
     # add class_lange_id column
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
-                   "WHERE TABLE_SCHEMA = 'zeeguu_chi' AND TABLE_NAME = 'cohort' AND COLUMN_NAME = 'class_language_id'")
+                   "WHERE TABLE_SCHEMA = '" + database +
+                   "' AND TABLE_NAME = 'cohort' "
+                   "AND COLUMN_NAME = 'class_language_id'")
     result = cursor.fetchall()
     if not result:
         cursor.execute("ALTER TABLE cohort "
@@ -76,3 +73,29 @@ def get_cohort(cursor):
 def disconnect_db(cursor, connection):
     cursor.close()
     connection.close()
+
+
+def main():
+    host = "localhost"
+    user = "root"
+    password = "12345678"
+    database = 'zeeguu_chi'
+    try:
+        connection = MySQLdb.connect (host = host,
+                                      user = user,
+                                      passwd = password,
+                                      db = database)
+    except MySQLdb.Error as e:
+        print("Error %d: %s" % (e.args[0], e.args[1]))
+        sys.exit(1)
+
+    cursor = connection.cursor()
+
+    update_cohort_db(cursor, database)
+    get_cohort(cursor)
+
+    disconnect_db(cursor, connection)
+
+
+if __name__ == '__main__':
+    main()
