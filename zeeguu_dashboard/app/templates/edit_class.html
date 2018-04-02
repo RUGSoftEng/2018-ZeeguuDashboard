@@ -30,11 +30,11 @@
                                        placeholder="{{ class_info.inv_code }}">
                             </div>
 
+                            <label>Max Students:</label> <span id="demo"></span>
                             <div class="form-group">
-                                <label>Max Students:</label>
-                                <input type="text" class="form-control" id="max_students" name="max_students"
-                                       placeholder="{{ class_info.max_students }}">
+                                <input type = "range" min="1" max="50" value="10" class="slider" id="max_students" name="max_students">
                             </div>
+
                         </div>
                         <button type="submit" class="btn btn-primary" style="background: #4680ff">Submit</button>
 
@@ -46,6 +46,17 @@
         </div>
     </div>
 
+
+    <script>
+        var slider = document.getElementById("max_students");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
+    </script>
 
 {% endblock %}
 

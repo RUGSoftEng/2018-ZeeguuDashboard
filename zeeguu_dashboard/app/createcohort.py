@@ -26,3 +26,4 @@ class EditCohort(FlaskForm):
     max_students = StringField('Max students', validators=[DataRequired()])
     submit = SubmitField('Create classroom')
 
+

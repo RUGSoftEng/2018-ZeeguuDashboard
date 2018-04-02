@@ -4,27 +4,6 @@
 
     <div class="row page-titles" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
 
-{#        {% set color = ['#546e7a', '#01579b', '#d32f2f', '#f4511e', '#673ab7', '#bf360c'] %}#}
-{#        {% for class in classes %}#}
-{#        {% set i = class.id | int %}#}
-{#        {% set i = i % 4 %}#}
-{#        <div class="row">#}
-{#            <div class="col-xs-3" style = "width: 35%">#}
-{#                <div class="card darken-1 waves-effect" style = "background: {{ color[i] }}">#}
-{#                    <div class="card-content white-text">#}
-{#                        <span class="card-title">{{  class.class_name }}</span>#}
-{#                        <p>I am a very simple card. I am good at containing small bits of information.#}
-{#                            I am convenient because I require little markup to use effectively.</p>#}
-{#                    </div>#}
-{#                    <div class="card-action">#}
-{#                        <a href={{'/class/'+class.id}}>Go To Class</a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#        {% endfor %}#}
-
-
         <!-- these are the classes  -->
     {% set color = ['#546e7a', '#4680ff'] %}
     {% for class in classes %}
