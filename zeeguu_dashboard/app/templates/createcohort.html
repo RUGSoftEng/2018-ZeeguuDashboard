@@ -27,7 +27,14 @@
                             {% endfor %}
                         </div>
 
+{#                        <div class="form-group">#}
+{#                            <label>Class language:</label>#}
+{#                            <input type="text" class="form-control" id="class_language_id" name="class_language_id"#}
+{#                                   placeholder="Class Language">#}
+{#                        </div>#}
+
                         <div class="form-group">
+
                             <label>Input Select</label>
                             <select class="form-control" class="form-control" id="class_language_id" name="class_language_id">
                                 <option>nl</option>
@@ -36,6 +43,7 @@
                                 <option>es</option>
                                 <option>fr</option>
                             </select>
+
                         </div>
 
                         <div class="form-group">
@@ -48,9 +56,15 @@
                         </div>
 
 
-                        <label>Max Students:</label> <span id="demo"></span>
-                        <div class="form-group">
-                        <input type = "range" min="1" max="50" value="10" class="slider" id="max_students" name="max_students">
+
+                                                <div class="form-group">
+                            <label>Max Students:</label>
+                            <input type="text" class="form-control" id="max_students" name="max_students"
+                                   placeholder="Max Students">
+                            {% for error in form.max_students.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+
                         </div>
 
                     </div>
@@ -85,6 +99,15 @@
     <script>
         function goBack() {
             window.history.back();
+        }
+
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider.oninput = function() {
+            output.innerHTML = this.value;
         }
     </script>
 
