@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+    <div class="col-lg-4"></div>
+
+    <div class="row justify-content-center" style="border-radius: 10px">
+        <div class="col-lg-4">
+            <div class="login-content card">
+                <div class="login-form">
+
+                    <h2>Edit classroom</h2>
+                    <br>
+                    <form action="" method="post" role="form">
+                        {{ form.csrf }}
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Classroom Name:</label>
+                                <input type="text" class="form-control" id="class_name" name="class_name"
+                                       placeholder="{{ class_info.class_name }}">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Invitation Code:</label>
+                                <input type="text" class="form-control" id="inv_code" name="inv_code"
+                                       placeholder="{{ class_info.inv_code }}">
+                            </div>
+
+                            <label>Max Students:</label> <span id="demo"></span>
+                            <div class="form-group">
+                                <input type = "range" min="1" max="50" value="10" class="slider" id="max_students" name="max_students">
+                            </div>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="background: #4680ff">Submit</button>
+
+                    </form>
+                    <br>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var slider = document.getElementById("max_students");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
+    </script>
+
+{% endblock %}
+
+{% block buttons %}
+
+    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"><</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+{% endblock %}

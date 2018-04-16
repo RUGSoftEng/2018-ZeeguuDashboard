@@ -3,6 +3,7 @@
 
 {% block content %}
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/slider.css') }}">
 
 <div class="col-lg-4"></div>
 
@@ -63,7 +64,9 @@
                             {% for error in form.max_students.errors %}
                             <span style="color: red;">[{{ error }}]</span>
                             {% endfor %}
+
                         </div>
+
                     </div>
                     <button type="submit" class="btn btn-primary" style="background: #4680ff">Submit</button>
 
@@ -74,6 +77,17 @@
         </div>
     </div>
 </div>
+
+    <script>
+        var slider = document.getElementById("max_students");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
+    </script>
 
 
 {% endblock %}
