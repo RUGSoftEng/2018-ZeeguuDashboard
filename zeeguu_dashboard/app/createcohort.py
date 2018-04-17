@@ -27,4 +27,3 @@ class EditCohort(FlaskForm):
     submit = SubmitField('Create classroom')
 
 
-
