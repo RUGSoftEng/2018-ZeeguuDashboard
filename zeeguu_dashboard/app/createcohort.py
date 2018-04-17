@@ -12,6 +12,8 @@ class CreateCohort(FlaskForm):
     submit = SubmitField('Create classroom')
 
     def validate(self):
+        if not FlaskForm.validate(self):
+            return False
         if verify_invite_code_exists(self.inv_code.data):
             tmp = list(self.inv_code.errors)
             tmp.append("Code already in use!")
