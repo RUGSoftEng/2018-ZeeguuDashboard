@@ -2,48 +2,40 @@
 
 {% block content %}
 
-    <div class="row page-titles" style="border-radius: 10px">
-    <!-- These are the classes  -->
-    {% set color = ['bg-warning', 'bg-info', 'bg-success', 'bg-danger', 'bg-warning-dark', 'bg-dark'] %}
+    <div class="row page-titles" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
+
+        <!-- these are the classes  -->
+    {% set color = ['#546e7a', '#4680ff'] %}
     {% for class in classes %}
-        {% set i = class.id | int %}
-        {% set i = i % 6 %}
-        <div class="col-md-3">
-            <a href={{'/class/'+class.id}}>
-                <div class="card {{ color[i] }} p-20">
-                    <div class="media widget-ten">
-                        <div class="media-left media media-middle">
-                            <span><i class="ti-bag f-s-40"></i></span>
-                        </div>
-                        <div class="media-body media-text-right">
-                            <h2 class="color-white"> {{  class.class_name }} </h2>
-                        </div>
-                    </div>
+
+        <div class="col-md-4">
+            <div class="card btn-outline-secondary p-30" style="background:{{ color[loop.index%2] }}">
+                <div class="media widget-ten">
+                <div class="card-content white-text">
+                    <span class="card-title">{{  class.class_name }}</span>
+                    <p>Language: {{ class.class_language_name }}</p>
+                    <p>Invite Code: {{ class.inv_code }}</p>
                 </div>
-            </a>
+                <div class="card-action">
+                    <a href={{'/class/'+class.id}}>Go To Class</a>
+                </div>
+                </div>
+            </div>
         </div>
     {% endfor %}
 
-    <div class="col-md-3">
-        <a href="/create_classroom">
-            <div class="card bg-info-dark p-20">
-                <div class="media widget-ten">
-                    <div class="media-left meida media-middle">
-                        <span><i class="ti-location-pin f-s-40"></i></span>
-                    </div>
-                    <div class="media-body media-text-right">
-                        <h2 class="color-white">Create new class</h2>
-                        <p class="m-b-0"></p>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
 
-
-    <!-- End Container fluid  -->
+    <!-- end container fluid  -->
 
 
 </div>
+
+{% endblock %}
+
+{% block buttons %}
+
+<a href={{'/create_classroom'}}>
+    <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important">+</button>
+</a>
 
 {% endblock %}
