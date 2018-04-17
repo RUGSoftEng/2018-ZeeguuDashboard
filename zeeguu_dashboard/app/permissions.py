@@ -6,6 +6,9 @@ import app.util
 import json
 
 def check_session():
+    if not 'sessionID' in session.keys():
+        session['sessionID'] = '0'
+
     permission_bool = app.util.api_get('has_session').text
     permission_bool = json.loads(permission_bool)
     if permission_bool == 1:
