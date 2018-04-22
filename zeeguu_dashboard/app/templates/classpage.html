@@ -10,19 +10,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title" style="color: white">{{ class_info.class_name }}</h2>
+                    <h2 class="modal-title" style="color: white">{{ class_info.name }}</h2>
                 </div>
                 <div class="modal-body">
-                    <h6 style="color: whitesmoke">Language: {{ class_info.class_language_name }}</h6>
+                    <h6 style="color: whitesmoke">Language: {{ class_info.language_name }}</h6>
                     <h6 style="color: whitesmoke">Invite Code: {{ class_info.inv_code }}</h6>
                     <h6 style="color: whitesmoke">Number of students: {{ class_info.cur_students }}</h6>
                     <h6 style="color: whitesmoke">Max students: {{ class_info.max_students }}</h6>
                 </div>
                 <div class="modal-footer">
-                    <a href={{'/remove_class/' + class_info.class_id }}>
+                    <a href={{'/remove_class/' + class_info.id }}>
                         <button type="button" class="btn btn-default bg-danger" style="border-color: #455a64">Delete Class</button>
                     </a>
-                    <a href={{'/edit_class/' + class_info.class_id }}>
+                    <a href={{'/edit_class/' + class_info.id }}>
                         <button type="button" class="btn btn-default bg-primary" style="border-color: #455a64">Edit</button>
                     </a>
                 </div>
