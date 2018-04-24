@@ -1,7 +1,8 @@
-from flask_wtf import FlaskForm, validators
-from wtforms import StringField, BooleanField, SubmitField
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
-from app.util import verify_invite_code_exists
+
+from app.util.classroom import verify_invite_code_exists
 
 
 class CreateCohort(FlaskForm):
@@ -29,4 +30,7 @@ class EditCohort(FlaskForm):
     submit = SubmitField('Create classroom')
 
 
-
+class CreateLogin(FlaskForm):
+    email = StringField('username', validators=[DataRequired()])
+    password = StringField('password', validators=[DataRequired()])
+    submit = SubmitField('Create classroom')
