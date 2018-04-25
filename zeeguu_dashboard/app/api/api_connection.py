@@ -3,22 +3,24 @@ import requests
 
 from app import app
 
-path = "http://51.15.89.64:9001/"
-#path = "http://0.0.0.0:9001/"
+def api_post(path, package):
+    _api_call('post', path=path, package=package)
 
+def api_get(path):
+    return _api_call('get',path=path)
 
-def api_post(function, package):
-    params = {
-        'session':flask.session['sessionID']
-    }
-    requests.post(app.config['API_PATH']+function, data=package, params=params)
-
-
-def api_get(function):
+def _api_call(function, path, package=None):
     params = {
         'session': flask.session['sessionID']
     }
-    returned = requests.get(app.config['API_PATH']+function, params = params)
+    returned = None
+    try:
+        if function is 'get':
+            returned = requests.get(app.config['API_PATH'] + path, params=params)
+        else:
+            requests.post(app.config['API_PATH'] + path, data=package, params=params)
+    except Exception:
+        import traceback
+        print(traceback.format_exc())
+        raise Exception("Exception while performing request.")
     return returned
-
-
