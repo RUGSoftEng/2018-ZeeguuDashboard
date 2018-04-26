@@ -37,7 +37,6 @@ def has_class_permission(func):
         if not check_session():
             return redirect('401')
         permission_check = app.util.api_get('has_permission_for_cohort/' + str(class_id)).text
-        print(permission_check)
         if permission_check == "OK":
             return func(class_id)
         else:
@@ -52,7 +51,6 @@ def has_student_permission(func):
         if not check_session():
             return redirect('401')
         permission_check = app.util.api_get('has_permission_for_user_info/' + str(user_id)).text
-        print(permission_check)
         if permission_check == "OK":
             return func(user_id)
         else:
