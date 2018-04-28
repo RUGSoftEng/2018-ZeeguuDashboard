@@ -7,8 +7,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 bootstrap = Bootstrap(app)
 
-from app import home
-from app import classroom
+from app import home, classroom, user, errorpage
 
 arguments = sys.argv
 if len(arguments) > 0:
@@ -16,4 +15,4 @@ if len(arguments) > 0:
         if arg == 'Debug':
             app.debug = True
 
-app.run()
+app.run(debug=True)
