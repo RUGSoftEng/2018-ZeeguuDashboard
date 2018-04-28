@@ -15,4 +15,4 @@ if len(arguments) > 0:
         if arg == 'Debug':
             app.debug = True
 
-app.run(debug=True)
+app.run()
