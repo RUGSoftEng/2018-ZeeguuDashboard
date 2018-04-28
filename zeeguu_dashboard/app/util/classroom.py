@@ -40,8 +40,7 @@ def load_students(class_id):
 
 
 def verify_invite_code_exists(inv_code):
-    inv_code_bool = api_get('check_invite_code/' + str(inv_code)).text
-    inv_code_bool = json.loads(inv_code_bool)
-    if inv_code_bool == 1:
+    inv_code_bool = api_get('invite_code_usable/' + str(inv_code)).text
+    if inv_code_bool == "OK":
         return False
     return True
