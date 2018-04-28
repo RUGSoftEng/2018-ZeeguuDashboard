@@ -49,7 +49,7 @@ def main():
     host = "localhost"
     user = "root"
     password = "12345678"
-    database = 'zeeguu_test'
+    database = 'zeeguu_chi'
     try:
         connection = MySQLdb.connect (host = host,
                                       user = user,
