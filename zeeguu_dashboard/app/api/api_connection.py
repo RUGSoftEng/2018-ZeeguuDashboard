@@ -4,6 +4,9 @@ import requests
 from app import app
 
 
+# This file contains the functions responsible for making calls to the Zeeguu server.
+
+
 def api_post(path, package):
     _api_call('post', path=path, package=package)
 

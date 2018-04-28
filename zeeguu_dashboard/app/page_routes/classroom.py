@@ -2,16 +2,23 @@ from flask import redirect, render_template
 
 from app import app
 from app.api.api_connection import api_post
-from app.util.classroom import load_students, load_class_info, remove_class
+from app.util.classroom import load_students, load_class_info, remove_class, create_class
 from app.util.forms import EditCohort, CreateCohort
 from app.util.permissions import has_class_permission, has_session
+
+
+# This file takes care of all of the class related page_routes:
+#   - loading the class,
+#   - editing it
+#   - removing it
+#   - creating new classes
 
 
 @app.route('/class/<class_id>/')
 @has_class_permission
 def load_class(class_id):
     students = load_students(class_id)
-    if (students is None):
+    if students is None:
         return redirect('/')
     class_info = load_class_info(class_id)
     return render_template('classpage.html', title=class_info['name'], students=students, class_info=class_info)
@@ -48,10 +55,7 @@ def create_classroom():
         inv_code = form.inv_code.data
         max_students = form.max_students.data
         language_id = form.class_language_id.data
-        package = {'name': name, 'inv_code': inv_code, 'max_students': max_students,
-                   'language_id': language_id}
-        print(package)
-        api_post('create_own_cohort', package)
+        create_class(name=name, inv_code=inv_code, max_students=max_students, language_id=language_id)
         return redirect('/')
 
     return render_template('createcohort.html', title='Create classroom', form=form)

@@ -2,6 +2,9 @@ import sys
 import MySQLdb
 
 
+# This file contains the scripts for migrating the old Zeeguu database to the new version for this project.
+
+
 def update_cohort_db(cursor, database):
     # change name to class_name
     cursor.execute("SELECT * FROM information_schema.COLUMNS "

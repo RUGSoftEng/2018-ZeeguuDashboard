@@ -1,25 +1,15 @@
 import flask
 import requests
-from flask import render_template, redirect, make_response
+from flask import make_response, render_template
 
 from app import app
-from app.util.classroom import load_classes
 from app.util.forms import CreateLogin
-from app.util.permissions import has_session
+
+
+# This file contains the route for user login.
+
 
 session_path = "session/"
-
-
-@app.route('/')
-def homepage():
-    return redirect("/teacher")
-
-
-@app.route('/teacher/')
-@has_session
-def template():
-    classes = load_classes()
-    return render_template('homepage.html', title="Homepage", classes=classes)
 
 
 @app.route('/login/', methods=['GET', 'POST'])

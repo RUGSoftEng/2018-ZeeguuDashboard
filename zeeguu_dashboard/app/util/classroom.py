@@ -3,6 +3,16 @@ import json
 from app.api.api_connection import api_post, api_get
 
 
+# This file contains all of the utility functions required to get and format the data for the classroom page,
+# as well as posting data and changing it.
+
+
+def create_class(name, inv_code, max_students, language_id):
+    package = {'name': name, 'inv_code': inv_code, 'max_students': max_students,
+               'language_id': language_id}
+    api_post('create_own_cohort', package)
+
+
 def remove_class(class_id):
     dict = {}
     api_post('remove_cohort/' + str(class_id), dict)

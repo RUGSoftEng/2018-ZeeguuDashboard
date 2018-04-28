@@ -5,6 +5,12 @@ from wtforms.validators import DataRequired
 from app.util.classroom import verify_invite_code_exists
 
 
+# This file contains all of the forms used in this system:
+#   - form for creating a new class
+#   - form for editing a class
+#   - form for logging in
+
+
 class CreateCohort(FlaskForm):
     class_name = StringField('Class room name', validators=[DataRequired()])
     inv_code = StringField('Invite code', validators=[DataRequired()])

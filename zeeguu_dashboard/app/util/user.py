@@ -3,6 +3,9 @@ import json
 from app.api.api_connection import api_get
 
 
+# This file contains all of the utility functions for loading and formatting user data.
+
+
 def load_user_info(user_id):
     student_info = api_get('user_info/' + str(user_id))
     return json.loads(student_info.text)

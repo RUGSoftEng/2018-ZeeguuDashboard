@@ -6,6 +6,10 @@ from flask import redirect, session
 from app.api import api_connection
 
 
+# This file contains all of the functions responsible for validating the user on different page_routes.
+
+
+# Main function to validate the user.
 def check_session():
     if not 'sessionID' in session.keys():
         session['sessionID'] = '0'
@@ -17,7 +21,7 @@ def check_session():
     return False
 
 
-# General decorator to check if the teacher is logged in
+# General decorator to check if the teacher is logged in.
 def has_session(func):
     @wraps(func)
     def session_wrapper(*args, **kwargs):
@@ -45,14 +49,15 @@ def has_class_permission(func):
     return class_permission_wrapper
 
 
+# This function checks if an authenticated user has permission to check a student page.
 def has_student_permission(func):
     @wraps(func)
-    def student_permission_wrapper(user_id):
+    def student_permission_wrapper(student_id):
         if not check_session():
             return redirect('401')
-        permission_check = api_connection.api_get('has_permission_for_user_info/' + str(user_id)).text
+        permission_check = api_connection.api_get('has_permission_for_user_info/' + str(student_id)).text
         if permission_check == "OK":
-            return func(user_id)
+            return func(student_id)
         else:
             return redirect('401')
 
