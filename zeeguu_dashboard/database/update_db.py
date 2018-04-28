@@ -3,17 +3,8 @@ import MySQLdb
 
 
 def update_cohort_db(cursor, database):
-    # change name to class_name
-    cursor.execute("SELECT * FROM information_schema.COLUMNS "
-                   "WHERE TABLE_SCHEMA = '" + database +
-                   "' AND TABLE_NAME = 'cohort' "
-                   "AND COLUMN_NAME = 'class_name'")
-    result = cursor.fetchall()
-    if not result:
-        cursor.execute("ALTER TABLE cohort "
-                       "Change name class_name char(50)")
 
-    # add inv_code column
+    # rename invitation_code to inv_code column
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
@@ -21,10 +12,10 @@ def update_cohort_db(cursor, database):
     result = cursor.fetchall()
     if not result:
         cursor.execute("ALTER TABLE cohort "
-                       "ADD inv_code char(50)")
+                       "Change invitation_code inv_code char(50) NOT NULL")
         cursor.execute("ALTER TABLE cohort "
                        "ADD UNIQUE (inv_code) ")
-        cursor.execute("SELECT id, class_name FROM cohort")
+        cursor.execute("SELECT id, name FROM cohort")
         rows = cursor.fetchall()
         for row in rows:
             cursor.execute("UPDATE cohort SET inv_code = '" + row[1] + "' WHERE id = '" + str(row[0]) + "'")
@@ -39,25 +30,15 @@ def update_cohort_db(cursor, database):
         cursor.execute("ALTER TABLE cohort "
                        "ADD max_students int NOT NULL DEFAULT 30")
 
-    # add cur_students column
-    cursor.execute("SELECT * FROM information_schema.COLUMNS "
-                   "WHERE TABLE_SCHEMA = '" + database +
-                   "'AND TABLE_NAME = 'cohort' "
-                   "AND COLUMN_NAME = 'cur_students'")
-    result = cursor.fetchall()
-    if not result:
-        cursor.execute("ALTER TABLE cohort "
-                       "ADD cur_students int NOT NULL DEFAULT 0")
-
-    # add class_lange_id column
+    # add class_language_id column
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
-                   "AND COLUMN_NAME = 'class_language_id'")
+                   "AND COLUMN_NAME = 'language_id'")
     result = cursor.fetchall()
     if not result:
         cursor.execute("ALTER TABLE cohort "
-                       "ADD class_language_id int NOT NULL DEFAULT 4")
+                       "ADD language_id int NOT NULL DEFAULT 4")
 
 
 def get_cohort(cursor):
@@ -76,10 +57,11 @@ def disconnect_db(cursor, connection):
 
 
 def main():
+    # for now fixed code for the below information of database
     host = "localhost"
     user = "root"
     password = "12345678"
-    database = 'zeeguu_chi'
+    database = 'zeeguu_test'
     try:
         connection = MySQLdb.connect (host = host,
                                       user = user,
