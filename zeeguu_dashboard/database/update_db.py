@@ -18,6 +18,7 @@ def update_cohort_db(cursor, database):
         cursor.execute("SELECT id, name, inv_code FROM cohort")
         rows = cursor.fetchall()
         for row in rows:
+            #if no the class has no inv_code, set the name as same as inv_code
             if row[2] is None:
                 cursor.execute("UPDATE cohort SET inv_code = '" + row[1] + "' WHERE id = '" + str(row[0]) + "'")
 
