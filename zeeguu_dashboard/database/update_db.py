@@ -15,10 +15,11 @@ def update_cohort_db(cursor, database):
                        "Change invitation_code inv_code char(50) NOT NULL")
         cursor.execute("ALTER TABLE cohort "
                        "ADD UNIQUE (inv_code) ")
-        cursor.execute("SELECT id, name FROM cohort")
+        cursor.execute("SELECT id, name, inv_code FROM cohort")
         rows = cursor.fetchall()
         for row in rows:
-            cursor.execute("UPDATE cohort SET inv_code = '" + row[1] + "' WHERE id = '" + str(row[0]) + "'")
+            if row[2] is None:
+                cursor.execute("UPDATE cohort SET inv_code = '" + row[1] + "' WHERE id = '" + str(row[0]) + "'")
 
     # add column max_students
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
@@ -74,6 +75,8 @@ def main():
     cursor = connection.cursor()
 
     update_cohort_db(cursor, database)
+
+    #this doesn't do anything but it is good to see if we update db correctly
     get_cohort(cursor)
 
     disconnect_db(cursor, connection)
