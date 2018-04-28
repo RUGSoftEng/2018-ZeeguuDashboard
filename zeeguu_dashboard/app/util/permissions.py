@@ -16,23 +16,22 @@ def check_session():
         return True
     return False
 
-#General decorator to check if the teacher is logged in
-def has_session(func):
 
+# General decorator to check if the teacher is logged in
+def has_session(func):
     @wraps(func)
     def session_wrapper(*args, **kwargs):
 
         if check_session():
-           return func(*args, **kwargs)
+            return func(*args, **kwargs)
         else:
-          return redirect("login")
+            return redirect("login")
 
     return session_wrapper
 
 
-#Decorator to check if the teacher has access to a page.
+# Decorator to check if the teacher has access to a page.
 def has_class_permission(func):
-
     @wraps(func)
     def class_permission_wrapper(class_id):
         if not check_session():
@@ -46,8 +45,8 @@ def has_class_permission(func):
 
     return class_permission_wrapper
 
-def has_student_permission(func):
 
+def has_student_permission(func):
     @wraps(func)
     def student_permission_wrapper(user_id):
         if not check_session():

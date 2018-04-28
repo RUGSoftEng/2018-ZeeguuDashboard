@@ -4,12 +4,12 @@ from app.api.api_connection import api_get
 
 
 def load_user_info(user_id):
-    student_info = api_get('user_info/'+str(user_id))
+    student_info = api_get('user_info/' + str(user_id))
     return json.loads(student_info.text)
 
 
-def load_user_data(user_id, filtered = True):
-    stats_json = api_get("cohort_member_bookmarks/"+str(user_id)).text
+def load_user_data(user_id, filtered=True):
+    stats_json = api_get("cohort_member_bookmarks/" + str(user_id)).text
     stats = json.loads(stats_json)
     return stats
 

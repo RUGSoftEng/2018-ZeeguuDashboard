@@ -9,6 +9,7 @@ from app.util.permissions import has_session
 
 session_path = "session/"
 
+
 @app.route('/')
 def homepage():
     return redirect("/teacher")
@@ -27,13 +28,12 @@ def login():
     if form.validate_on_submit():
         email = form.email.data
         password = form.password.data
-        dict = {'password':password}
-        res = requests.post(app.config['API_PATH']+session_path+email, data =dict).text
+        dict = {'password': password}
+        res = requests.post(app.config['API_PATH'] + session_path + email, data=dict).text
 
-        response = make_response('cookie',200)
+        response = make_response('cookie', 200)
         response.set_cookie('sessionID', str(res), max_age=1000000)
 
         flask.session['sessionID'] = res
 
-    return render_template('loginpage.html', title = "login page",form=form)
-
+    return render_template('loginpage.html', title="login page", form=form)
