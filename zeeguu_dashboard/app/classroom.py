@@ -11,13 +11,13 @@ from app.util.permissions import has_class_permission, has_session
 @has_class_permission
 def load_class(class_id):
     students = load_students(class_id)
-    if(students is None):
+    if (students is None):
         return redirect('/')
     class_info = load_class_info(class_id)
-    return render_template('classpage.html', title= class_info['name'], students=students, class_info = class_info)
+    return render_template('classpage.html', title=class_info['name'], students=students, class_info=class_info)
 
 
-@app.route('/edit_class/<class_id>/', methods=['GET','POST'])
+@app.route('/edit_class/<class_id>/', methods=['GET', 'POST'])
 @has_class_permission
 def edit_class(class_id):
     class_info = load_class_info(class_id)
@@ -27,9 +27,9 @@ def edit_class(class_id):
         name = form.class_name.data
         max_students = form.max_students.data
         package = {'name': name, 'inv_code': inv_code, 'max_students': max_students}
-        api_post('update_cohort/'+str(class_id),package)
+        api_post('update_cohort/' + str(class_id), package)
         return redirect('/')
-    return render_template('edit_class.html', title = 'Edit classroom', form=form, class_info = class_info)
+    return render_template('edit_class.html', title='Edit classroom', form=form, class_info=class_info)
 
 
 @app.route('/remove_class/<class_id>/')
@@ -39,7 +39,7 @@ def remove_classroom(class_id):
     return redirect('/')
 
 
-@app.route('/create_classroom/',  methods=['GET', 'POST'])
+@app.route('/create_classroom/', methods=['GET', 'POST'])
 @has_session
 def create_classroom():
     form = CreateCohort()
@@ -49,9 +49,9 @@ def create_classroom():
         max_students = form.max_students.data
         language_id = form.class_language_id.data
         package = {'name': name, 'inv_code': inv_code, 'max_students': max_students,
-                  'language_id': language_id}
+                   'language_id': language_id}
         print(package)
-        api_post('create_own_cohort',package)
+        api_post('create_own_cohort', package)
         return redirect('/')
 
-    return render_template('createcohort.html', title = 'Create classroom', form=form)
+    return render_template('createcohort.html', title='Create classroom', form=form)

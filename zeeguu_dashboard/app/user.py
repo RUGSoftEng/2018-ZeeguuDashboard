@@ -8,6 +8,6 @@ from app.util.user import load_user_data, load_user_info
 @app.route('/student/<user_id>/')
 @has_student_permission
 def load_user(user_id):
-    stats = load_user_data(user_id = user_id)
+    stats = load_user_data(user_id=user_id)
     info = load_user_info(user_id)
-    return render_template("studentpage.html", title=info['name'], info = info, stats = stats)
+    return render_template("studentpage.html", title=info['name'], info=info, stats=stats)
