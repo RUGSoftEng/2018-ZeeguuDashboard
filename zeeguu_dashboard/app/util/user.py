@@ -20,7 +20,7 @@ def load_user_data(user_id, filtered=True):
 def filter_user_bookmarks(dict):
     word_string = " "
     for day in dict:
-        for bookmark in day["bookmar1ks"]:
+        for bookmark in day["bookmarks"]:
             if bookmark["from"] in word_string:
                 day["bookmarks"].remove(bookmark)
             else:
