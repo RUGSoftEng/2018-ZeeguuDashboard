@@ -1,0 +1,9 @@
+language: python
+
+python:
+  - "3.6"
+
+script:
+  - "cd zeeguu_dashboard"
+  - "python -m pytest"
+  - "cd .."
