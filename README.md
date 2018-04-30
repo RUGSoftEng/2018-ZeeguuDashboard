@@ -1,5 +1,9 @@
+
+
 # Zeeguu Dashboard
 
+
+[![Build Status](https://travis-ci.org/RUGSoftEng/2018-ZeeguuDashboard.svg?branch=develop)](https://travis-ci.org/RUGSoftEng/2018-ZeeguuDashboard)
 
 ## What is Zeeguu and what is this project about? (Zeeguu Dashboard
 
