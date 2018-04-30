@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 bootstrap = Bootstrap(app)
 
-from app import routes
+from app.page_routes import homepage, errorpages, login, studentpage, classroom
 
 arguments = sys.argv
 if len(arguments) > 0:

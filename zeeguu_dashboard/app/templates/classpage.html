@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog" style="padding-right: 20%; padding-left: 20%;">
@@ -30,81 +28,76 @@
         </div>
     </div>
 
-<!-- Container fluid  -->
-<div class="container-fluid">
-    <!-- Start Page Content -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Class</h4>
-                    <div class="table-responsive m-t-40">
-                        <table id="example23" class="display nowrap table table-hover" cellspacing="0" width="100%">
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start Page Content -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Class</h4>
+                        <div class="table-responsive m-t-40">
+                            <table id="example23" class="display nowrap table table-hover" cellspacing="0" width="100%">
 
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Reading / Exercises</th>
-                                <th>Time</th>
-                            </tr>
-                            </thead>
-
-
-                            <tbody>
-
-                            {% for student in students %}
+                                <thead>
                                 <tr>
-                                    <td width="22%">
-                                        <h5><a href={{'/student/'+student.id }}> <div class="text-inverse">{{ student.name }}</div></a></h5>
-                                    </td>
-
-                                    <td width="69%">
-                                        <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
-                                            <div class="progress-bar bg-primary wow animated progress-animated" role="progressbar"
-                                                 style="width: {{(100*student.reading_time/(student.exercises_done+student.reading_time))}}%;">
-                                                {{(100*student.reading_time/(student.exercises_done+student.reading_time))|round|int}}%
-                                            </div>
-                                            <div class="progress-bar bg-success wow animated progress-animated" role="progressbar"
-                                                 style="width: {{100*student.exercises_done/(student.exercises_done+student.reading_time)}}%; background-color: #607D8B !important;">
-                                                {{(100*student.exercises_done/(student.exercises_done+student.reading_time))|round|int}}%
-                                            </div>
-
-                                        </div>
-                                    </td>
-
-                                    <td width="9%">
-                                        <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
-                                            {{ ((student.exercises_done + student.reading_time)/60)|int}} h
-                                            {{ ((student.exercises_done + student.reading_time)%60)|int}} m
-                                        </div>
-                                    </td>
+                                    <th>Name</th>
+                                    <th>Reading / Exercises</th>
+                                    <th>Time</th>
                                 </tr>
-                            {% endfor %}
-
-                            </tbody>
+                                </thead>
 
 
-                        </table>
+                                <tbody>
+
+                                {% for student in students %}
+                                    <tr>
+                                        <td width="22%">
+                                            <h5><a href={{'/student/'+student.id +'/' }}> <div class="text-inverse">{{ student.name }}</div></a></h5>
+                                        </td>
+
+                                        <td width="69%">
+                                            <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
+                                                <div class="progress-bar bg-primary wow animated progress-animated" role="progressbar"
+                                                     style="width: {{(100*student.reading_time/(student.exercises_done+student.reading_time))}}%;">
+                                                    {{(100*student.reading_time/(student.exercises_done+student.reading_time))|round|int}}%
+                                                </div>
+                                                <div class="progress-bar bg-success wow animated progress-animated" role="progressbar"
+                                                     style="width: {{100*student.exercises_done/(student.exercises_done+student.reading_time)}}%; background-color: #607D8B !important;">
+                                                    {{(100*student.exercises_done/(student.exercises_done+student.reading_time))|round|int}}%
+                                                </div>
+
+                                            </div>
+                                        </td>
+
+                                        <td width="9%">
+                                            <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
+                                                {{ ((student.exercises_done + student.reading_time)/60)|int}} h
+                                                {{ ((student.exercises_done + student.reading_time)%60)|int}} m
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+
+
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End PAge Content -->
-</div>
-    <!-- End Page wrapper  -->
 
 
-
-
-<!-- End Wrapper -->
-<!-- All Jquery -->
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
     <script src="{{ url_for('static', filename='js/lib/jquery/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/datatables/datatables.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/datatables/datatables-init.js') }}"></script>
 
 {% endblock %}
-
 
 
 {% block buttons %}
