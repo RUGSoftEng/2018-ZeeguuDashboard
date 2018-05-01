@@ -2,67 +2,121 @@
 
 {% block content %}
 
-    <div class="row page-titles" style="border-radius: 10px">
-
-            <div class="card-title">
-                <h4>Class</h4>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-
-                        <tr>
-                            <th>Name</th>
-                            <th>Reading</th>
-                            <th>Exercises</th>
-                            <th>Last Activity</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-
-                        {% for student in students %}
-                        <tr>
-                            <td width="15%">{{ student.name }}</td>
-                            <td width="35%">
-                               <div class="pull-right"> <h7 class="m-t-0" style="padding-left:10px;">{{ student.reading_time}}min</h7></div>
-                                <div class="progress " style="margin-bottom: 5%; margin-top: 5%">
-                                    <div class="progress-bar bg-danger wow animated progress-animated" style="width: {{ (student.reading_time/60)*100 }}%;" role="progressbar"> </div>
-                                </div>
-                            </td>
-                            <td width="35%">
-                                <div class="pull-right"> <h7 class="m-t-0" style="padding-left: 10px">{{ student.exercises_done}}min</h7></div>
-                                <div class="progress " style="margin-bottom: 5%; margin-top: 5%">
-                                    <div class="progress-bar bg-warning wow animated progress-animated" style="width:{{(student.exercises_done/60)*100}}%;" role="progressbar"> </div>
-                                </div>
-                            </td>
-                            <td width="15%">
-                                {% if student.last_article %}
-                                <span class="badge badge-inverse">{{ student.last_article}}</span>
-                                {% else %}
-                                <span class="badge badge-sm">{{ student.last_acticle}}</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <a href={{'/student/'+student.id}}>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ student.id }}">
-                                    Details
-                                </button>
-                                </a>
-
-
-                            </td>
-                        </tr>
-                        {% endfor %}
-
-
-                        </tbody>
-                    </table>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog" style="padding-right: 20%; padding-left: 20%;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title" style="color: white">{{ class_info.name }}</h2>
+                </div>
+                <div class="modal-body">
+                    <h6 style="color: whitesmoke">Language: {{ class_info.language_name }}</h6>
+                    <h6 style="color: whitesmoke">Invite Code: {{ class_info.inv_code }}</h6>
+                    <h6 style="color: whitesmoke">Number of students: {{ class_info.cur_students }}</h6>
+                    <h6 style="color: whitesmoke">Max students: {{ class_info.max_students }}</h6>
+                </div>
+                <div class="modal-footer">
+                    <a href={{'/remove_class/' + class_info.id }}>
+                        <button type="button" class="btn btn-default bg-danger" style="border-color: #455a64">Delete Class</button>
+                    </a>
+                    <a href={{'/edit_class/' + class_info.id }}>
+                        <button type="button" class="btn btn-default bg-primary" style="border-color: #455a64">Edit</button>
+                    </a>
                 </div>
             </div>
+        </div>
     </div>
 
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start Page Content -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Class</h4>
+                        <div class="table-responsive m-t-40">
+                            <table id="example23" class="display nowrap table table-hover" cellspacing="0" width="100%">
+
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Reading / Exercises</th>
+                                    <th>Time</th>
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+
+                                {% for student in students %}
+                                    <tr>
+                                        <td width="22%">
+                                            <h5><a href={{'/student/'+student.id +'/' }}> <div class="text-inverse">{{ student.name }}</div></a></h5>
+                                        </td>
+
+                                        <td width="69%">
+                                            <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
+                                                <div class="progress-bar bg-primary wow animated progress-animated" role="progressbar"
+                                                     style="width: {{(100*student.reading_time/(student.exercises_done+student.reading_time))}}%;">
+                                                    {{(100*student.reading_time/(student.exercises_done+student.reading_time))|round|int}}%
+                                                </div>
+                                                <div class="progress-bar bg-success wow animated progress-animated" role="progressbar"
+                                                     style="width: {{100*student.exercises_done/(student.exercises_done+student.reading_time)}}%; background-color: #607D8B !important;">
+                                                    {{(100*student.exercises_done/(student.exercises_done+student.reading_time))|round|int}}%
+                                                </div>
+
+                                            </div>
+                                        </td>
+
+                                        <td width="9%">
+                                            <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
+                                                {{ ((student.exercises_done + student.reading_time)/60)|int}} h
+                                                {{ ((student.exercises_done + student.reading_time)%60)|int}} m
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <script src="{{ url_for('static', filename='js/lib/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/datatables/datatables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/datatables/datatables-init.js') }}"></script>
+
+{% endblock %}
+
+
+{% block buttons %}
+
+    <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important" data-toggle="modal" data-target="#myModal">
+        &#9432
+    </button>
+
+    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"><</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        $(".progress-bar").animate({
+            width: "70%"
+        }, 2500);
+
+    </script>
 
 {% endblock %}

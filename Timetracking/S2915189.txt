@@ -119,3 +119,67 @@
 26/03: Working on Getting user data with jakob
 26/03: Working on Getting user data with jakob
 26/03: Working on updating and reformating Documentation
+26/03: Working on updating and reformating Documentation
+26/03: Working on updating and reformating Documentation
+26/03: Working on updating and reformating Documentation
+26/03: Working on updating and reformating Documentation
+26/03: Working on updating and reformating Documentation 
+28/03: Meeting and other organisations
+28/03: Meeting and other organisations
+28/03: Meeting and other organisations
+28/03: Meeting and other organisations
+28/03: Meeting and other organisations
+28/03: Meeting and other organisations
+28/03: Meeting and other organisations
+28/03: Meeting and other organisations
+28/03: Meeting and other organisations
+29/03: Figuring out API unit tests
+29/03: Figuring out API unit tests
+29/03: Figuring out API unit tests
+29/03: Figuring out API unit tests
+30/03: Changing api to allow get_class_info and remove_class
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+31/03: Working at ub on Arch and unit test and other
+18/04: Fixing API and CORE with regard to integration changes
+18/04: Fixing API and CORE with regard to integration changes
+18/04: Fixing API and CORE with regard to integration changes
+18/04: Fixing API and CORE with regard to integration changes
+18/04: Fixing API and CORE with regard to integration changes
+22/04: Updating CORE and APi with more integration changes
+22/04: Updating CORE and APi with more integration changes
+22/04: Updating CORE and APi with more integration changes
+22/04: Fixing web side function calls
+22/04: Fixing web side function calls
+22/04: Fixing web side function calls
+22/04: Updating API with more integration changes.
+22/04: Updating API with more integration changes.
+22/04: Updating API with more integration changes.
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
+28/04: Updating API and other
