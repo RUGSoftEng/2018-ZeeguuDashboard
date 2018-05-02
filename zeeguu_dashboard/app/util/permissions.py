@@ -51,13 +51,14 @@ def has_class_permission(func):
 
 # This function checks if an authenticated user has permission to check a student page.
 def has_student_permission(func):
+
     @wraps(func)
-    def student_permission_wrapper(student_id):
+    def student_permission_wrapper(student_id, time):
         if not check_session():
             return redirect('401')
         permission_check = api_connection.api_get('has_permission_for_user_info/' + str(student_id)).text
-        if permission_check == "OK":
-            return func(student_id)
+        if permission_check == "OK" and int(time) < 366:
+            return func(student_id, time)
         else:
             return redirect('401')
 
