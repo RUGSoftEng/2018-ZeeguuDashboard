@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="container-fluid" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
-                <h1 style="text-align: center; font-size: 42px">{{ info.name }}</h1>
+        <h1 style="text-align: center; font-size: 42px">{{ info.name }}</h1>
         <hr>
     </div>
 
@@ -30,7 +30,7 @@
                 <small>{{ bookmark.context }}</small>
             </div>
         {% endfor %}
-        <br>
+        <hr>
     {% endfor %}
 
 {% endblock %}
@@ -50,10 +50,7 @@
         </div>
     </div>
 
-
     <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"><</button>
-
-
 
     <script>
         function goBack() {
