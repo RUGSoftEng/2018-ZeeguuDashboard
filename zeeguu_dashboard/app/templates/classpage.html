@@ -28,65 +28,55 @@
         </div>
     </div>
 
-    <!-- Container fluid  -->
-    <div class="container-fluid">
-        <!-- Start Page Content -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Class</h4>
-                        <div class="table-responsive m-t-40">
-                            <table id="example23" class="display nowrap table table-hover" cellspacing="0" width="100%">
+    <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
+        <h4 class="card-title">{{ class_info.name }}</h4>
+        <div class="table-responsive m-t-40">
+            <table id="example23" class="display nowrap table table-hover" cellspacing="0" width="100%">
 
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Reading / Exercises</th>
-                                    <th>Time</th>
-                                </tr>
-                                </thead>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Reading / Exercises</th>
+                    <th>Time</th>
+                </tr>
+                </thead>
 
 
-                                <tbody>
+                <tbody>
 
-                                {% for student in students %}
-                                    <tr>
-                                        <td width="22%">
-                                            <h5><a href={{'/student/'+student.id +'/' }}> <div class="text-inverse">{{ student.name }}</div></a></h5>
-                                        </td>
+                {% for student in students %}
+                    <tr>
+                        <td width="22%">
+                            <h5><a href={{'/student/'+student.id +'/'+'14/' }}> <div class="text-inverse">{{ student.name }}</div></a></h5>
+                        </td>
 
-                                        <td width="69%">
-                                            <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
-                                                <div class="progress-bar bg-primary wow animated progress-animated" role="progressbar"
-                                                     style="width: {{(100*student.reading_time/(student.exercises_done+student.reading_time))}}%;">
-                                                    {{(100*student.reading_time/(student.exercises_done+student.reading_time))|round|int}}%
-                                                </div>
-                                                <div class="progress-bar bg-success wow animated progress-animated" role="progressbar"
-                                                     style="width: {{100*student.exercises_done/(student.exercises_done+student.reading_time)}}%; background-color: #607D8B !important;">
-                                                    {{(100*student.exercises_done/(student.exercises_done+student.reading_time))|round|int}}%
-                                                </div>
+                        <td width="69%">
+                            <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
+                                <div class="progress-bar bg-primary wow animated progress-animated" role="progressbar"
+                                     style="width: {{(100*student.reading_time/(student.exercises_done+student.reading_time))}}%;">
+                                    {{(100*student.reading_time/(student.exercises_done+student.reading_time))|round|int}}%
+                                </div>
+                                <div class="progress-bar bg-success wow animated progress-animated" role="progressbar"
+                                     style="width: {{100*student.exercises_done/(student.exercises_done+student.reading_time)}}%; background-color: #607D8B !important;">
+                                    {{(100*student.exercises_done/(student.exercises_done+student.reading_time))|round|int}}%
+                                </div>
 
-                                            </div>
-                                        </td>
+                            </div>
+                        </td>
 
-                                        <td width="9%">
-                                            <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
-                                                {{ ((student.exercises_done + student.reading_time)/60)|int}} h
-                                                {{ ((student.exercises_done + student.reading_time)%60)|int}} m
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
+                        <td width="9%">
+                            <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
+                                {{ ((student.exercises_done + student.reading_time)/60)|int}} h
+                                {{ ((student.exercises_done + student.reading_time)%60)|int}} m
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
 
-                                </tbody>
+                </tbody>
 
 
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </table>
         </div>
     </div>
 

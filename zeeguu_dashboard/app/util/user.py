@@ -11,9 +11,10 @@ def load_user_info(user_id):
     return json.loads(student_info.text)
 
 
-def load_user_data(user_id, filtered=True):
-    stats_json = api_get("cohort_member_bookmarks/" + str(user_id)).text
+def load_user_data(user_id, time, filtered=True):
+    stats_json = api_get("cohort_member_bookmarks/" + str(user_id) + "/" + str(time)).text
     stats = json.loads(stats_json)
+    print stats
     return stats
 
 
