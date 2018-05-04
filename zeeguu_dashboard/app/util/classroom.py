@@ -14,8 +14,7 @@ def create_class(name, inv_code, max_students, language_id):
 
 
 def remove_class(class_id):
-    dict = {}
-    api_post('remove_cohort/' + str(class_id), dict)
+    api_post('remove_cohort/' + str(class_id))
 
 
 def load_class_info(class_id):

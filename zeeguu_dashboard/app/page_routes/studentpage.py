@@ -4,6 +4,7 @@ from app import app
 from app.util.permissions import has_student_permission
 from app.util.user import load_user_data, load_user_info, filter_user_bookmarks
 
+
 # This file contains the route to load the student page.
 @app.route('/student/<student_id>/<time>/', methods=['GET'])
 @has_student_permission

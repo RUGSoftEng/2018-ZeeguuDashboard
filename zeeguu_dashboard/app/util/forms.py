@@ -39,4 +39,4 @@ class EditCohort(FlaskForm):
 class CreateLogin(FlaskForm):
     email = StringField('username', validators=[DataRequired()])
     password = StringField('password', validators=[DataRequired()])
-    submit = SubmitField('Create classroom')
+    submit = SubmitField('Login')

@@ -7,9 +7,9 @@ from app import app
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("404.html", exception=e)
+    return render_template("errorpage.html", exception=e)
 
 
 @app.errorhandler(401)
 def invalid_credentials(e):
-    return render_template("404.html", exception=e)
+    return render_template("errorpage.html", exception=e)
