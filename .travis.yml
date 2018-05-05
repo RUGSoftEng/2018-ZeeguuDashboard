@@ -4,10 +4,16 @@ python:
   - "3.6"
 
 env:
-  - ZEEGUU_CORE_CONFIG=core/default_core.cfg
-  - DASHBOARD_API=local
+  - ZEEGUU_CORE_CONFIG=core/default_core.cfg DASHBOARD_API=local
+
+cache:
+  pip: true
 
 before_install:
+  - pip install jieba3k coveralls nltk
+  - python -m nltk.downloader -d ~/nltk_data punkt
+
+install:
   - "git clone -b dashboard https://github.com/zeeguu-ecosystem/Zeeguu-Core.git core"
   - "pushd core"
   - "./ubuntu_install.sh"
