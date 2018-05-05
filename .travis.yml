@@ -9,10 +9,6 @@ env:
 cache:
   pip: true
 
-before_install:
-  - pip install jieba3k coveralls nltk
-  - python -m nltk.downloader -d ~/nltk_data punkt
-
 install:
   - "git clone -b dashboard https://github.com/zeeguu-ecosystem/Zeeguu-Core.git core"
   - "pushd core"
@@ -20,6 +16,8 @@ install:
   - "popd"
   - "git clone -b dashboard https://github.com/zeeguu-ecosystem/Zeeguu-API.git api"
   - "pushd api"
+  - "pip install jieba3k coveralls nltk constants"
+  - "python -m nltk.downloader -d ~/nltk_data punkt"
   - "python setup.py develop"
   - "./run_tests"
   - "./api_test.sh"
