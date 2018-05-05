@@ -3,7 +3,24 @@ language: python
 python:
   - "3.6"
 
+env:
+  - ZEEGUU_CORE_CONFIG=core/default_core.cfg
+  - DASHBOARD_API=local
+
+before_install:
+  - "git clone -b dashboard https://github.com/zeeguu-ecosystem/Zeeguu-Core.git core"
+  - "pushd core"
+  - "./ubuntu_install.sh"
+  - "popd"
+  - "git clone -b dashboard https://github.com/zeeguu-ecosystem/Zeeguu-API.git api"
+  - "pushd api"
+  - "python setup.py develop"
+  - "./run_tests"
+  - "./api_test.sh"
+  - "curl localhost:9001/available_languages"
+  - "popd"
+
 script:
-  - "cd zeeguu_dashboard"
-  - "python -m pytest"
-  - "cd .."
+  - "pushd zeeguu_dashboard"
+  - "python app/tests.py"
+  - "popd"
