@@ -10,4 +10,4 @@ install:
   - pip install -r zeeguu_dashboard/requirements.txt
 
 script:
-  - nose2
+  - python zeeguu_dashboard/tests/test_foo.py

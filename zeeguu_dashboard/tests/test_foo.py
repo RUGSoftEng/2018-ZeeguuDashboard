@@ -1,17 +1,15 @@
 import unittest
 from unittest.mock import patch
 
-from app import app
 from app.util import classroom
 
 
 class TestCase(unittest.TestCase):
     def setUp(self):
-        self.app_context = app.app_context()
-        self.app_context.push()
+        pass
 
     def tearDown(self):
-        self.app_context.pop()
+        pass
 
     @patch('app.util.classroom.api_connection')
     def test_create_class(self, mock_api_connection):
@@ -26,6 +24,13 @@ class TestCase(unittest.TestCase):
                                                                               'max_students': max_students,
                                                                               'language_id': language_id})
 
+    @patch('app.util.classroom.api_connection')
+    def test_remove_class(self, mock_api_connection):
+        dict = {}
+        class_id = 0
+        classroom.remove_class(class_id)
+        mock_api_connection.api_post.assert_called_with('remove_cohort/' + str(class_id), dict)
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     unittest.main()
