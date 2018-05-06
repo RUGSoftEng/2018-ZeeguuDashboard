@@ -8,9 +8,9 @@ env:
 
 install:
   - pip install -r zeeguu_dashboard/requirements.txt
-  - export PYTHONPATH=$PYTHONPATH:$(pwd)
 
 script:
+  - export PYTHONPATH=$PYTHONPATH:$(pwd)
   - pushd zeeguu_dashboard/tests/
   - python test_foo.py
   - popd
