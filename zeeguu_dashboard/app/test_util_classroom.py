@@ -4,7 +4,7 @@ from unittest.mock import patch
 from app.util import classroom
 
 
-class TestCase(unittest.TestCase):
+class TestUtilClassroom(unittest.TestCase):
     def setUp(self):
         pass
 
