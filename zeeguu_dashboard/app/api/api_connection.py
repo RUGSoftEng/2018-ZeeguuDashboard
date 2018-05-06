@@ -17,7 +17,7 @@ def api_post(path, package=None):
     :param package: Any information sent to the Zeeguu_API.
     :return: Returns the response of the Zeeguu_API.
     """
-    _api_call('post', path=path, package=package)
+    return _api_call('post', path=path, package=package)
 
 
 def api_get(path):

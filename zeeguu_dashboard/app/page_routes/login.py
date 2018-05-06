@@ -9,7 +9,6 @@ from app.forms.create_login import CreateLogin
 This file contains the route for user login.
 """
 
-
 session_path = "session/"
 
 
