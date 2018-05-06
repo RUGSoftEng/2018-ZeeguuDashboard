@@ -1,4 +1,4 @@
-from flask import redirect, render_template
+from flask import redirect, render_template, request
 
 from app import app
 from app.api.api_connection import api_post
@@ -29,8 +29,10 @@ def load_class(class_id):
     if students is None:
         return redirect('/')
     class_info = load_class_info(class_id)
-    return render_template('classpage.html', title=class_info['name'], students=students, class_info=class_info)
-
+    time = request.cookies.get('time')
+    if not time:
+        time = 14
+    return render_template('classpage.html', title=class_info['name'], students=students, class_info=class_info, time=str(time))
 
 @app.route('/edit_class/<class_id>/', methods=['GET', 'POST'])
 @has_class_permission
