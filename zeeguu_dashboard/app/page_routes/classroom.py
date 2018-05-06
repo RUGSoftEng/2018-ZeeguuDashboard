@@ -17,6 +17,11 @@ This file takes care of all of the class related page_routes:
 @app.route('/class/<class_id>/')
 @has_class_permission
 def load_class(class_id):
+    """
+
+    :param class_id:
+    :return:
+    """
     students = load_students(class_id)
     if students is None:
         return redirect('/')
@@ -27,6 +32,11 @@ def load_class(class_id):
 @app.route('/edit_class/<class_id>/', methods=['GET', 'POST'])
 @has_class_permission
 def edit_class(class_id):
+    """
+
+    :param class_id:
+    :return:
+    """
     class_info = load_class_info(class_id)
     form = EditCohort()
     if form.validate_on_submit():
@@ -42,6 +52,11 @@ def edit_class(class_id):
 @app.route('/remove_class/<class_id>/')
 @has_class_permission
 def remove_classroom(class_id):
+    """
+
+    :param class_id:
+    :return:
+    """
     remove_class(class_id)
     return redirect('/')
 
@@ -49,6 +64,10 @@ def remove_classroom(class_id):
 @app.route('/create_classroom/', methods=['GET', 'POST'])
 @has_session
 def create_classroom():
+    """
+
+    :return:
+    """
     form = CreateCohort()
     if form.validate_on_submit():
         name = form.class_name.data

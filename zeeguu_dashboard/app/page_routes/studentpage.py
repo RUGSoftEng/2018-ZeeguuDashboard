@@ -11,6 +11,12 @@ This file contains the route to load the student page.
 @app.route('/student/<student_id>/<time>/', methods=['GET'])
 @has_student_permission
 def student_page(student_id, time):
+    """
+
+    :param student_id:
+    :param time:
+    :return:
+    """
     bookmarks = load_user_data(user_id=student_id, time=time)
     info = load_user_info(student_id)
     bookmarks = filter_user_bookmarks(bookmarks)

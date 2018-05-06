@@ -1,8 +1,16 @@
 import sys
 import MySQLdb
 
-
+"""
+This file
+"""
 def reset_cohort_db(cursor, database):
+    """
+
+    :param cursor:
+    :param database:
+    :return:
+    """
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
@@ -33,6 +41,11 @@ def reset_cohort_db(cursor, database):
 
 
 def get_cohort(cursor):
+    """
+
+    :param cursor:
+    :return:
+    """
     query = "SELECT * FROM cohort "
     cursor.execute(query)
     print('''SELECT * FROM cohort:''')
@@ -43,12 +56,21 @@ def get_cohort(cursor):
 
 
 def disconnect_db(cursor, connection):
+    """
+
+    :param cursor:
+    :param connection:
+    :return:
+    """
     cursor.close()
     connection.close()
 
 
 def main():
-    """for now fixed code for the below information of database"""
+    """
+
+    :return:
+    """
     host = "localhost"
     user = "root"
     password = "12345678"

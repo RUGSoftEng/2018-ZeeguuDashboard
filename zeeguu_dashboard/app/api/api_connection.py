@@ -13,14 +13,29 @@ This file contains the functions responsible for making calls to the Zeeguu serv
 
 
 def api_post(path, package=None):
+    """
+    :param path:
+    :param package:
+    :return:
+    """
     _api_call('post', path=path, package=package)
 
 
 def api_get(path):
+    """
+    :param path:
+    :return:
+    """
     return _api_call('get', path=path)
 
 
 def _api_call(func, path, package=None):
+    """
+    :param func:
+    :param path:
+    :param package:
+    :return:
+    """
     params = {
         'session': flask.session['sessionID']
     }

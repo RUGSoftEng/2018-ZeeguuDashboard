@@ -16,6 +16,10 @@ session_path = "session/"
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
+    """
+
+    :return:
+    """
     form = CreateLogin()
     if form.validate_on_submit():
         email = form.email.data
