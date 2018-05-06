@@ -1,10 +1,12 @@
 import sys
 import MySQLdb
 
-# This file contains the scripts for converting the new Zeeguu database back to the old version for this project.
+"""
+This file contains the scripts for converting the new Zeeguu database back to the old version for this project.
+"""
 
 """
-for now fixed code for the below information of database
+For now fixed code for the below information of database
 """
 host = "localhost"
 user = "root"
@@ -13,6 +15,11 @@ database = 'zeeguu_test'
 
 
 def main():
+    """
+    This connects to and downgrades the database
+    :param:
+    :return:
+    """
     try:
         connection = MySQLdb.connect (host = host,
                                       user = user,
@@ -26,15 +33,25 @@ def main():
 
     downgrade_cohort_db(cursor, database)
 
-    """this doesn't do anything but it is good to see if we update db correctly"""
+    """
+    This doesn't do anything but it is good to see if we update db correctly
+    """
     get_cohort(cursor)
 
     disconnect_db(cursor, connection)
 
 
 def downgrade_cohort_db(cursor, database):
+    """
+    This downgrades the cohort database table
+    :param cursor:
+    :param database:
+    :return:
+    """
 
-    """drop max_students"""
+    """
+    Drop max_students column
+    """
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
@@ -44,7 +61,9 @@ def downgrade_cohort_db(cursor, database):
         cursor.execute("ALTER TABLE cohort "
                        "DROP COLUMN max_students")
 
-    """drop language_id and remove foreign key"""
+    """
+    Remove foreign key and drop column language_id
+    """
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
@@ -55,7 +74,9 @@ def downgrade_cohort_db(cursor, database):
         cursor.execute("ALTER TABLE cohort "
                        "DROP COLUMN language_id")
 
-    """change inv_code back to invitation_code"""
+    """
+    Change inv_code back to invitation_code
+    """
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
@@ -67,6 +88,11 @@ def downgrade_cohort_db(cursor, database):
 
 
 def get_cohort(cursor):
+    """
+    Checkout the cohort table
+    :param cursor:
+    :return:
+    """
     query = "SELECT * FROM cohort "
     cursor.execute(query)
     print('''SELECT * FROM cohort:''')
@@ -77,6 +103,12 @@ def get_cohort(cursor):
 
 
 def disconnect_db(cursor, connection):
+    """
+    Disconnect the database
+    :param cursor:
+    :param connection:
+    :return:
+    """
     cursor.close()
     connection.close()
 

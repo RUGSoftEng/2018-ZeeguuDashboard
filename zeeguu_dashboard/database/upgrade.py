@@ -1,24 +1,30 @@
 import sys
 import MySQLdb
 
-
-# This file contains the scripts for migrating the old Zeeguu database to the new version for this project.
+"""
+This file contains the scripts for migrating the old Zeeguu database to the new version for this project.
+"""
 
 """
-for now fixed code for the below information of database
+For now fixed code for the below information of database
 """
 host = "localhost"
 user = "root"
 password = "12345678"
 database = 'zeeguu_test'
 
-def main():
 
+def main():
+    """
+    This connects to and upgrades the database
+    :param:
+    :return:
+    """
     try:
-        connection = MySQLdb.connect (host = host,
-                                      user = user,
-                                      passwd = password,
-                                      db = database)
+        connection = MySQLdb.connect(host=host,
+                                     user=user,
+                                     passwd=password,
+                                     db=database)
 
     except MySQLdb.Error as e:
         print("Error %d: %s" % (e.args[0], e.args[1]))
@@ -28,15 +34,25 @@ def main():
 
     upgrade_cohort_db(cursor, database)
 
-    """this doesn't do anything but it is good to see if we update db correctly"""
+    """
+    this doesn't do anything but it is good to see if we update db correctly
+    """
     get_cohort(cursor)
 
     disconnect_db(cursor, connection)
 
 
 def upgrade_cohort_db(cursor, database):
+    """
+    This upgrades the cohort database table
+    :param cursor:
+    :param database:
+    :return:
+    """
 
-    """rename invitation_code to inv_code column"""
+    """
+    Rename invitation_code to inv_code column
+    """
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
@@ -50,12 +66,16 @@ def upgrade_cohort_db(cursor, database):
         cursor.execute("SELECT id, name, inv_code FROM cohort")
         rows = cursor.fetchall()
         for row in rows:
-            #if no the class has no inv_code, set the name as same as inv_code
+            """
+            if no the class has no inv_code, set the name as same as inv_code
+            """
             if row[2] is None:
                 cursor.execute("UPDATE cohort SET inv_code = '" + row[1] +
                                "' WHERE id = " + str(row[0]) + "")
 
-    """add column max_students"""
+    """
+    Add column max_students
+    """
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
@@ -65,7 +85,9 @@ def upgrade_cohort_db(cursor, database):
         cursor.execute("ALTER TABLE cohort "
                        "ADD max_students int NOT NULL DEFAULT 30")
 
-    """add class_language_id column"""
+    """
+    Add class_language_id column and name the foreign key
+    """
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
@@ -78,17 +100,28 @@ def upgrade_cohort_db(cursor, database):
                        "ADD CONSTRAINT FK_language_id "
                        "FOREIGN KEY (language_id) REFERENCES language (id)")
 
+
 def get_cohort(cursor):
+    """
+    Checkout the cohort table
+    :param cursor:
+    :return:
+    """
     query = "SELECT * FROM cohort "
     cursor.execute(query)
     print('''SELECT * FROM cohort:''')
     result = cursor.fetchall()
     for r in result:
         print(r)
-    return result
 
 
 def disconnect_db(cursor, connection):
+    """
+    Disconnect the database
+    :param cursor:
+    :param connection:
+    :return:
+    """
     cursor.close()
     connection.close()
 
