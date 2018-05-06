@@ -77,7 +77,7 @@ def has_student_permission(func):
     @wraps(func)
     def student_permission_wrapper(student_id, time):
         """
-
+    
         :param student_id:
         :param time:
         :return:
