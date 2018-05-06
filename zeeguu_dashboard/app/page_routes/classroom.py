@@ -19,9 +19,10 @@ This file takes care of all of the class related page_routes:
 @has_class_permission
 def load_class(class_id):
     """
-    Loads a class
-    :param class_id:
-    :return:
+    Function for loading a class of students when the proper route '/class/<class_id>/' is called.
+    Requires permission (the logged in user must be a teacher of the class).
+    :param class_id: The id number of the class.
+    :return: Renders and returns a class page.
     """
     students = load_students(class_id)
     if students is None:
@@ -34,9 +35,10 @@ def load_class(class_id):
 @has_class_permission
 def edit_class(class_id):
     """
-
-    :param class_id:
-    :return:
+    Function for loading an edit class page when the proper route '/edit_class/<class_id>' is called.
+    Requires permission (the logged in user must be a teacher of the class).
+    :param class_id: The id number of the class.
+    :return: Renders and returns an edit class page.
     """
     class_info = load_class_info(class_id)
     form = EditCohort()
@@ -54,9 +56,11 @@ def edit_class(class_id):
 @has_class_permission
 def remove_classroom(class_id):
     """
-
-    :param class_id:
-    :return:
+    Function for removing a class when the proper route '/remove_class/<class_id>' is called.
+    Removes the class and redirects the user to the home page.
+    Requires permission (the logged in user must be a teacher of the class).
+    :param class_id: The id number of the class.
+    :return: Redirects the user to the home page.
     """
     remove_class(class_id)
     return redirect('/')
@@ -66,8 +70,9 @@ def remove_classroom(class_id):
 @has_session
 def create_classroom():
     """
-
-    :return:
+    Function for loading a create class page when the proper route '/create_classroom/' is called.
+    Requires a session (the user must be logged in).
+    :return: Renders and returns a create class page.
     """
     form = CreateCohort()
     if form.validate_on_submit():
