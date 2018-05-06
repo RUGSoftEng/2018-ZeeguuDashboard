@@ -9,8 +9,6 @@ from app.forms.create_login import CreateLogin
 This file contains the route for user login.
 """
 
-session_path = "session/"
-
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -23,6 +21,7 @@ def login():
     This is then used to authenticate the user.
     :return: Renders and returns the login page with the flask form.
     """
+    session_path = "session/"
     form = CreateLogin()
     if form.validate_on_submit():
         email = form.email.data
