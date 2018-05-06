@@ -11,5 +11,6 @@ install:
 
 script:
   - "pushd zeeguu_dashboard/"
+  - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
   - "python app/test_foo.py"
   - "popd"
