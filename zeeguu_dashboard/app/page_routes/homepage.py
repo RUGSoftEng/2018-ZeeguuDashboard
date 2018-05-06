@@ -4,7 +4,6 @@ from app import app
 from app.util.classroom import load_classes
 from app.util.permissions import has_session
 
-
 """
 This file contains the routes for the homepage.
 """

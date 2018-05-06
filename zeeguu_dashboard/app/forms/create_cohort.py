@@ -7,6 +7,7 @@ from app.util.classroom import verify_invite_code_exists
 The create cohort form class file.
 """
 
+
 class CreateCohort(FlaskForm):
     """
     This class extends from FlaskForm. It is used for the form when filling out

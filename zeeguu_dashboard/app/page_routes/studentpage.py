@@ -8,7 +8,6 @@ from app.util.user import load_user_data, load_user_info, filter_user_bookmarks
 This file contains the routes for a student page.
 """
 
-DEFAULT_TIME = 14
 
 @app.route('/student/<student_id>/', methods=['GET'])
 @has_student_permission
@@ -19,6 +18,7 @@ def student_page(student_id):
     :param student_id: the student id to use
     :return: the template
     """
+    DEFAULT_TIME = 14
     time = request.cookies.get('time')
     if not time:
         time = DEFAULT_TIME
@@ -26,6 +26,7 @@ def student_page(student_id):
     info = load_user_info(student_id)
     bookmarks = filter_user_bookmarks(bookmarks)
     return render_template("studentpage.html", title=info['name'], info=info, stats=bookmarks, student_id=student_id)
+
 
 @app.route('/student/<student_id>/<time>/', methods=['GET'])
 @has_student_permission
@@ -38,5 +39,5 @@ def student_page_set_cookie(student_id, time):
     """
     redirect_to_index = redirect('/student/' + student_id + '/')
     response = app.make_response(redirect_to_index)
-    response.set_cookie('time', time, max_age=60*60*24*365*2)
+    response.set_cookie('time', time, max_age=60 * 60 * 24 * 365 * 2)
     return response

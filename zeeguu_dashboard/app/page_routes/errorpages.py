@@ -1,7 +1,6 @@
 from flask import render_template
 from app import app
 
-
 """
 This file contains all of the error page routes.
 """
@@ -24,5 +23,3 @@ def page_not_found(e):
     :return: Renders and returns an error page.
     """
     return render_template("errorpage.html", exception="404 Not Found: The requested URL was not found on the server.")
-
-

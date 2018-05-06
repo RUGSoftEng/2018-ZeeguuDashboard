@@ -78,10 +78,10 @@ def main():
     password = "12345678"
     database = 'zeeguu_test'
     try:
-        connection = MySQLdb.connect (host = host,
-                                      user = user,
-                                      passwd = password,
-                                      db = database)
+        connection = MySQLdb.connect(host=host,
+                                     user=user,
+                                     passwd=password,
+                                     db=database)
     except MySQLdb.Error as e:
         print("Error %d: %s" % (e.args[0], e.args[1]))
         sys.exit(1)

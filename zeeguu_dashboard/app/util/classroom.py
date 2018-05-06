@@ -2,7 +2,6 @@ import json
 
 from app.api.api_connection import api_post, api_get
 
-
 """
 This file contains all of the utility functions required to get and format the data for the classroom page,
 as well as posting data and changing it.
