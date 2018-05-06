@@ -2,7 +2,6 @@ import json
 
 from app.api.api_connection import api_get
 
-
 """
 This file contains all of the utility functions for loading and formatting user data.
 """

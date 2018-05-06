@@ -1,4 +1,4 @@
-from flask import redirect, render_template
+from flask import redirect, render_template, request
 
 from app import app
 from app.api.api_connection import api_post
@@ -29,7 +29,15 @@ def load_class(class_id):
     if students is None:
         return redirect('/')
     class_info = load_class_info(class_id)
-    return render_template('classpage.html', title=class_info['name'], students=students, class_info=class_info)
+    time = request.cookies.get('time')
+    if not time:
+        time = 14
+    return render_template('classpage.html',
+                           title=class_info['name'],
+                           students=students,
+                           class_info=class_info,
+                           time=str(time)
+                           )
 
 
 @app.route('/edit_class/<class_id>/', methods=['GET', 'POST'])
@@ -50,7 +58,11 @@ def edit_class(class_id):
         package = {'name': name, 'inv_code': inv_code, 'max_students': max_students}
         api_post('update_cohort/' + str(class_id), package)
         return redirect('/')
-    return render_template('edit_class.html', title='Edit classroom', form=form, class_info=class_info)
+    return render_template('edit_class.html',
+                           title='Edit classroom',
+                           form=form,
+                           class_info=class_info
+                           )
 
 
 @app.route('/remove_class/<class_id>/')
@@ -84,4 +96,7 @@ def create_classroom():
         create_class(name=name, inv_code=inv_code, max_students=max_students, language_id=language_id)
         return redirect('/')
 
-    return render_template('createcohort.html', title='Create classroom', form=form)
+    return render_template('createcohort.html',
+                           title='Create classroom',
+                           form=form
+                           )

@@ -1,7 +1,6 @@
 import sys
 import MySQLdb
 
-
 """
 This file contains the scripts for migrating the old Zeeguu database to the new version for this project.
 """
@@ -90,10 +89,10 @@ def main():
     password = "12345678"
     database = 'zeeguu_test'
     try:
-        connection = MySQLdb.connect (host = host,
-                                      user = user,
-                                      passwd = password,
-                                      db = database)
+        connection = MySQLdb.connect(host=host,
+                                     user=user,
+                                     passwd=password,
+                                     db=database)
 
     except MySQLdb.Error as e:
         print("Error %d: %s" % (e.args[0], e.args[1]))
