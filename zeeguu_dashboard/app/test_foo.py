@@ -37,10 +37,30 @@ class TestCase(unittest.TestCase):
         # TODO(christian): test the api_get().text return
         class_id = 0
         mock_json.loads.return_value = 'json return value'
-
         class_info = classroom.load_class_info(class_id)
-
         assert class_info == 'json return value'
+
+    @patch('app.util.classroom.api_connection')
+    @patch('app.util.classroom.json')
+    def test_load_classes(self, mock_json, mock_api_connection):
+        # TODO(christian): test the api_get().text return
+        mock_json.loads.return_value = 'json return value'
+        classes = classroom.load_classes()
+        assert classes == 'json return value'
+
+    @patch('app.util.classroom.api_connection')
+    @patch('app.util.classroom.json')
+    def test_load_students(self, mock_json, mock_api_connection):
+        # TODO(christian): test the api_get().text return
+        class_id = 0
+        mock_json.loads.return_value = 'json return value'
+        students = classroom.load_class_info(class_id)
+        assert students == 'json return value'
+
+    @patch('app.util.classroom.api_connection')
+    def test_verify_invite_code_exists(self, mock_api_connection):
+        # TODO(christian): test the api_get().text return
+        classroom.verify_invite_code_exists(0)
 
 
 if __name__ == '__main__':
