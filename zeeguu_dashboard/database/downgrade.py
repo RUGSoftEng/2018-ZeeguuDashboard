@@ -1,15 +1,18 @@
 import sys
 import MySQLdb
 
+# This file contains the scripts for converting the new Zeeguu database back to the old version for this project.
+
+"""
+for now fixed code for the below information of database
+"""
+host = "localhost"
+user = "root"
+password = "12345678"
+database = 'zeeguu_test'
+
 
 def main():
-    """
-    for now fixed code for the below information of database
-    """
-    host = "localhost"
-    user = "root"
-    password = "12345678"
-    database = 'zeeguu_test'
     try:
         connection = MySQLdb.connect (host = host,
                                       user = user,
@@ -21,13 +24,15 @@ def main():
 
     cursor = connection.cursor()
 
-    reset_cohort_db(cursor, database)
+    downgrade_cohort_db(cursor, database)
+
+    """this doesn't do anything but it is good to see if we update db correctly"""
     get_cohort(cursor)
 
     disconnect_db(cursor, connection)
 
 
-def reset_cohort_db(cursor, database):
+def downgrade_cohort_db(cursor, database):
 
     """drop max_students"""
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
