@@ -2,8 +2,9 @@ from flask import redirect, render_template
 
 from app import app
 from app.api.api_connection import api_post
+from app.forms.edit_cohort import EditCohort
+from app.forms.create_cohort import CreateCohort
 from app.util.classroom import load_students, load_class_info, remove_class, create_class
-from app.util.forms import EditCohort, CreateCohort
 from app.util.permissions import has_class_permission, has_session
 
 """

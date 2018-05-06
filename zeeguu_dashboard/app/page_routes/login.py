@@ -3,8 +3,7 @@ import requests
 from flask import make_response, render_template
 
 from app import app
-from app.util.forms import CreateLogin
-
+from app.forms.create_login import CreateLogin
 
 """
 This file contains the route for user login.

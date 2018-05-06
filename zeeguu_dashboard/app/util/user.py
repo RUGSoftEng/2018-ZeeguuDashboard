@@ -29,7 +29,7 @@ def load_user_data(user_id, time, filtered=True):
     """
     stats_json = api_get("cohort_member_bookmarks/" + str(user_id) + "/" + str(time)).text
     stats = json.loads(stats_json)
-    if filtered == True:
+    if filtered is True:
         stats = filter_user_bookmarks(stats)
     return stats
 
