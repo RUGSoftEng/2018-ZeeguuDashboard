@@ -2,12 +2,12 @@ import sys
 import MySQLdb
 
 
-# This file contains the scripts for migrating the old Zeeguu database to the new version for this project.
+"""This file contains the scripts for migrating the old Zeeguu database to the new version for this project."""
 
 
 def update_cohort_db(cursor, database):
 
-    # rename invitation_code to inv_code column
+    """rename invitation_code to inv_code column"""
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
@@ -21,11 +21,11 @@ def update_cohort_db(cursor, database):
         cursor.execute("SELECT id, name, inv_code FROM cohort")
         rows = cursor.fetchall()
         for row in rows:
-            #if no the class has no inv_code, set the name as same as inv_code
+            """if no the class has no inv_code, set the name as same as inv_code"""
             if row[2] is None:
                 cursor.execute("UPDATE cohort SET inv_code = '" + row[1] + "' WHERE id = '" + str(row[0]) + "'")
 
-    # add column max_students
+    """add column max_students"""
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
@@ -35,7 +35,7 @@ def update_cohort_db(cursor, database):
         cursor.execute("ALTER TABLE cohort "
                        "ADD max_students int NOT NULL DEFAULT 30")
 
-    # add class_language_id column
+    """add class_language_id column"""
     cursor.execute("SELECT * FROM information_schema.COLUMNS "
                    "WHERE TABLE_SCHEMA = '" + database +
                    "' AND TABLE_NAME = 'cohort' "
@@ -62,7 +62,7 @@ def disconnect_db(cursor, connection):
 
 
 def main():
-    # for now fixed code for the below information of database
+    """for now fixed code for the below information of database"""
     host = "localhost"
     user = "root"
     password = "12345678"
@@ -81,7 +81,7 @@ def main():
 
     update_cohort_db(cursor, database)
 
-    #this doesn't do anything but it is good to see if we update db correctly
+    """this doesn't do anything but it is good to see if we update db correctly"""
     get_cohort(cursor)
 
     disconnect_db(cursor, connection)

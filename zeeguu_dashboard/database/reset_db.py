@@ -48,7 +48,7 @@ def disconnect_db(cursor, connection):
 
 
 def main():
-    #for now fixed code for the below information of database
+    """for now fixed code for the below information of database"""
     host = "localhost"
     user = "root"
     password = "12345678"

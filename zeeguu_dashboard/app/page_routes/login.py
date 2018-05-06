@@ -6,7 +6,7 @@ from app import app
 from app.util.forms import CreateLogin
 
 
-# This file contains the route for user login.
+"""This file contains the route for user login."""
 
 
 session_path = "session/"

@@ -2,7 +2,7 @@ from flask import render_template
 from app import app
 
 
-# This file contains all of the error page routes.
+"""This file contains all of the error page routes."""
 
 
 @app.errorhandler(404)

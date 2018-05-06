@@ -6,13 +6,13 @@ from app.util.classroom import load_students, load_class_info, remove_class, cre
 from app.util.forms import EditCohort, CreateCohort
 from app.util.permissions import has_class_permission, has_session
 
-
-# This file takes care of all of the class related page_routes:
-#   - loading the class,
-#   - editing it
-#   - removing it
-#   - creating new classes
-
+"""
+    This file takes care of all of the class related page_routes:
+  - loading the class,
+  - editing it
+  - removing it
+  - creating new classes
+"""
 
 @app.route('/class/<class_id>/')
 @has_class_permission
