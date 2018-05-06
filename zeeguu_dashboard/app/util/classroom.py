@@ -65,7 +65,7 @@ def load_students(class_id):
     Function for loading information on all students in a class. Loads information in JSON format and converts it to a dictionary.
     Requires permission  ( the logged in user must have permission to view class that student is in)
     :param class_id:
-    :return: Dictionary containing (id, name, email, reading time, exercises done, last article)
+    :return: Dictionary of dictionaries containing (id, name, email, reading time, exercises done, last article)
     """
     returned_student_infos_string = api_get("users_from_cohort/" + str(class_id)).text
     returned_student_infos = json.loads(returned_student_infos_string)

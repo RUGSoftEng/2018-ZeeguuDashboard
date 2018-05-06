@@ -22,7 +22,7 @@ def student_page(student_id, time):
     :param time: The time frame for the bookmarks (how many days of bookmarks do you want to see).
     :return: Renders and returns the student page.
     """
-    bookmarks = load_user_data(user_id=student_id, time=time)
+    bookmarks = load_user_data(user_id=student_id, time=time, filtered = True)
     info = load_user_info(student_id)
-    bookmarks = filter_user_bookmarks(bookmarks)
+
     return render_template("studentpage.html", title=info['name'], info=info, stats=bookmarks, student_id=student_id)
