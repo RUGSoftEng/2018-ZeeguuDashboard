@@ -19,7 +19,7 @@ This file takes care of all of the class related page_routes:
 @has_class_permission
 def load_class(class_id):
     """
-
+    Loads a class
     :param class_id:
     :return:
     """
