@@ -2,7 +2,9 @@ import sys
 import MySQLdb
 
 
-"""This file contains the scripts for migrating the old Zeeguu database to the new version for this project."""
+"""
+This file contains the scripts for migrating the old Zeeguu database to the new version for this project.
+"""
 
 
 def update_cohort_db(cursor, database):
@@ -62,7 +64,9 @@ def disconnect_db(cursor, connection):
 
 
 def main():
-    """for now fixed code for the below information of database"""
+    """
+    for now fixed code for the below information of database
+    """
     host = "localhost"
     user = "root"
     password = "12345678"

@@ -7,7 +7,9 @@ from requests import Response
 from app import app
 
 
-"""This file contains the functions responsible for making calls to the Zeeguu server."""
+"""
+This file contains the functions responsible for making calls to the Zeeguu server.
+"""
 
 
 def api_post(path, package=None):
