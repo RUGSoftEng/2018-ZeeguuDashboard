@@ -1,9 +1,18 @@
+ cache:
+   pip: true
+
 language: python
 
 python:
   - "3.6"
 
+env:
+  - FLASK_APP=main.py
+
+install:
+  - pip install -r zeeguu_dashboard/requirements.txt
+
 script:
   - "pushd zeeguu_dashboard/"
-  - "python -v app/test_foo.py"
+  - "python app/test_foo.py"
   - "popd"
