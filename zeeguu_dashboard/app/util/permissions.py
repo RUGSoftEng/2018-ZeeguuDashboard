@@ -87,8 +87,7 @@ def has_student_permission(func):
         """
         permission_check = ''
         time = 14
-
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
             if key == "student_id":
                 permission_check = api_connection.api_get('has_permission_for_user_info/' + str(value)).text
 
