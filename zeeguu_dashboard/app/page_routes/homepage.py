@@ -24,7 +24,7 @@ def to_homepage():
 def homepage():
     """
     This shows a teachers corresponding homepage, as long as a session is validated.
-    :return: 
+    :return:
     """
     classes = load_classes()
     return render_template('homepage.html', title="Homepage", classes=classes)
