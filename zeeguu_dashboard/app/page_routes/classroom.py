@@ -14,6 +14,7 @@ This file takes care of all of the class related page_routes:
 - creating new classes
 """
 
+
 @app.route('/class/<class_id>/')
 @has_class_permission
 def load_class(class_id):

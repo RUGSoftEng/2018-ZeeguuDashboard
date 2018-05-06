@@ -13,6 +13,8 @@ This file contains the routes for the homepage.
 """
 This route redirects to the homepage, when only the URL is searched by the browser (for convenience).
 """
+
+
 @app.route('/')
 def to_homepage():
     """
@@ -25,6 +27,8 @@ def to_homepage():
 """
 This shows a teachers corresponding homepage, as long as a session is validated.
 """
+
+
 @app.route('/teacher/')
 @has_session
 def homepage():
