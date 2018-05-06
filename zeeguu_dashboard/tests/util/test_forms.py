@@ -1,7 +1,7 @@
 import unittest
 
 
-class TestUtilForms(unittest.TestCase):
+class TestForms(unittest.TestCase):
     def setUp(self):
         pass
 
