@@ -75,18 +75,33 @@ def has_student_permission(func):
     """
 
     @wraps(func)
-    def student_permission_wrapper(student_id, time):
+    def student_permission_wrapper(*args, **kwargs):
         """
 
-        :param student_id:
-        :param time:
+        :param args:
+        :param kwargs:
         :return:
         """
         if not check_session():
             return redirect('401')
-        permission_check = api_connection.api_get('has_permission_for_user_info/' + str(student_id)).text
+
+        """
+        permission_check and time are possible arguments of func
+        permission_check is initialized to an empty string and
+        time is initialized to the standard time frame for bookmarks
+        """
+        permission_check = ''
+        time = 14
+
+        for key, value in kwargs.iteritems():
+            if key == "student_id":
+                permission_check = api_connection.api_get('has_permission_for_user_info/' + str(value)).text
+
+            if key == "time":
+                time = int(value)
+
         if permission_check == "OK" and int(time) < 366:
-            return func(student_id, time)
+            return func(*args, **kwargs)
         else:
             return redirect('401')
 
