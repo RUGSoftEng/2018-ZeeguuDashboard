@@ -6,6 +6,7 @@ from app.forms.edit_cohort import EditCohort
 from app.forms.create_cohort import CreateCohort
 from app.util.classroom import load_students, load_class_info, remove_class, create_class
 from app.util.permissions import has_class_permission, has_session
+from app.util.classroom import reformat_time_spent
 
 """
 This file takes care of all of the class related page_routes:
@@ -32,6 +33,9 @@ def load_class(class_id):
     time = request.cookies.get('time')
     if not time:
         time = 14
+
+    students = reformat_time_spent(students)
+
     return render_template('classpage.html',
                            title=class_info['name'],
                            students=students,

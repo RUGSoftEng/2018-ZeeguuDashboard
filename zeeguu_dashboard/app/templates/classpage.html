@@ -29,6 +29,60 @@
     </div>
 
     <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
+
+
+
+        <table style="width:100%; font-size:12px; line-height: 18px">
+
+
+            {% set colors = ['#eee', '#c6e48b', '#7bc96f', '#239a3b', '#196127'] %}
+
+            {% for student in students %}
+
+
+                <tr>
+                    <td>{{ student.name }}</td>
+
+
+                    {% for time in student.time %}
+
+                        <td>
+
+                            <svg width="10" height="10">
+                                <rect width="10" height="10" style="fill:{{ colors[time.exercise] }};" />
+                            </svg>
+
+
+
+                            <svg width="10" height="10">
+                                <rect width="10" height="10" style="fill:{{ colors[time.reading] }};" />
+                            </svg>
+                        </td>
+
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            <tr>
+                <th>Name</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
+            </tr>
+
+
+        </table>
+
+
+
+    </div>
+
+
+
+    <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
         <h4 class="card-title">{{ class_info.name }}</h4>
         <div class="table-responsive m-t-40">
             <table id="example23" class="display nowrap table table-hover" cellspacing="0" width="100%">
