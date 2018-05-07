@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from app.util import classroom
 
@@ -33,33 +33,53 @@ class TestClassroom(unittest.TestCase):
     @patch('app.util.classroom.api_get')
     @patch('app.util.classroom.json')
     def test_load_class_info(self, mock_json, mock_api_get):
-        # TODO(christian): test the api_get().text return
-        class_id = 0
+        mock = MagicMock()
+        mock.text = 'text return value'
+
+        mock_api_get.return_value = mock
         mock_json.loads.return_value = 'json return value'
+
+        class_id = 0
         class_info = classroom.load_class_info(class_id)
+
+        mock_api_get.assert_called_with("cohort_info/" + str(class_id))
+        mock_json.loads.assert_called_with('text return value')
         assert class_info == 'json return value'
 
     @patch('app.util.classroom.api_get')
     @patch('app.util.classroom.json')
     def test_load_classes(self, mock_json, mock_api_get):
-        # TODO(christian): test the api_get().text return
+        mock = MagicMock()
+        mock.text = 'text return value'
+
+        mock_api_get.return_value = mock
         mock_json.loads.return_value = 'json return value'
+
         classes = classroom.load_classes()
+
+        mock_api_get.assert_called_with("cohorts_info")
+        mock_json.loads.assert_called_with('text return value')
         assert classes == 'json return value'
 
     @patch('app.util.classroom.api_get')
     @patch('app.util.classroom.json')
     def test_load_students(self, mock_json, mock_api_get):
-        # TODO(christian): test the api_get().text return
-        class_id = 0
+        mock = MagicMock()
+        mock.text = 'text return value'
+
+        mock_api_get.return_value = mock
         mock_json.loads.return_value = 'json return value'
-        students = classroom.load_class_info(class_id)
+
+        class_id = 0
+        students = classroom.load_students(class_id)
+
+        mock_api_get.assert_called_with("users_from_cohort/" + str(class_id))
+        mock_json.loads.assert_called_with('text return value')
         assert students == 'json return value'
 
     @patch('app.util.classroom.api_get')
     def test_verify_invite_code_exists(self, mock_api_get):
-        # TODO(christian): test the api_get().text return
-        classroom.verify_invite_code_exists(0)
+        pass
 
 
 if __name__ == '__main__':
