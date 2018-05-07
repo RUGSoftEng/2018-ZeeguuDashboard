@@ -24,7 +24,8 @@ The current Zeeguu system is not set up for teachers, individuals can sign up to
 	 6. Jinja2
 	 7. WTForms
 	 8. requests
-3. Run using flask
+ 3. Set environment variables 'ZEEGUU_DASHBOARD_CONFIG' and 'API_PATH'. You can set 'ZEEGUU_DASHBOARD_CONFIG' to the path with default.cfg in the project. The API_PATH must include an ip and port. This is hidden to protect the API server. 
+ 4. Run using flask
 
 For information of the project check out the documents directory!
 
