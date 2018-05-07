@@ -1,5 +1,6 @@
 import os
 import sys
+
 from flask_bootstrap import Bootstrap
 
 from app import app

@@ -1,0 +1,39 @@
+import unittest
+
+from unittest.mock import patch
+from app.forms import create_cohort
+from app.forms.create_cohort import FlaskForm, StringField, SubmitField, DataRequired, verify_invite_code_exists
+
+
+class TestCreateCohort(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    @patch('app.forms.create_cohort.FlaskForm')
+    @patch('app.forms.create_cohort.StringField')
+    @patch('app.forms.create_cohort.SubmitField')
+    @patch('app.forms.create_cohort.DataRequired')
+    @patch('app.forms.create_cohort.validators')
+    @patch('app.forms.create_cohort.verify_invite_code_exists')
+    def test_create_cohort(self):
+        cc = create_cohort.CreateCohort()
+
+        create_cohort.FlaskForm.validate.return_value = True
+        assert not cc.validate(cc)
+
+        create_cohort.FlaskForm.validate.return_value = False
+        create_cohort.verify_invite_code_exists.return_value = True
+        assert not cc.validate(cc)
+
+    def test_edit_cohort(self):
+        pass
+
+    def test_create_login(self):
+        pass
+
+
+if __name__ == '__main__':
+    unittest.main()
