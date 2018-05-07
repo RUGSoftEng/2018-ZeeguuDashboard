@@ -1,9 +1,8 @@
-import json
 from functools import wraps
 
 from flask import redirect, session
 
-from app.api import api_connection
+from app.api.api_connection import api_get
 
 """
 This file contains all of the functions responsible for validating the user on different page_routes.
@@ -18,7 +17,7 @@ def check_session():
     if not 'sessionID' in session.keys():
         session['sessionID'] = '0'
 
-    permission_check = api_connection.api_get('validate').text
+    permission_check = api_get('validate').text
 
     if permission_check == "OK":
         return True
@@ -57,7 +56,7 @@ def has_class_permission(func):
 
         if not check_session():
             return redirect('401')
-        permission_check = api_connection.api_get('has_permission_for_cohort/' + str(class_id)).text
+        permission_check = api_get('has_permission_for_cohort/' + str(class_id)).text
         if permission_check == "OK":
             return func(class_id)
         else:
@@ -89,7 +88,7 @@ def has_student_permission(func):
         time = 14
         for key, value in kwargs.items():
             if key == "student_id":
-                permission_check = api_connection.api_get('has_permission_for_user_info/' + str(value)).text
+                permission_check = api_get('has_permission_for_user_info/' + str(value)).text
 
             if key == "time":
                 time = int(value)

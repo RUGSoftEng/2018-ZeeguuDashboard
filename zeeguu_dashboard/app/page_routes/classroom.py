@@ -1,9 +1,9 @@
 from flask import redirect, render_template, request
 
 from app import app
-from app.api.api_connection import api_post
-from app.forms.edit_cohort import EditCohort
+from app.api import api_connection
 from app.forms.create_cohort import CreateCohort
+from app.forms.edit_cohort import EditCohort
 from app.util.classroom import load_students, load_class_info, remove_class, create_class
 from app.util.permissions import has_class_permission, has_session
 
@@ -56,7 +56,7 @@ def edit_class(class_id):
         name = form.class_name.data
         max_students = form.max_students.data
         package = {'name': name, 'inv_code': inv_code, 'max_students': max_students}
-        api_post('update_cohort/' + str(class_id), package)
+        api_connection.api_get('update_cohort/' + str(class_id), package)
         return redirect('/')
     return render_template('edit_class.html',
                            title='Edit classroom',

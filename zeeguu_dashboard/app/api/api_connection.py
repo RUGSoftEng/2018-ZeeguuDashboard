@@ -2,7 +2,6 @@ import traceback
 
 import flask
 import requests
-from requests import Response
 
 from app import app
 

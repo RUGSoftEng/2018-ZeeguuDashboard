@@ -47,7 +47,9 @@
                 {% for student in students %}
                     <tr>
                         <td width="22%">
-                            <h5><a href={{'/student/'+student.id +'/'+ time + '/' }}> <div class="text-inverse">{{ student.name }}</div></a></h5>
+                            <h5><a href={{'/student/'+student.id +'/'+ time + '/' }}>
+                                <div class="text-inverse">{{ student.name }}</div>
+                                </a></h5>
                         </td>
 
                         <td width="69%">

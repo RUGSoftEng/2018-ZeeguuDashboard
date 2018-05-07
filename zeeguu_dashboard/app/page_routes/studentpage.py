@@ -1,4 +1,4 @@
-from flask import render_template, redirect, make_response, request
+from flask import render_template, redirect, request
 
 from app import app
 from app.util.permissions import has_student_permission
