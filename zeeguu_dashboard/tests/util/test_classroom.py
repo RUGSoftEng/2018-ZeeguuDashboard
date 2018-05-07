@@ -79,7 +79,17 @@ class TestClassroom(unittest.TestCase):
 
     @patch('app.util.classroom.api_get')
     def test_verify_invite_code_exists(self, mock_api_get):
-        pass
+        mock = MagicMock()
+        mock.text = "OK"
+        mock_api_get.return_value = mock
+
+        inv_code = 0
+        assert not classroom.verify_invite_code_exists(inv_code)
+        mock_api_get.assert_called_with('invite_code_usable/' + str(inv_code))
+
+        mock.text = 'NOPE'
+        assert classroom.verify_invite_code_exists(inv_code)
+        mock_api_get.assert_called_with('invite_code_usable/' + str(inv_code))
 
 
 if __name__ == '__main__':
