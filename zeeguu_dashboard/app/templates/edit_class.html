@@ -3,6 +3,7 @@
 
 {% block content %}
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/slider.css') }}">
 
     <div class="col-lg-4"></div>
 
@@ -32,7 +33,7 @@
 
                             <label>Max Students:</label> <span id="demo"></span>
                             <div class="form-group">
-                                <input type = "range" min="1" max="50" value="10" class="slider" id="max_students" name="max_students">
+                                <input type = "range" min="1" max="50" value="15" class="slider" id="max_students" name="max_students">
                             </div>
 
                         </div>
@@ -45,7 +46,6 @@
             </div>
         </div>
     </div>
-
 
     <script>
         var slider = document.getElementById("max_students");

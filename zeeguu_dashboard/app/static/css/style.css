@@ -210,12 +210,12 @@ h6 {
   /*padding-bottom: 100%;*/
 }
 .container-fluid {
-  padding: 0 30px 30px;
+  padding: 0 20px 5px;
 }
 @media (min-width: 1024px) {
   .page-wrapper {
-    margin-right: 50px;
-    margin-left: 50px;
+    margin-right: 9%;
+    margin-left: 9%;
   }
 }
 @media (max-width: 1023px) {
@@ -2257,7 +2257,8 @@ textarea {
 }
 .card {
   background: #ffffff none repeat scroll 0 0;
-  margin: 15px 0;
+  margin-left: 9%;
+  margin-right: 9%;
   padding: 20px;
   border: 0 solid #e7e7e7;
   border-radius: 5px;
@@ -2464,7 +2465,7 @@ textarea {
   background-color: #62d1f3 !important;
 }
 .dataTables_wrapper {
-  padding-top: 10px;
+  padding-top: 0px;
 }
 .dt-buttons {
   display: inline-block;
@@ -2507,7 +2508,7 @@ textarea {
 }
 .dataTables_filter {
   float: right;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 .dataTables_filter input {
   background-color: transparent;
