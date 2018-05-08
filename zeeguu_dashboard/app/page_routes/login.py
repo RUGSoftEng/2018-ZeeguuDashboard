@@ -3,17 +3,25 @@ import requests
 from flask import make_response, render_template
 
 from app import app
-from app.util.forms import CreateLogin
+from app.forms.create_login import CreateLogin
 
-
-# This file contains the route for user login.
-
-
-session_path = "session/"
+"""
+This file contains the route for user login.
+"""
 
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
+    """
+    The function for rendering a login page when the '/login/' endpoint is called.
+    The page contains a form.
+    If the form is filled in, it is checked and validated by the CreateLogin form class.
+    If it is validated. Information (email, password) is sent to the api to get a session.
+    The session is stored into a cookie and then into the session dictionary.
+    This is then used to authenticate the user.
+    :return: Renders and returns the login page with the flask form.
+    """
+    session_path = "session/"
     form = CreateLogin()
     if form.validate_on_submit():
         email = form.email.data

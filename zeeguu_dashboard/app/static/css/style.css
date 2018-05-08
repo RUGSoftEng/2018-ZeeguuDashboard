@@ -210,7 +210,7 @@ h6 {
   /*padding-bottom: 100%;*/
 }
 .container-fluid {
-  padding: 0 30px 30px;
+  padding: 0 20px 5px;
 }
 @media (min-width: 1024px) {
   .page-wrapper {
@@ -5411,7 +5411,7 @@ tbody tr td {
   color: #99abb4;
 }
 tbody tr td:last-child {
-  text-align: right;
+  text-align: left;
 }
 .table > tbody > tr > td,
 .table > tbody > tr > th,
