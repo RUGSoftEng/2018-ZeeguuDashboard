@@ -5411,7 +5411,7 @@ tbody tr td {
   color: #99abb4;
 }
 tbody tr td:last-child {
-  text-align: right;
+  text-align: left;
 }
 .table > tbody > tr > td,
 .table > tbody > tr > th,
