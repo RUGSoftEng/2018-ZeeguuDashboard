@@ -11,24 +11,28 @@ This file contains the functions responsible for making calls to the Zeeguu serv
 """
 
 
-def api_post(path, package=None, validate=True):
+def api_post(path, package=None, raise_for_status=True):
     """
     :param path: The requested endpoint of the Zeeguu_API.
     :param package: Any information sent to the Zeeguu_API.
+    :param raise_for_status: Boolean to indicate whether
+    the API call should raise an exception for status a bad status code.
     :return: Returns the response of the Zeeguu_API.
     """
-    return validate_response(_api_call('post', path=path, package=package))
+    return _api_call('post', path=path, package=package, raise_for_status=raise_for_status)
 
 
-def api_get(path, validate=True):
+def api_get(path, raise_for_status=True):
     """
     :param path: The requested endpoint of the Zeeguu_API.
+    :param raise_for_status: Boolean to indicate whether
+    the API call should raise an exception for status a bad status code.
     :return: Returns the response from Zeeguu_API, which contains the requested information.
     """
-    return validate_response(_api_call('get', path=path))
+    return _api_call('get', path=path, raise_for_status=raise_for_status)
 
 
-def _api_call(func, path, package=None):
+def _api_call(func, path, raise_for_status, package=None):
     """
     :param func: Indicates whether the api call is a 'get' or a 'post'.
     :param path: The requested endpoint of the Zeeguu_API.
@@ -49,10 +53,7 @@ def _api_call(func, path, package=None):
         print(traceback.format_exc())
         raise Exception("Exception while performing request.")
 
-    return returned
+    if raise_for_status is True:
+        returned.raise_for_status()
 
-def validate_response(response):
-    if response.status_code is not 200:
-        redirect("/404")
-    else:
-        return response
+    return returned
