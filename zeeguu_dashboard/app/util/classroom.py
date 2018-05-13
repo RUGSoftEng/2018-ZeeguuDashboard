@@ -122,7 +122,7 @@ def verify_invite_code_exists(inv_code):
         return False
     return True
 
-  
+
 def reformat_time_spent(students):
     """
     This function is a quick hotfix to reformat the user data for jinja2.
