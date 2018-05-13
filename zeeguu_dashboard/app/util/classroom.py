@@ -65,7 +65,7 @@ def load_class_info(class_id):
     :return: Dictionary of class information (id, name, language_id, cur_students, max_students)
     """
 
-    returned_class_infos_string = api_get("cohort_info/" + str(class_id))
+    returned_class_infos_string = api_get("cohort_info/" + str(class_id)).text
     returned_class_info = json.loads(returned_class_infos_string)
     class_info = returned_class_info
     return class_info
