@@ -2,6 +2,7 @@ import traceback
 
 import flask
 import requests
+from flask import redirect
 
 from app import app
 
@@ -10,21 +11,21 @@ This file contains the functions responsible for making calls to the Zeeguu serv
 """
 
 
-def api_post(path, package=None):
+def api_post(path, package=None, validate=True):
     """
     :param path: The requested endpoint of the Zeeguu_API.
     :param package: Any information sent to the Zeeguu_API.
     :return: Returns the response of the Zeeguu_API.
     """
-    return _api_call('post', path=path, package=package)
+    return validate_response(_api_call('post', path=path, package=package))
 
 
-def api_get(path):
+def api_get(path, validate=True):
     """
     :param path: The requested endpoint of the Zeeguu_API.
     :return: Returns the response from Zeeguu_API, which contains the requested information.
     """
-    return _api_call('get', path=path)
+    return validate_response(_api_call('get', path=path))
 
 
 def _api_call(func, path, package=None):
@@ -44,10 +45,14 @@ def _api_call(func, path, package=None):
             returned = requests.get(app.config['API_PATH'] + path, params=params)
         else:
             returned = requests.post(app.config['API_PATH'] + path, data=package, params=params)
-        if returned.status_code > 399:
-            print('API call status code:', returned.status_code)
     except Exception:
         print(traceback.format_exc())
         raise Exception("Exception while performing request.")
 
     return returned
+
+def validate_response(response):
+    if response.status_code is not 200:
+        redirect("/404")
+    else:
+        return response
