@@ -6,7 +6,6 @@ from app.forms.create_cohort import CreateCohort
 from app.forms.edit_cohort import EditCohort
 from app.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data
 from app.util.permissions import has_class_permission, has_session
-from app.util.classroom import reformat_time_spent
 
 """
 This file takes care of all of the class related page_routes:
@@ -17,7 +16,7 @@ This file takes care of all of the class related page_routes:
 """
 
 
-@app.route('/class/<class_id>/')
+@app.route('/class/<class_id>/', methods=['Get'])
 @has_class_permission
 def load_class(class_id):
     """

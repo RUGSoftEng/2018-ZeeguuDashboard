@@ -36,8 +36,8 @@
                 <span class="glyphicon glyphicon-filter"></span>  Filter
             </button>
             <div id="myDropdown" class="dropdown-content">
-                <a href="#">2 Weeks</a>
-                <a href="#">1 Month</a>
+                <a href="{{'/class/' + '14/'}}">2 Weeks</a>
+                <a href="{{'/class/' +'31/'}}">1 month</a>
             </div>
         </div>
 
@@ -93,6 +93,20 @@
                 <th><div style="font-size: 8px">  {{ time.date }} </div> </th>
                 {% endfor %}
             </tr>
+
+            <tr>
+                 <th><div style="font-size: 8px">  Less &emsp; &nbsp; More</div>
+                     {% for i in range(4) %}
+                            <a data-toggle="tooltip" title="{{ time.reading }}hr">
+                                <svg width="10" height="10">
+                                    <rect width="10" height="10" style="fill:{{ colors[i]  }};"/>
+                                </svg>
+                            </a>
+                     {% endfor %}
+                </th>
+            </tr>
+
+
         </table>
 
         <hr><br>

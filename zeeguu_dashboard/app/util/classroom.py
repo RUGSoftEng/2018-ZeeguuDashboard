@@ -16,7 +16,7 @@ def format_class_table_data(student_data, duration):
 
         now = datetime.today()
         day_list = []
-        for day in range(1,duration):
+        for day in range(0,duration):
             day_dictionary = {
                 "date": now.strftime("%d-%m"),
                 "reading": s.get("reading_time_list")[day],
@@ -106,28 +106,6 @@ def verify_invite_code_exists(inv_code):
     if inv_code_bool == "OK":
         return False
     return True
-
-def reformat_time_spent(students):
-    """
-    This function is a quick hotfix to reformat the user data for jinja2.
-    :param students:
-    :return:
-    """
-    for student in students:
-        reading_time = student["reading_time_list"]
-        exercise_time = student["exercise_time_list"]
-        tmp_list = []
-        for i in range(7):
-
-            tmp_list.append({"reading": _format_for_color(reading_time[i]),
-                             "exercise": _format_for_color(exercise_time[i])})
-
-        del student["reading_time_list"]
-        del student["exercise_time_list"]
-
-        student['time'] = tmp_list
-
-    return students
 
 
 def _format_for_color(time):
