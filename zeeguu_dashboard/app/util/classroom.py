@@ -92,7 +92,7 @@ def load_students(class_id, duration):
     :param class_id:
     :return: Dictionary of dictionaries containing (id, name, email, reading time, exercises done, last article)
     """
-    returned_student_infos_string = api_get("users_from_cohort/" + str(class_id) + "/" + duration).text
+    returned_student_infos_string = api_get("users_from_cohort/" + str(class_id) + "/" + str(duration)).text
     returned_student_infos = json.loads(returned_student_infos_string)
     students = returned_student_infos
     return students

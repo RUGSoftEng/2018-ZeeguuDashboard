@@ -14,7 +14,7 @@ def load_user_info(user_id, duration):
     :param user_id: user_id used to find user.
     :return: Dictionary containing (id, name, email, reading time, exercises done, last article)
     """
-    student_info = api_get('user_info/' + str(user_id) + "/" + duration)
+    student_info = api_get('user_info/' + str(user_id) + "/" + str(duration))
     return json.loads(student_info.text)
 
 

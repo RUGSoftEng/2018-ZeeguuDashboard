@@ -68,19 +68,19 @@
 
         <table style="width:62%; font-size:12px; line-height: 18px" align="center">
             {% set colors = ['#E3F2FD', '#90CAF9', '#42A5F5', '#1E88E5', '#1565C0'] %}
-            {% for student in students %}
+            {% for student in github_tables %}
                 <tr>
                     <td><div class="text-inverse">{{ student.name }}</div></td>
-                    {% for time in student.time %}
+                    {% for time in student.day_list %}
                         <td>
-                            <a data-toggle="tooltip" title="{{ time.exercise }}">
+                            <a data-toggle="tooltip" title="hey}">
                                 <svg width="10" height="10">
-                                    <rect width="10" height="10" style="fill:{{ colors[time.exercise] }};"/>
+                                    <rect width="10" height="10" style="fill:{{ colors[time.reading_color]  }};"/>
                                 </svg>
                             </a>
-                            <a data-toggle="tooltip" title="{{ time.reading }}">
+                            <a data-toggle="tooltip" title="hi">
                                 <svg width="10" height="10">
-                                    <rect width="10" height="10" style="fill:{{ colors[time.reading] }};"/>
+                                    <rect width="10" height="10" style="fill:{{ colors[time.exercise_color] }};"/>
                                 </svg>
                             </a>
                         </td>

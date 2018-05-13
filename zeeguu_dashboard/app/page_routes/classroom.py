@@ -27,19 +27,21 @@ def load_class(class_id):
     :return: Renders and returns a class page.
     """
     time = request.cookies.get('time')
+
     if not time:
         time = 14
-    students = load_students(class_id, str(time))
+
+    students = load_students(class_id, 14)
     if students is None:
         return redirect('/')
     class_info = load_class_info(class_id)
 
-
-    students = format_class_table_data(students, str(time))
+    github_tables = format_class_table_data(students, 14)
 
     return render_template('classpage.html',
                            title=class_info['name'],
                            students=students,
+                           github_tables=github_tables,
                            class_info=class_info,
                            time=str(time)
                            )
