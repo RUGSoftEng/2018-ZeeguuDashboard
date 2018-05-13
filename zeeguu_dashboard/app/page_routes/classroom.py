@@ -1,10 +1,10 @@
 from flask import redirect, render_template, request
 
 from app import app
-from app.api import api_connection
 from app.forms.create_cohort import CreateCohort
 from app.forms.edit_cohort import EditCohort
-from app.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data
+from app.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data, \
+    edit_class_info
 from app.util.permissions import has_class_permission, has_session
 
 """
@@ -57,6 +57,7 @@ def load_class(class_id):
         filter_table_time = 14
 
     students = load_students(class_id, 365)
+
     if students is None:
         return redirect('/')
     class_info = load_class_info(class_id)
@@ -69,7 +70,7 @@ def load_class(class_id):
                            github_tables=github_tables,
                            class_info=class_info,
                            class_id = class_id,
-                           time=str(filter_table_time)
+                           time=filter_table_time
                            )
 
 
@@ -88,8 +89,7 @@ def edit_class(class_id):
         inv_code = form.inv_code.data
         name = form.class_name.data
         max_students = form.max_students.data
-        package = {'name': name, 'inv_code': inv_code, 'max_students': max_students}
-        api_connection.api_get('update_cohort/' + str(class_id), package)
+        edit_class_info(class_id=class_id, name=name, invite_code=inv_code, max_students=max_students)
         return redirect('/')
     return render_template('edit_class.html',
                            title='Edit classroom',

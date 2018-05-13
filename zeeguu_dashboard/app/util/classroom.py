@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, timedelta
+
 from app.api.api_connection import api_post, api_get
 
 """
@@ -20,7 +21,7 @@ def format_class_table_data(student_data, duration):
             day_dictionary = {
                 "date": now.strftime("%d-%m"),
                 "reading": s.get("reading_time_list")[day],
-                "exercise":s.get("exercise_time_list")[day],
+                "exercise": s.get("exercise_time_list")[day],
                 "reading_color": _format_for_color(s.get("reading_time_list")[day]),
                 "exercise_color": _format_for_color(s.get("reading_time_list")[day])
             }
@@ -64,10 +65,24 @@ def load_class_info(class_id):
     :param class_id:
     :return: Dictionary of class information (id, name, language_id, cur_students, max_students)
     """
+
     returned_class_infos_string = api_get("cohort_info/" + str(class_id)).text
     returned_class_info = json.loads(returned_class_infos_string)
     class_info = returned_class_info
     return class_info
+
+
+def edit_class_info(class_id, name, invite_code, max_students):
+    """
+    Function for editing class information. Makes an API call with the proper data.
+    :param class_id: The id number of the class.
+    :param name: The name of the class.
+    :param invite_code: The invite code of the class for students to join.
+    :param max_students: The maximum number of student
+    :return:
+    """
+    package = {'name': name, 'inv_code': invite_code, 'max_students': max_students}
+    api_post('update_cohort/' + str(class_id), package=package)
 
 
 def load_classes():
@@ -106,6 +121,28 @@ def verify_invite_code_exists(inv_code):
     if inv_code_bool == "OK":
         return False
     return True
+
+  
+def reformat_time_spent(students):
+    """
+    This function is a quick hotfix to reformat the user data for jinja2.
+    :param students:
+    :return:
+    """
+    for student in students:
+        reading_time = student["reading_time_list"]
+        exercise_time = student["exercise_time_list"]
+        tmp_list = []
+        for i in range(7):
+            tmp_list.append({"reading": _format_for_color(reading_time[i]),
+                             "exercise": _format_for_color(exercise_time[i])})
+
+        del student["reading_time_list"]
+        del student["exercise_time_list"]
+
+        student['time'] = tmp_list
+
+    return students
 
 
 def _format_for_color(time):

@@ -1,7 +1,15 @@
 import unittest
-from unittest.mock import patch, MagicMock
-from app.forms.create_cohort import CreateCohort
+from unittest.mock import patch
+
 from app import app
+from app.forms.create_cohort import CreateCohort
+
+"""
+This file contains a test for the validate method of the form create_cohort.py. Testing is done via unittest and 
+function patching via the mock module in the unittest package. See the documentation for unittest.mock. The tests in
+this file use a white-box/black-box testing method.
+"""
+
 
 class TestCreateCohort(unittest.TestCase):
 
@@ -13,11 +21,10 @@ class TestCreateCohort(unittest.TestCase):
 
     @patch('app.forms.create_cohort.FlaskForm')
     @patch('app.forms.create_cohort.verify_invite_code_exists')
-    def test_validate(self,mock_verify,mock_form):
+    def test_validate(self, mock_verify, mock_form):
         app.config['SECRET_KEY'] = 'testing'
 
         with app.test_request_context() as context:
-
             cohort = CreateCohort()
             cohort.class_name.data = 'French'
             cohort.class_language_id.data = 'fr'

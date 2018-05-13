@@ -6,6 +6,12 @@ import flask
 
 from app.util import user
 
+"""
+This file contains a test function for every function inside the utility user.py. Testing is done via unittest and 
+function patching via the mock module in the unittest package. See the documentation for unittest.mock. The tests in
+this file use a white-box/black-box testing method.
+"""
+
 
 class TestUser(unittest.TestCase):
     def setUp(self):

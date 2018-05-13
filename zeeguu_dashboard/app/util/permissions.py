@@ -17,7 +17,7 @@ def check_session():
     if not 'sessionID' in session.keys():
         session['sessionID'] = '0'
 
-    permission_check = api_get('validate').text
+    permission_check = api_get('validate', raise_for_status=False).text
 
     if permission_check == "OK":
         return True
