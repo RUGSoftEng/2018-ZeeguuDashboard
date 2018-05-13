@@ -28,7 +28,7 @@ def load_class(class_id):
     time = request.cookies.get('time')
 
     if not time:
-        time = app.config["CLASS_HISTORY_PERIOD_DAYS"]
+        time = app.config["DEFAULT_STUDENT_TIME"]
 
     students = load_students(class_id, time)
     if students is None:

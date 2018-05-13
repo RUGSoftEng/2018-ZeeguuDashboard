@@ -18,7 +18,7 @@ def student_page(student_id):
     :param student_id: the student id to use
     :return: the template
     """
-    default_time = app.config["CLASS_HISTORY_PERIOD_DAYS"]
+    default_time = app.config["DEFAULT_STUDENT_TIME"]
     time = request.cookies.get('time')
     if not time:
         time = default_time
