@@ -2,46 +2,46 @@
 
 {% block content %}
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog" style="padding-right: 20%; padding-left: 20%;">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title" style="color: white">{{ class_info.name }}</h2>
-                </div>
-                <div class="modal-body">
-                    <h6 style="color: whitesmoke">Language: {{ class_info.language_name }}</h6>
-                    <h6 style="color: whitesmoke">Invite Code: {{ class_info.inv_code }}</h6>
-                    <h6 style="color: whitesmoke">Number of students: {{ class_info.cur_students }}</h6>
-                    <h6 style="color: whitesmoke">Max students: {{ class_info.max_students }}</h6>
-                </div>
-                <div class="modal-footer">
-                    <a href={{'/remove_class/' + class_info.id }}>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog" style="padding-right: 20%; padding-left: 20%;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title" style="color: white">{{ class_info.name }}</h2>
+            </div>
+            <div class="modal-body">
+                <h6 style="color: whitesmoke">Language: {{ class_info.language_name }}</h6>
+                <h6 style="color: whitesmoke">Invite Code: {{ class_info.inv_code }}</h6>
+                <h6 style="color: whitesmoke">Number of students: {{ class_info.cur_students }}</h6>
+                <h6 style="color: whitesmoke">Max students: {{ class_info.max_students }}</h6>
+            </div>
+            <div class="modal-footer">
+                <a href={{'/remove_class/' + class_info.id }}>
                         <button type="button" class="btn btn-default bg-danger" style="border-color: #455a64">Delete Class</button>
-                    </a>
-                    <a href={{'/edit_class/' + class_info.id }}>
+                </a>
+                <a href={{'/edit_class/' + class_info.id }}>
                         <button type="button" class="btn btn-default bg-primary" style="border-color: #455a64">Edit</button>
-                    </a>
-                </div>
+                </a>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
-        <div class="card-title">{{ class_info.name }}</div>
+<div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
+    <div class="card-title">{{ class_info.name }}</div>
 
-        <div class="dropdown pull-right">
-            <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
-                <span class="glyphicon glyphicon-filter"></span>  Filter
-            </button>
-            <div id="myDropdown" class="dropdown-content">
-                <a href="#">2 Weeks</a>
-                <a href="#">1 Month</a>
-            </div>
+    <div class="dropdown pull-right">
+        <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
+            <span class="glyphicon glyphicon-filter"></span> Filter
+        </button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="#">2 Weeks</a>
+            <a href="#">1 Month</a>
         </div>
+    </div>
 
-        <script>
+    <script>
             /* When the user clicks on the button,
             toggle between hiding and showing the dropdown content */
             function myFunction() {
@@ -61,97 +61,102 @@
                         }
                     }
                 }
-            }</script>
+            }
+
+    </script>
 
 
-        <hr>
+    <hr>
 
-        <table style="width:62%; font-size:12px; line-height: 18px" align="center">
-            {% set colors = ['#E3F2FD', '#90CAF9', '#42A5F5', '#1E88E5', '#1565C0'] %}
-            {% for student in github_tables %}
-                <tr>
-                    <td><div class="text-inverse">{{ student.name }}</div></td>
-                    {% for time in student.day_list %}
-                        <td>
-                            <a data-toggle="tooltip" title="hey}">
-                                <svg width="10" height="10">
-                                    <rect width="10" height="10" style="fill:{{ colors[time.reading_color]  }};"/>
-                                </svg>
-                            </a>
-                            <a data-toggle="tooltip" title="hi">
-                                <svg width="10" height="10">
-                                    <rect width="10" height="10" style="fill:{{ colors[time.exercise_color] }};"/>
-                                </svg>
-                            </a>
-                        </td>
-                    {% endfor %}
-                </tr>
+    <table style="width:62%; font-size:12px; line-height: 18px" align="center">
+        {% set colors = ['#E3F2FD', '#90CAF9', '#42A5F5', '#1E88E5', '#1565C0'] %}
+        {% for student in github_tables %}
+        <tr>
+            <td>
+                <div class="text-inverse">{{ student.name }}</div>
+            </td>
+            {% for time in student.day_list %}
+            <td>
+                <a data-toggle="tooltip" title="hey}">
+                    <svg width="10" height="10">
+                        <rect width="10" height="10" style="fill:{{ colors[time.reading_color]  }};"/>
+                    </svg>
+                </a>
+                <a data-toggle="tooltip" title="hi">
+                    <svg width="10" height="10">
+                        <rect width="10" height="10" style="fill:{{ colors[time.exercise_color] }};"/>
+                    </svg>
+                </a>
+            </td>
             {% endfor %}
+        </tr>
+        {% endfor %}
+        <tr>
+            <th></th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>
+        </tr>
+    </table>
+
+    <hr>
+    <br>
+
+    <div class="table-responsive m-t-40">
+        <table id="example23" class="display nowrap table table-hover" cellspacing="0" width="100%">
+            <thead>
             <tr>
-                <th></th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-                <th>Sun</th>
+                <th>Name</th>
+                <th>Reading / Exercises</th>
+                <th>Time</th>
             </tr>
+            </thead>
+
+            <tbody>
+            {% for student in students %}
+            <tr>
+                <td width="22%">
+                    <h5><a href={{'/student/'+student.id +'/'+ time + '/' }}>
+                        <div class="text-inverse">{{ student.name }}</div>
+                        </a></h5>
+                </td>
+
+                <td width="69%">
+                    <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
+                        <div class="progress-bar bg-primary wow animated progress-animated" role="progressbar"
+                             style="width: {{(100*student.reading_time/(student.exercises_done+student.reading_time))}}%;">
+                            {{(100*student.reading_time/(student.exercises_done+student.reading_time))|round|int}}%
+                        </div>
+                        <div class="progress-bar bg-success wow animated progress-animated" role="progressbar"
+                             style="width: {{100*student.exercises_done/(student.exercises_done+student.reading_time)}}%; background-color: #607D8B !important;">
+                            {{(100*student.exercises_done/(student.exercises_done+student.reading_time))|round|int}}%
+                        </div>
+
+                    </div>
+                </td>
+
+                <td width="9%">
+                    <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
+                        {{ ((student.exercises_done + student.reading_time)/60)|int}} h
+                        {{ ((student.exercises_done + student.reading_time)%60)|int}} m
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
         </table>
-
-        <hr><br>
-
-        <div class="table-responsive m-t-40">
-            <table id="example23" class="display nowrap table table-hover" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Reading / Exercises</th>
-                    <th>Time</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                {% for student in students %}
-                    <tr>
-                        <td width="22%">
-                            <h5><a href={{'/student/'+student.id +'/'+ time|string + '/' }}>
-                                <div class="text-inverse">{{ student.name }}</div>
-                            </a></h5>
-                        </td>
-
-                        <td width="69%">
-                            <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
-                                <div class="progress-bar bg-primary wow animated progress-animated" role="progressbar"
-                                     style="width: {{(100*student.reading_time/(student.exercises_done+student.reading_time))}}%;">
-                                    {{(100*student.reading_time/(student.exercises_done+student.reading_time))|round|int}}%
-                                </div>
-                                <div class="progress-bar bg-success wow animated progress-animated" role="progressbar"
-                                     style="width: {{100*student.exercises_done/(student.exercises_done+student.reading_time)}}%; background-color: #607D8B !important;">
-                                    {{(100*student.exercises_done/(student.exercises_done+student.reading_time))|round|int}}%
-                                </div>
-
-                            </div>
-                        </td>
-
-                        <td width="9%">
-                            <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
-                                {{ ((student.exercises_done + student.reading_time)/60)|int}} h
-                                {{ ((student.exercises_done + student.reading_time)%60)|int}} m
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
     </div>
+</div>
 
-    <!-- End Wrapper -->
-    <!-- All Jquery -->
-    <script src="{{ url_for('static', filename='js/lib/jquery/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/lib/datatables/datatables.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/lib/datatables/datatables-init.js') }}"></script>
+<!-- End Wrapper -->
+<!-- All Jquery -->
+<script src="{{ url_for('static', filename='js/lib/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/lib/datatables/datatables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/lib/datatables/datatables-init.js') }}"></script>
 
 {% endblock %}
 
