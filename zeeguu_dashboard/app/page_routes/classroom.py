@@ -4,7 +4,7 @@ from app import app
 from app.api import api_connection
 from app.forms.create_cohort import CreateCohort
 from app.forms.edit_cohort import EditCohort
-from app.util.classroom import load_students, load_class_info, remove_class, create_class
+from app.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data
 from app.util.permissions import has_class_permission, has_session
 from app.util.classroom import reformat_time_spent
 

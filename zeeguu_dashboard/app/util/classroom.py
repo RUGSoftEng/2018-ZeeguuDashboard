@@ -1,11 +1,37 @@
 import json
-
+from datetime import datetime, timedelta
 from app.api.api_connection import api_post, api_get
 
 """
 This file contains all of the utility functions required to get and format the data for the classroom page,
 as well as posting data and changing it.
 """
+
+
+
+def format_class_table_data(student_data, duration):
+    student_times = []
+
+
+    for s in student_data:
+
+        now = datetime.today()
+        day_list = []
+        for day in range(1,duration):
+            day_dictionary = {
+                "date": now.strftime("%d-%m"),
+                "reading": s.get("reading_time_list")[day],
+                "exercise":s.get("exercise_time_list")[day],
+                "reading_color": _format_for_color(s.get("reading_time_list")[day]),
+                "exercise_color": _format_for_color(s.get("reading_time_list")[day])
+            }
+            day_list.append(day_dictionary)
+            now = now - timedelta(days=1);
+        student_dictionary = {"name": s.get("name"), "day_list": day_list}
+        student_times.append(student_dictionary)
+    return student_times
+
+
 
 
 def create_class(name, inv_code, max_students, language_id):
