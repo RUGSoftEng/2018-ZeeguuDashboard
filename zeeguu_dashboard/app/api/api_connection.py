@@ -2,7 +2,6 @@ import traceback
 
 import flask
 import requests
-from flask import redirect
 from requests import HTTPError
 
 from app import app

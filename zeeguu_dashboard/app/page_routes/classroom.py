@@ -6,7 +6,6 @@ from app.forms.edit_cohort import EditCohort
 from app.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data, \
     edit_class_info
 from app.util.permissions import has_class_permission, has_session
-from app.util.classroom import reformat_time_spent
 
 """
 This file takes care of all of the class related page_routes:

@@ -6,3 +6,4 @@ Werkzeug
 Flask-WTF
 Flask-Bootstrap
 nose2
+mysqlclient
