@@ -8,7 +8,6 @@ as well as posting data and changing it.
 """
 
 
-
 def format_class_table_data(student_data, duration):
     student_times = []
     duration = int(duration)
@@ -30,8 +29,6 @@ def format_class_table_data(student_data, duration):
         student_dictionary = {"name": s.get("name"), "day_list": day_list}
         student_times.append(student_dictionary)
     return student_times
-
-
 
 
 def create_class(name, inv_code, max_students, language_id):
@@ -139,13 +136,13 @@ def _format_for_color(time):
     :param time:
     :return:
     """
-    if 0 <= time <= 1:
+    if 0 <= time <= 5:
         color = 0
-    elif time < 3:
+    elif time < 10:
         color = 1
-    elif time < 5:
+    elif time < 15:
         color = 2
-    elif time < 7:
+    elif time < 20:
         color = 3
     else:
         color = 4
