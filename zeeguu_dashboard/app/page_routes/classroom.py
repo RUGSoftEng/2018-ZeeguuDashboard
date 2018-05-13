@@ -16,7 +16,34 @@ This file takes care of all of the class related page_routes:
 """
 
 
-@app.route('/class/<class_id>/')
+# @app.route('/student/<student_id>/', methods=['GET'])
+# @has_student_permission
+# def student_page(student_id):
+#     """
+#     This loads the student page. When a cookie is set, it's used to set the time filter to show.
+#     Otherwise, the default_time is used, which is 14, as requested by the customer.
+#     :param student_id: the student id to use
+#     :return: the template
+#     """
+#     DEFAULT_TIME = 14
+#     time = request.cookies.get('time')
+#     if not time:
+#         time = DEFAULT_TIME
+#     bookmarks = load_user_data(user_id=student_id, time=time)
+#     info = load_user_info(student_id, DEFAULT_TIME)
+#     bookmarks = filter_user_bookmarks(bookmarks)
+#     return render_template("studentpage.html", title=info['name'], info=info, stats=bookmarks, student_id=student_id)
+
+
+@app.route('/class/<class_id>/<filter_table_time>/', methods=['GET'])
+def class_page_set_cookie(class_id, filter_table_time):
+    redirect_to_index = redirect('/class/' + class_id + '/')
+    response = app.make_response(redirect_to_index)
+    response.set_cookie('filter_table_time', filter_table_time, max_age=60 * 60 * 24 * 365 * 2)
+    return response
+
+
+@app.route('/class/<class_id>/', methods=['GET'])
 @has_class_permission
 def load_class(class_id):
     """
@@ -25,24 +52,25 @@ def load_class(class_id):
     :param class_id: The id number of the class.
     :return: Renders and returns a class page.
     """
-    time = request.cookies.get('time')
+    filter_table_time = request.cookies.get('filter_table_time')
+    if not filter_table_time:
+        filter_table_time = 14
 
-    if not time:
-        time = app.config["DEFAULT_STUDENT_TIME"]
+    students = load_students(class_id, 365)
 
-    students = load_students(class_id, time)
     if students is None:
         return redirect('/')
     class_info = load_class_info(class_id)
 
-    github_tables = format_class_table_data(students, 14)
+    github_tables = format_class_table_data(students, filter_table_time)
 
     return render_template('classpage.html',
                            title=class_info['name'],
                            students=students,
                            github_tables=github_tables,
                            class_info=class_info,
-                           time=time
+                           class_id = class_id,
+                           time=filter_table_time
                            )
 
 
