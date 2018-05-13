@@ -3,6 +3,7 @@ import traceback
 import flask
 import requests
 from flask import redirect
+from requests import HTTPError
 
 from app import app
 
@@ -49,11 +50,11 @@ def _api_call(func, path, raise_for_status, package=None):
             returned = requests.get(app.config['API_PATH'] + path, params=params)
         else:
             returned = requests.post(app.config['API_PATH'] + path, data=package, params=params)
+        if raise_for_status is True:
+            returned.raise_for_status()
     except Exception:
         print(traceback.format_exc())
-        raise Exception("Exception while performing request.")
+        raise HTTPError()
 
-    if raise_for_status is True:
-        returned.raise_for_status()
 
     return returned
