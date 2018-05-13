@@ -36,8 +36,8 @@
                 <span class="glyphicon glyphicon-filter"></span>  Filter
             </button>
             <div id="myDropdown" class="dropdown-content">
-                <a href="{{'/class/' + '14/'}}">2 Weeks</a>
-                <a href="{{'/class/' +'31/'}}">1 month</a>
+                <a href="{{'/class/' + class_id + '/14/'}}">2 Weeks</a>
+                <a href="{{'/class/' + class_id + '/28/'}}">1 month</a>
             </div>
         </div>
 
@@ -66,7 +66,7 @@
 
         <hr>
 
-        <table style="width:62%; font-size:12px; line-height: 18px" align="center">
+        <table style="width:100%; font-size:12px; line-height: 18px" align="center">
             {% set colors = ['#E3F2FD', '#90CAF9', '#42A5F5', '#1E88E5', '#1565C0'] %}
             {% for student in github_tables %}
                 <tr>
@@ -125,7 +125,7 @@
                 {% for student in students %}
                     <tr>
                         <td width="22%">
-                            <h5><a href={{'/student/'+student.id +'/'+ time + '/' }}>
+                            <h5><a href={{'/student/'+student.id +'/'}}>
                                 <div class="text-inverse">{{ student.name }}</div>
                             </a></h5>
                         </td>
