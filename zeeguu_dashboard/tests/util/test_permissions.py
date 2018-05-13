@@ -3,6 +3,12 @@ from unittest.mock import patch, MagicMock
 
 from app.util import permissions
 
+"""
+This file contains a test function for every function inside the utility permissions.py. Testing is done via unittest and 
+function patching via the mock module in the unittest package. See the documentation for unittest.mock. The tests in
+this file use a white-box/black-box testing method.
+"""
+
 
 class TestPermissions(unittest.TestCase):
 

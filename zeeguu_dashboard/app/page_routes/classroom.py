@@ -28,9 +28,9 @@ def load_class(class_id):
     time = request.cookies.get('time')
 
     if not time:
-        time = 14
+        time = app.config["DEFAULT_STUDENT_TIME"]
 
-    students = load_students(class_id, 14)
+    students = load_students(class_id, time)
     if students is None:
         return redirect('/')
     class_info = load_class_info(class_id)
@@ -42,7 +42,7 @@ def load_class(class_id):
                            students=students,
                            github_tables=github_tables,
                            class_info=class_info,
-                           time=str(time)
+                           time=time
                            )
 
 
