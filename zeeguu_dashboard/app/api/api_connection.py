@@ -56,5 +56,4 @@ def _api_call(func, path, raise_for_status, package=None):
         print(traceback.format_exc())
         raise HTTPError()
 
-
     return returned

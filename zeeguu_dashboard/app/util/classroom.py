@@ -1,11 +1,34 @@
 import json
-
+from datetime import datetime, timedelta
 from app.api.api_connection import api_post, api_get
 
 """
 This file contains all of the utility functions required to get and format the data for the classroom page,
 as well as posting data and changing it.
 """
+
+
+def format_class_table_data(student_data, duration):
+    student_times = []
+    duration = int(duration)
+
+    for s in student_data:
+
+        now = datetime.today()
+        day_list = []
+        for day in range(1, duration):
+            day_dictionary = {
+                "date": now.strftime("%d-%m"),
+                "reading": s.get("reading_time_list")[day],
+                "exercise": s.get("exercise_time_list")[day],
+                "reading_color": _format_for_color(s.get("reading_time_list")[day]),
+                "exercise_color": _format_for_color(s.get("reading_time_list")[day])
+            }
+            day_list.append(day_dictionary)
+            now = now - timedelta(days=1);
+        student_dictionary = {"name": s.get("name"), "day_list": day_list}
+        student_times.append(student_dictionary)
+    return student_times
 
 
 def create_class(name, inv_code, max_students, language_id):
@@ -47,6 +70,7 @@ def load_class_info(class_id):
     class_info = returned_class_info
     return class_info
 
+
 def edit_class_info(class_id, name, invite_code, max_students):
     """
     Function for editing class information. Makes an API call with the proper data.
@@ -58,6 +82,7 @@ def edit_class_info(class_id, name, invite_code, max_students):
     """
     package = {'name': name, 'inv_code': invite_code, 'max_students': max_students}
     api_post('update_cohort/' + str(class_id), package=package)
+
 
 def load_classes():
     """
@@ -71,14 +96,14 @@ def load_classes():
     return classes
 
 
-def load_students(class_id):
+def load_students(class_id, duration):
     """
     Function for loading information on all students in a class. Loads information in JSON format and converts it to a dictionary.
     Requires permission  ( the logged in user must have permission to view class that student is in)
     :param class_id:
     :return: Dictionary of dictionaries containing (id, name, email, reading time, exercises done, last article)
     """
-    returned_student_infos_string = api_get("users_from_cohort/" + str(class_id)).text
+    returned_student_infos_string = api_get("users_from_cohort/" + str(class_id) + "/" + str(duration)).text
     returned_student_infos = json.loads(returned_student_infos_string)
     students = returned_student_infos
     return students
@@ -96,6 +121,7 @@ def verify_invite_code_exists(inv_code):
         return False
     return True
 
+
 def reformat_time_spent(students):
     """
     This function is a quick hotfix to reformat the user data for jinja2.
@@ -107,7 +133,6 @@ def reformat_time_spent(students):
         exercise_time = student["exercise_time_list"]
         tmp_list = []
         for i in range(7):
-
             tmp_list.append({"reading": _format_for_color(reading_time[i]),
                              "exercise": _format_for_color(exercise_time[i])})
 
