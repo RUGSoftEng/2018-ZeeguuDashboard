@@ -6,7 +6,6 @@ from app.forms.create_cohort import CreateCohort
 from app.forms.edit_cohort import EditCohort
 from app.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data
 from app.util.permissions import has_class_permission, has_session
-from app.util.classroom import reformat_time_spent
 
 """
 This file takes care of all of the class related page_routes:
@@ -31,7 +30,7 @@ def load_class(class_id):
     if not time:
         time = app.config["CLASS_HISTORY_PERIOD_DAYS"]
 
-    students = load_students(class_id, 14)
+    students = load_students(class_id, time)
     if students is None:
         return redirect('/')
     class_info = load_class_info(class_id)
@@ -43,7 +42,7 @@ def load_class(class_id):
                            students=students,
                            github_tables=github_tables,
                            class_info=class_info,
-                           time=str(time)
+                           time=time
                            )
 
 
