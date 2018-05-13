@@ -3,6 +3,12 @@ from unittest.mock import patch, MagicMock
 
 from app.util import classroom
 
+"""
+This file contains a test function for every function inside the utility classroom.py. Testing is done via unittest and 
+function patching via the mock module in the unittest package. See the documentation for unittest.mock. The tests in
+this file use a white-box testing method.
+"""
+
 
 class TestClassroom(unittest.TestCase):
     def setUp(self):
