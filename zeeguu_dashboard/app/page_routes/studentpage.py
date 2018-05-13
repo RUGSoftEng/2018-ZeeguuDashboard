@@ -18,12 +18,12 @@ def student_page(student_id):
     :param student_id: the student id to use
     :return: the template
     """
-    DEFAULT_TIME = 14
+    default_time = app.config["DEFAULT_STUDENT_TIME"]
     time = request.cookies.get('time')
     if not time:
-        time = DEFAULT_TIME
+        time = default_time
     bookmarks = load_user_data(user_id=student_id, time=time)
-    info = load_user_info(student_id)
+    info = load_user_info(student_id, default_time)
     bookmarks = filter_user_bookmarks(bookmarks)
     return render_template("studentpage.html", title=info['name'], info=info, stats=bookmarks, student_id=student_id)
 

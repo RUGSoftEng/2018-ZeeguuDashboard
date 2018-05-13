@@ -30,23 +30,61 @@
 
     <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
         <div class="card-title">{{ class_info.name }}</div>
+
+        <div class="dropdown pull-right">
+            <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
+                <span class="glyphicon glyphicon-filter"></span>  Filter
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="{{'/class/' + class_id + '/14/'}}">2 Weeks</a>
+                <a href="{{'/class/' + class_id + '/28/'}}">1 month</a>
+            </div>
+        </div>
+
+        <script>
+            /* When the user clicks on the button,
+            toggle between hiding and showing the dropdown content */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }</script>
+
+
         <hr>
 
-        <table style="width:62%; font-size:12px; line-height: 18px" align="center">
+        <table style="width:100%; font-size:12px; line-height: 18px" align="center">
             {% set colors = ['#E3F2FD', '#90CAF9', '#42A5F5', '#1E88E5', '#1565C0'] %}
-            {% for student in students %}
+            {% for student in github_tables %}
                 <tr>
                     <td><div class="text-inverse">{{ student.name }}</div></td>
-                    {% for time in student.time %}
+                    {% set outer_loop = loop %}
+                    {% for time in student.day_list %}
                         <td>
-                            <a data-toggle="tooltip" title="{{ time.exercise }}">
-                                <svg width="10" height="10">
-                                    <rect width="10" height="10" style="fill:{{ colors[time.exercise] }};"/>
-                                </svg>
-                            </a>
-                            <a data-toggle="tooltip" title="{{ time.reading }}">
-                                <svg width="10" height="10">
-                                    <rect width="10" height="10" style="fill:{{ colors[time.reading] }};"/>
+                            <a data-toggle="tooltip" title="hey}">
+                                <svg width="20" height="10">
+                                    <defs>
+                                        <linearGradient id="{{ loop.index0 }}{{ outer_loop.index0 }}" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" style="stop-color:#E3F2FD;" />
+                                            <stop offset="50%" style="stop-color:#E3F2FD;" />
+                                            <stop offset="50%" style="stop-color:{{ colors[time.exercise_color] }};" />
+                                            <stop offset="100%" style="stop-color:{{ colors[time.exercise_color] }};" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect width="20" height="10" fill="url(#{{ loop.index0 }}{{ outer_loop.index0 }})" />
                                 </svg>
                             </a>
                         </td>
@@ -55,14 +93,24 @@
             {% endfor %}
             <tr>
                 <th></th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-                <th>Sun</th>
+                {% for time in github_tables[0].day_list %}
+                <th><div style="font-size: 8px">  {{ time.date }} </div> </th>
+                {% endfor %}
             </tr>
+
+            <tr>
+                 <th><div style="font-size: 8px">  Less &emsp; &nbsp; More</div>
+                     {% for i in range(4) %}
+                            <a data-toggle="tooltip" title="{{ time.reading }}hr">
+                                <svg width="10" height="10">
+                                    <rect width="10" height="10" style="fill:{{ colors[i]  }};"/>
+                                </svg>
+                            </a>
+                     {% endfor %}
+                </th>
+            </tr>
+
+
         </table>
 
         <hr><br>
@@ -81,7 +129,7 @@
                 {% for student in students %}
                     <tr>
                         <td width="22%">
-                            <h5><a href={{'/student/'+student.id +'/'+ time + '/' }}>
+                            <h5><a href={{'/student/'+student.id +'/'}}>
                                 <div class="text-inverse">{{ student.name }}</div>
                             </a></h5>
                         </td>
