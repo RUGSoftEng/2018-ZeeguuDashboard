@@ -15,28 +15,14 @@ This file takes care of all of the class related page_routes:
 - creating new classes
 """
 
-
-# @app.route('/student/<student_id>/', methods=['GET'])
-# @has_student_permission
-# def student_page(student_id):
-#     """
-#     This loads the student page. When a cookie is set, it's used to set the time filter to show.
-#     Otherwise, the default_time is used, which is 14, as requested by the customer.
-#     :param student_id: the student id to use
-#     :return: the template
-#     """
-#     DEFAULT_TIME = 14
-#     time = request.cookies.get('time')
-#     if not time:
-#         time = DEFAULT_TIME
-#     bookmarks = load_user_data(user_id=student_id, time=time)
-#     info = load_user_info(student_id, DEFAULT_TIME)
-#     bookmarks = filter_user_bookmarks(bookmarks)
-#     return render_template("studentpage.html", title=info['name'], info=info, stats=bookmarks, student_id=student_id)
-
-
 @app.route('/class/<class_id>/<filter_table_time>/', methods=['GET'])
 def class_page_set_cookie(class_id, filter_table_time):
+    """
+    Sets cookie for filter table time
+    :param class_id: the id for this class.
+    :param filter_table_time: time for the filter_table
+    :return: Renders and returns a class page.
+    """
     redirect_to_index = redirect('/class/' + class_id + '/')
     response = app.make_response(redirect_to_index)
     response.set_cookie('filter_table_time', filter_table_time, max_age=60 * 60 * 24 * 365 * 2)

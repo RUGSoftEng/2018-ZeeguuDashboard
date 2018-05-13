@@ -94,19 +94,19 @@
             <tr>
                 <th></th>
                 {% for time in github_tables[0].day_list %}
-                <th><div style="font-size: 8px">  {{ time.date }} </div> </th>
+                    <th><div style="font-size: 8px">  {{ time.date }} </div> </th>
                 {% endfor %}
             </tr>
 
             <tr>
-                 <th><div style="font-size: 8px">  Less &emsp; &nbsp; More</div>
-                     {% for i in range(4) %}
-                            <a data-toggle="tooltip" title="{{ time.reading }}hr">
-                                <svg width="10" height="10">
-                                    <rect width="10" height="10" style="fill:{{ colors[i]  }};"/>
-                                </svg>
-                            </a>
-                     {% endfor %}
+                <th><div style="font-size: 8px">  Less &emsp; &nbsp; More</div>
+                    {% for i in range(4) %}
+                        <a data-toggle="tooltip" title="{{ time.reading }}hr">
+                            <svg width="10" height="10">
+                                <rect width="10" height="10" style="fill:{{ colors[i]  }};"/>
+                            </svg>
+                        </a>
+                    {% endfor %}
                 </th>
             </tr>
 
