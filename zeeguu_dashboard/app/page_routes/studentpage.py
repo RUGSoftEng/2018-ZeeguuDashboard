@@ -23,7 +23,7 @@ def student_page(student_id):
     if not time:
         time = DEFAULT_TIME
     bookmarks = load_user_data(user_id=student_id, time=time)
-    info = load_user_info(student_id)
+    info = load_user_info(student_id, DEFAULT_TIME)
     bookmarks = filter_user_bookmarks(bookmarks)
     return render_template("studentpage.html", title=info['name'], info=info, stats=bookmarks, student_id=student_id)
 

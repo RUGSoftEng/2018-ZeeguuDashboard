@@ -4,7 +4,7 @@ from app import app
 from app.api import api_connection
 from app.forms.create_cohort import CreateCohort
 from app.forms.edit_cohort import EditCohort
-from app.util.classroom import load_students, load_class_info, remove_class, create_class
+from app.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data
 from app.util.permissions import has_class_permission, has_session
 from app.util.classroom import reformat_time_spent
 
@@ -26,15 +26,16 @@ def load_class(class_id):
     :param class_id: The id number of the class.
     :return: Renders and returns a class page.
     """
-    students = load_students(class_id)
-    if students is None:
-        return redirect('/')
-    class_info = load_class_info(class_id)
     time = request.cookies.get('time')
     if not time:
         time = 14
+    students = load_students(class_id, str(time))
+    if students is None:
+        return redirect('/')
+    class_info = load_class_info(class_id)
 
-    students = reformat_time_spent(students)
+
+    students = format_class_table_data(students, str(time))
 
     return render_template('classpage.html',
                            title=class_info['name'],
