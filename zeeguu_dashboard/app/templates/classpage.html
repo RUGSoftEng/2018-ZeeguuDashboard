@@ -29,10 +29,46 @@
     </div>
 
     <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
-        <h4 class="card-title">{{ class_info.name }}</h4>
+        <div class="card-title">{{ class_info.name }}</div>
+        <hr>
+
+        <table style="width:62%; font-size:12px; line-height: 18px" align="center">
+            {% set colors = ['#E3F2FD', '#90CAF9', '#42A5F5', '#1E88E5', '#1565C0'] %}
+            {% for student in students %}
+                <tr>
+                    <td><div class="text-inverse">{{ student.name }}</div></td>
+                    {% for time in student.time %}
+                        <td>
+                            <a data-toggle="tooltip" title="{{ time.exercise }}">
+                                <svg width="10" height="10">
+                                    <rect width="10" height="10" style="fill:{{ colors[time.exercise] }};"/>
+                                </svg>
+                            </a>
+                            <a data-toggle="tooltip" title="{{ time.reading }}">
+                                <svg width="10" height="10">
+                                    <rect width="10" height="10" style="fill:{{ colors[time.reading] }};"/>
+                                </svg>
+                            </a>
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            <tr>
+                <th></th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
+            </tr>
+        </table>
+
+        <hr><br>
+
         <div class="table-responsive m-t-40">
             <table id="example23" class="display nowrap table table-hover" cellspacing="0" width="100%">
-
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -41,13 +77,13 @@
                 </tr>
                 </thead>
 
-
                 <tbody>
-
                 {% for student in students %}
                     <tr>
                         <td width="22%">
-                            <h5><a href={{'/student/'+student.id +'/'+'14/' }}> <div class="text-inverse">{{ student.name }}</div></a></h5>
+                            <h5><a href={{'/student/'+student.id +'/'+ time + '/' }}>
+                                <div class="text-inverse">{{ student.name }}</div>
+                            </a></h5>
                         </td>
 
                         <td width="69%">
@@ -72,14 +108,10 @@
                         </td>
                     </tr>
                 {% endfor %}
-
                 </tbody>
-
-
             </table>
         </div>
     </div>
-
 
     <!-- End Wrapper -->
     <!-- All Jquery -->
