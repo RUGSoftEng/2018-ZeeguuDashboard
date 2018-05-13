@@ -69,7 +69,7 @@ def load_class(class_id):
                            students=students,
                            github_tables=github_tables,
                            class_info=class_info,
-                           class_id = class_id,
+                           class_id=class_id,
                            time=filter_table_time
                            )
 
