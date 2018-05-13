@@ -30,6 +30,40 @@
 
     <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
         <div class="card-title">{{ class_info.name }}</div>
+
+        <div class="dropdown pull-right">
+            <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
+                <span class="glyphicon glyphicon-filter"></span>  Filter
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="#">2 Weeks</a>
+                <a href="#">1 Month</a>
+            </div>
+        </div>
+
+        <script>
+            /* When the user clicks on the button,
+            toggle between hiding and showing the dropdown content */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }</script>
+
+
         <hr>
 
         <table style="width:62%; font-size:12px; line-height: 18px" align="center">
