@@ -70,7 +70,7 @@ def downgrade_cohort_db(cursor, database):
                    "AND COLUMN_NAME = 'language_id'")
     result = cursor.fetchone()
     if result:
-        cursor.execute("ALTER TABLE cohort DROP FOREIGN KEY cohort_ibfk_1")
+        cursor.execute("ALTER TABLE cohort DROP FOREIGN KEY FK_language_id")
         cursor.execute("ALTER TABLE cohort "
                        "DROP COLUMN language_id")
 
