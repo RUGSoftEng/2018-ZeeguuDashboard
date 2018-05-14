@@ -110,6 +110,23 @@ def load_students(class_id, duration):
     return students
 
 
+def add_student_learning_proportion(students):
+    """
+    The function adds the "learning_proportion" for each student dictionary in the list of students,
+    which tells the user how much reading compared to doing exercises did the student do.
+    :param students: List of student dictionaries contiaing all of the relevant information about students
+    to be displayed on the class page.
+    :return: Same list with added element "learning_proportion" for each student dictionary.
+    """
+    for student in students:
+        if not (student["reading_time"] == 0 and student["exercises_done"] == 0):
+            student["learning_proportion"] = 100*student["reading_time"]/(student["exercises_done"]+student["reading_time"])
+        else:
+            student["learning_proportion"] = 50
+
+    return students
+
+
 def verify_invite_code_exists(inv_code):
     """
     Function for checking if an invite code exists.

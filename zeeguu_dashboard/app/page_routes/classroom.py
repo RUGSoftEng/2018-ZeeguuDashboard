@@ -4,7 +4,7 @@ from app import app
 from app.forms.create_cohort import CreateCohort
 from app.forms.edit_cohort import EditCohort
 from app.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data, \
-    edit_class_info
+    edit_class_info, add_student_learning_proportion
 from app.util.permissions import has_class_permission, has_session
 
 """
@@ -43,6 +43,7 @@ def load_class(class_id):
         filter_table_time = 14
 
     students = load_students(class_id, 365)
+    students = add_student_learning_proportion(students)
 
     if students is None:
         return redirect('/')
