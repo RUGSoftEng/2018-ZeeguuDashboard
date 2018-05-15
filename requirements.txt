@@ -1,0 +1,8 @@
+Flask
+pytest
+WTForms
+requests
+Werkzeug
+Flask-WTF
+Flask-Bootstrap
+nose2

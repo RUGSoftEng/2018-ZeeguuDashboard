@@ -210,12 +210,12 @@ h6 {
   /*padding-bottom: 100%;*/
 }
 .container-fluid {
-  padding: 0 30px 30px;
+  padding: 0 20px 5px;
 }
 @media (min-width: 1024px) {
   .page-wrapper {
-    margin-right: 50px;
-    margin-left: 50px;
+    margin-right: 9%;
+    margin-left: 9%;
   }
 }
 @media (max-width: 1023px) {
@@ -297,7 +297,7 @@ h6 {
   color: #1976d2;
 }
 .bg-primary {
-  background-color: #5c4ac7 !important;
+  background-color: #4680ff !important;
 }
 .bg-success {
   background-color: #26dad2 !important;
@@ -331,6 +331,9 @@ h6 {
 }
 .bg-light-success {
   background-color: #e8fdeb;
+}
+.bg-henry {
+  background-color: #00cc00;
 }
 .bg-light-info {
   background-color: #cfecfe;
@@ -861,7 +864,6 @@ h6.h1 {
 /*    Background Mixins
 --------------------------*/
 .bg-primary {
-  background: #4680ff !important;
   color: #ffffff;
   fill: #4680ff;
 }
@@ -1833,7 +1835,7 @@ textarea {
   background-color: #fb3a3a;
 }
 .badge-inverse {
-  background-color: #2f3d4a;
+  background-color: #4680ff;
 }
 .label {
   padding: 3px 10px;
@@ -2255,7 +2257,8 @@ textarea {
 }
 .card {
   background: #ffffff none repeat scroll 0 0;
-  margin: 15px 0;
+  margin-left: 9%;
+  margin-right: 9%;
   padding: 20px;
   border: 0 solid #e7e7e7;
   border-radius: 5px;
@@ -2360,6 +2363,9 @@ textarea {
 }
 .modal-content {
   border-radius: 3px;
+  margin-left: 30%;
+  margin-right: 30%;
+  background: #546e7a;
 }
 .timeline {
   list-style: none;
@@ -2459,7 +2465,7 @@ textarea {
   background-color: #62d1f3 !important;
 }
 .dataTables_wrapper {
-  padding-top: 10px;
+  padding-top: 0px;
 }
 .dt-buttons {
   display: inline-block;
@@ -2502,7 +2508,7 @@ textarea {
 }
 .dataTables_filter {
   float: right;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 .dataTables_filter input {
   background-color: transparent;
@@ -5405,7 +5411,7 @@ tbody tr td {
   color: #99abb4;
 }
 tbody tr td:last-child {
-  text-align: right;
+  text-align: left;
 }
 .table > tbody > tr > td,
 .table > tbody > tr > th,
