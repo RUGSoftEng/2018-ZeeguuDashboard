@@ -23,7 +23,6 @@ class EditCohort(FlaskForm):
         if not FlaskForm.validate(self):
             return False
         if verify_invite_code_exists(self.inv_code.data):
-            print("Code already in use!")
             tmp = list(self.inv_code.errors)
             tmp.append("Code already in use!")
             self.inv_code.errors = tuple(tmp)
