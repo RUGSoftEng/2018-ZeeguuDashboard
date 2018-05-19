@@ -17,14 +17,14 @@
                     <h6 style="color: whitesmoke">Max students: {{ class_info.max_students }}</h6>
                 </div>
                 <div class="modal-footer">
-                    {% if class_info.cur_students == 0  %}
-                    <a href={{'/remove_class/' + class_info.id }}>
-                        <button type="button" class="btn btn-default bg-danger" style="border-color: #455a64">Delete Class</button>
-                    </a>
-                    {% endif %}
-                    <a href={{'/edit_class/' + class_info.id }}>
-                        <button type="button" class="btn btn-default bg-primary" style="border-color: #455a64">Edit</button>
-                    </a>
+                    <form action="{{'/class/' + class_info.id }}/" method="POST">
+                        {% if class_info.cur_students == 0  %}
+                        <button type="submit" class="btn btn-default bg-danger" style="border-color: #455a64">Delete Class</button>
+                        {% endif %}
+                        <a href={{'/edit_class/' + class_info.id }}>
+                            <button type="button" class="btn btn-default bg-primary" style="border-color: #455a64">Edit</button>
+                        </a>
+                    </form>
                 </div>
             </div>
         </div>
