@@ -20,10 +20,10 @@ def to_homepage():
 
 @app.route('/teacher/')
 @has_session
-def homepage():
+def homepage(messages=[]):
     """
     This shows a teachers corresponding homepage, as long as a session is validated.
     :return: Renders and returns the home page.
     """
     classes = load_classes()
-    return render_template('homepage.html', title="Homepage", classes=classes)
+    return render_template('homepage.html', title="Homepage", classes=classes, messages=messages)

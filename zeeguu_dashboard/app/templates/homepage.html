@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+    {% for msg in messages %}
+            <span style="color: blue;">[{{ msg }}]</span>
+    {% endfor %}
     <div class="row page-titles" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
 
         <!-- these are the classes  -->
