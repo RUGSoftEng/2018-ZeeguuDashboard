@@ -15,6 +15,7 @@ This file takes care of all of the class related page_routes:
 - creating new classes
 """
 
+
 @app.route('/class/<class_id>/<filter_table_time>/', methods=['GET'])
 def class_page_set_cookie(class_id, filter_table_time):
     """
@@ -40,16 +41,27 @@ def load_class(class_id):
     """
     filter_table_time = request.cookies.get('filter_table_time')
     if not filter_table_time:
-        filter_table_time = 14
+        filter_table_time = time = app.config["DEFAULT_STUDENT_TIME"]
 
-    students = load_students(class_id, 365)
-    students = add_student_learning_proportion(students)
+    time = request.cookies.get('time')
+    if not time:
+        time = app.config["DEFAULT_STUDENT_TIME"]
+
+    students = None
+    github_tables = None
+
+    if int(filter_table_time) > int(time):
+        students = load_students(class_id, filter_table_time)
+        github_tables = format_class_table_data(students, filter_table_time)
+        students = load_students(class_id, time)
+    else:
+        students = load_students(class_id, time)
+        github_tables = format_class_table_data(students, filter_table_time)
 
     if students is None:
         return redirect('/')
+    students = add_student_learning_proportion(students)
     class_info = load_class_info(class_id)
-
-    github_tables = format_class_table_data(students, filter_table_time)
 
     return render_template('classpage.html',
                            title=class_info['name'],

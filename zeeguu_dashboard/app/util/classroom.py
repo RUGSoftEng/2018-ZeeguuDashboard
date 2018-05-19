@@ -120,7 +120,8 @@ def add_student_learning_proportion(students):
     """
     for student in students:
         if not (student["reading_time"] == 0 and student["exercises_done"] == 0):
-            student["learning_proportion"] = 100*student["reading_time"]/(student["exercises_done"]+student["reading_time"])
+            student["learning_proportion"] = 100 * student["reading_time"] / (
+                    student["exercises_done"] + student["reading_time"])
         else:
             student["learning_proportion"] = 50
 
@@ -138,28 +139,6 @@ def verify_invite_code_exists(inv_code):
     if inv_code_bool == "OK":
         return False
     return True
-
-
-def reformat_time_spent(students):
-    """
-    This function is a quick hotfix to reformat the user data for jinja2.
-    :param students:
-    :return:
-    """
-    for student in students:
-        reading_time = student["reading_time_list"]
-        exercise_time = student["exercise_time_list"]
-        tmp_list = []
-        for i in range(7):
-            tmp_list.append({"reading": _format_for_color(reading_time[i]),
-                             "exercise": _format_for_color(exercise_time[i])})
-
-        del student["reading_time_list"]
-        del student["exercise_time_list"]
-
-        student['time'] = tmp_list
-
-    return students
 
 
 def _format_for_color(time):
