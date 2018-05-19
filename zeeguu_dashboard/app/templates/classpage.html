@@ -94,19 +94,19 @@
             <tr>
                 <th></th>
                 {% for time in github_tables[0].day_list %}
-                <th><div style="font-size: 8px">  {{ time.date }} </div> </th>
+                    <th><div style="font-size: 8px">  {{ time.date }} </div> </th>
                 {% endfor %}
             </tr>
 
             <tr>
-                 <th><div style="font-size: 8px">  Less &emsp; &nbsp; More</div>
-                     {% for i in range(4) %}
-                            <a data-toggle="tooltip" title="{{ time.reading }}hr">
-                                <svg width="10" height="10">
-                                    <rect width="10" height="10" style="fill:{{ colors[i]  }};"/>
-                                </svg>
-                            </a>
-                     {% endfor %}
+                <th><div style="font-size: 8px">  Less &emsp; &nbsp; More</div>
+                    {% for i in range(4) %}
+                        <a data-toggle="tooltip" title="{{ time.reading }}hr">
+                            <svg width="10" height="10">
+                                <rect width="10" height="10" style="fill:{{ colors[i]  }};"/>
+                            </svg>
+                        </a>
+                    {% endfor %}
                 </th>
             </tr>
 
@@ -137,12 +137,12 @@
                         <td width="69%">
                             <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
                                 <div class="progress-bar bg-primary wow animated progress-animated" role="progressbar"
-                                     style="width: {{(100*student.reading_time/(student.exercises_done+student.reading_time))}}%;">
-                                    {{(100*student.reading_time/(student.exercises_done+student.reading_time))|round|int}}%
+                                     style="width: {{ student.learning_proportion }}%;">
+                                    {{ student.learning_proportion|round|int }}%
                                 </div>
                                 <div class="progress-bar bg-success wow animated progress-animated" role="progressbar"
-                                     style="width: {{100*student.exercises_done/(student.exercises_done+student.reading_time)}}%; background-color: #607D8B !important;">
-                                    {{(100*student.exercises_done/(student.exercises_done+student.reading_time))|round|int}}%
+                                     style="width: {{ student.learning_proportion|round|int }}%; background-color: #607D8B !important;">
+                                    {{ student.learning_proportion|round|int }}%
                                 </div>
 
                             </div>
