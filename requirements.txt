@@ -1,9 +1,12 @@
 Flask
+Flask-WTF
+Flask-Bootstrap
+Flask-Migrate
+Flask-SQLAlchemy
 pytest
+Jinja2
 WTForms
 requests
 Werkzeug
-Flask-WTF
-Flask-Bootstrap
 nose2
 mysqlclient
