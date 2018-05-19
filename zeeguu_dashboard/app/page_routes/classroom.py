@@ -6,6 +6,7 @@ from app.forms.edit_cohort import EditCohort
 from app.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data, \
     edit_class_info, add_student_learning_proportion
 from app.util.permissions import has_class_permission, has_session
+from app.page_routes.homepage import homepage
 
 """
 This file takes care of all of the class related page_routes:
@@ -83,17 +84,21 @@ def edit_class(class_id):
     :return: Renders and returns an edit class page.
     """
     class_info = load_class_info(class_id)
-    form = EditCohort()
+    form = EditCohort(class_info["inv_code"])
+
+
     if form.validate_on_submit():
         inv_code = form.inv_code.data
         name = form.class_name.data
         max_students = form.max_students.data
         edit_class_info(class_id=class_id, name=name, invite_code=inv_code, max_students=max_students)
-        return redirect('/')
+        messages = []
+        messages.append("Edit sucessful")
+        return homepage(messages)
     return render_template('edit_class.html',
                            title='Edit classroom',
                            form=form,
-                           class_info=class_info
+                           class_info=class_info,
                            )
 
 
@@ -108,7 +113,8 @@ def remove_classroom(class_id):
     :return: Redirects the user to the home page.
     """
     remove_class(class_id)
-    return redirect('/')
+    messages = ["Sucessfully removed class."]
+    return homepage(messages)
 
 
 @app.route('/create_classroom/', methods=['GET', 'POST'])
@@ -126,7 +132,8 @@ def create_classroom():
         max_students = form.max_students.data
         language_id = form.class_language_id.data
         create_class(name=name, inv_code=inv_code, max_students=max_students, language_id=language_id)
-        return redirect('/')
+        messages = ["Sucessfully added class."]
+        return homepage(messages)
 
     return render_template('createcohort.html',
                            title='Create classroom',
