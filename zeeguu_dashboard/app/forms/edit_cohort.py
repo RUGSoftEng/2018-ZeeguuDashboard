@@ -9,9 +9,10 @@ class EditCohort(FlaskForm):
     This class extends FlaskForm. It is used when editing class information.
     """
     class_name = StringField('Class room name', validators=[DataRequired()])
-    inv_code = StringField('Invite code', validators=[DataRequired()])
+    inv_code = StringField('Invite code')
     max_students = StringField('Max students', validators=[DataRequired()])
     submit = SubmitField('Create classroom')
+    old_inv_code = None
 
     def validate(self):
         """
@@ -22,9 +23,12 @@ class EditCohort(FlaskForm):
         """
         if not FlaskForm.validate(self):
             return False
-        if verify_invite_code_exists(self.inv_code.data):
+        if verify_invite_code_exists(self.inv_code.data) and not (self.inv_code.data == self.old_inv_code):
             tmp = list(self.inv_code.errors)
             tmp.append("Code already in use!")
             self.inv_code.errors = tuple(tmp)
             return False
         return True
+    def __init__(self, old_code, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.old_inv_code = old_code
