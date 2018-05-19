@@ -10,11 +10,18 @@ as well as posting data and changing it.
 
 
 def format_class_table_data(student_data, duration):
+    """
+    This function formats the data for the github style tables correctly to be displayed
+    in the front-end.
+    :param student_data:
+    :param duration:
+    :return:
+    """
     student_times = []
+    student_times.append({})
     duration = int(duration)
 
     for s in student_data:
-
         now = datetime.today()
         day_list = []
         for day in range(0, duration):
