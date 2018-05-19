@@ -80,7 +80,6 @@ def load_class(class_id):
         return homepage(messages)
 
 
-
 @app.route('/edit_class/<class_id>/', methods=['GET', 'POST'])
 @has_class_permission
 def edit_class(class_id):
@@ -92,7 +91,6 @@ def edit_class(class_id):
     """
     class_info = load_class_info(class_id)
     form = EditCohort(class_info["inv_code"])
-
 
     if form.validate_on_submit():
         inv_code = form.inv_code.data
