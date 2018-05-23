@@ -81,7 +81,7 @@
                     {% set outer_loop = loop %}
                     {% for time in student.day_list %}
                         <td>
-                            <a data-toggle="tooltip" title="reading">
+                            <a data-toggle="tooltip" title="{{time.reading}}:{{time.exercise}}">
                                 <svg width="20" height="10">
                                     <defs>
                                         <linearGradient id="{{ loop.index0 }}{{ outer_loop.index0 }}" x1="0%" y1="0%"
@@ -112,7 +112,7 @@
                 <th>
                     <div style="font-size: 8px"> Less &emsp; &nbsp; More</div>
                     {% for i in range(4) %}
-                        <a data-toggle="tooltip" title="{{ time.reading }}">
+                        <a data-toggle="tooltip" title="{{ i*5 }} mins">
                             <svg width="10" height="10">
                                 <rect width="10" height="10" style="fill:{{ colors[i] }};"/>
                             </svg>
