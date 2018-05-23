@@ -30,12 +30,13 @@ def format_class_table_data(student_data, duration):
                 "reading": s.get("reading_time_list")[day],
                 "exercise": s.get("exercise_time_list")[day],
                 "reading_color": _format_for_color(s.get("reading_time_list")[day]),
-                "exercise_color": _format_for_color(s.get("reading_time_list")[day])
+                "exercise_color": _format_for_color(s.get("exercise_time_list")[day])
             }
             day_list.append(day_dictionary)
             now = now - timedelta(days=1);
         student_dictionary = {"name": s.get("name"), "day_list": day_list}
         student_times.append(student_dictionary)
+    print(student_times)
     return student_times
 
 
@@ -154,15 +155,18 @@ def _format_for_color(time):
     :param time:
     :return:
     """
-    if 0 <= time <= 5:
+
+    if time <= 1:
         color = 0
-    elif time < 10:
+    elif time < 5:
+        print(time)
         color = 1
-    elif time < 15:
+    elif time < 10:
         color = 2
     elif time < 20:
         color = 3
     else:
+        print(time)
         color = 4
 
     return color
