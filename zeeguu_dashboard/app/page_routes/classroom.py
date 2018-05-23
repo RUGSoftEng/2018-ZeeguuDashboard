@@ -66,6 +66,9 @@ def load_class(class_id):
         students = add_student_learning_proportion(students)
         class_info = load_class_info(class_id)
 
+        if not students or not github_tables:
+            return render_template("empty_classpage.html", class_info=class_info)
+
         return render_template('classpage.html',
                                title=class_info['name'],
                                students=students,

@@ -24,6 +24,8 @@ def student_page(student_id):
     bookmarks = load_user_data(user_id=student_id, time=time)
     info = load_user_info(student_id, time)
     bookmarks = filter_user_bookmarks(bookmarks)
+    if not bookmarks or not info:
+        return render_template("empty_student_page.html", info=info, title=info['name'], student_id=student_id)
     return render_template("studentpage.html", title=info['name'], info=info, stats=bookmarks, student_id=student_id)
 
 
