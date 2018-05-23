@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    {#    Add student page content here    #}
+{% endblock %}
+
+
+{% block buttons %}
+    <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important" data-toggle="modal" data-target="#myModal">
+        &#9432
+    </button>
+
+    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"><</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        $(".progress-bar").animate({
+            width: "70%"
+        }, 2500);
+
+    </script>
+{% endblock %}

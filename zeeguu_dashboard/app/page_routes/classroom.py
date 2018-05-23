@@ -51,6 +51,9 @@ def load_class(class_id):
 
     github_tables = format_class_table_data(students, filter_table_time)
 
+    if not students or not github_tables:
+        return render_template("empty_classpage.html", class_info=class_info)
+
     return render_template('classpage.html',
                            title=class_info['name'],
                            students=students,

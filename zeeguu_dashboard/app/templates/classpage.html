@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base/classpage_base.html" %}
 
 {% block content %}
 
@@ -166,27 +166,5 @@
     <script src="{{ url_for('static', filename='js/lib/jquery/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/datatables/datatables.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/lib/datatables/datatables-init.js') }}"></script>
-
-{% endblock %}
-
-
-{% block buttons %}
-
-    <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important" data-toggle="modal" data-target="#myModal">
-        &#9432
-    </button>
-
-    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"><</button>
-
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-
-        $(".progress-bar").animate({
-            width: "70%"
-        }, 2500);
-
-    </script>
 
 {% endblock %}
