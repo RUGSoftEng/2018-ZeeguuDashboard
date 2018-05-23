@@ -81,7 +81,7 @@
                     {% set outer_loop = loop %}
                     {% for time in student.day_list %}
                         <td>
-                            <a data-toggle="tooltip" title="hey}">
+                            <a data-toggle="tooltip" title="reading">
                                 <svg width="20" height="10">
                                     <defs>
                                         <linearGradient id="{{ loop.index0 }}{{ outer_loop.index0 }}" x1="0%" y1="0%"
@@ -112,7 +112,7 @@
                 <th>
                     <div style="font-size: 8px"> Less &emsp; &nbsp; More</div>
                     {% for i in range(4) %}
-                        <a data-toggle="tooltip" title="{{ time.reading }}hr">
+                        <a data-toggle="tooltip" title="{{ time.reading }}">
                             <svg width="10" height="10">
                                 <rect width="10" height="10" style="fill:{{ colors[i] }};"/>
                             </svg>
@@ -153,8 +153,8 @@
                                     {{ student.learning_proportion|round|int }}%
                                 </div>
                                 <div class="progress-bar bg-success wow animated progress-animated" role="progressbar"
-                                     style="width: {{ student.learning_proportion|round|int }}%; background-color: #607D8B !important;">
-                                    {{ student.learning_proportion|round|int }}%
+                                     style="width: {{ 100-student.learning_proportion|round|int }}%; background-color: #607D8B !important;">
+                                    {{ 100-student.learning_proportion|round|int }}%
                                 </div>
 
                             </div>

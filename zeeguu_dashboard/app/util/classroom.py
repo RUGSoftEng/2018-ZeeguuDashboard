@@ -36,7 +36,6 @@ def format_class_table_data(student_data, duration):
             now = now - timedelta(days=1);
         student_dictionary = {"name": s.get("name"), "day_list": day_list}
         student_times.append(student_dictionary)
-    print(student_times)
     return student_times
 
 
@@ -127,12 +126,16 @@ def add_student_learning_proportion(students):
     :return: Same list with added element "learning_proportion" for each student dictionary.
     """
     for student in students:
+        student["learning_proportion"] = 100
         if not (student["reading_time"] == 0 and student["exercises_done"] == 0):
             student["learning_proportion"] = 100 * student["reading_time"] / (
                 student["exercises_done"] + student["reading_time"])
-        else:
+        elif student["reading_time"] == 0 and student["exercises_done"] == 0:
             student["learning_proportion"] = 50
-
+        elif student["reading_time"] == 0:
+            student["learning_proportion"] = 0
+        else:
+            student["learning_proportion"] = 100
     return students
 
 
@@ -159,14 +162,12 @@ def _format_for_color(time):
     if time <= 1:
         color = 0
     elif time < 5:
-        print(time)
         color = 1
     elif time < 10:
         color = 2
     elif time < 20:
         color = 3
     else:
-        print(time)
         color = 4
 
     return color
