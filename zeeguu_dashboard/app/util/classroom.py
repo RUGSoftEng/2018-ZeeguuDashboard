@@ -25,7 +25,6 @@ def format_class_table_data(student_data, duration):
         ideal_days.append((now-timedelta(days=i)).strftime("%d-%m"))
     student_times.append(ideal_days)
 
-
     for s in student_data:
         day_list = []
         for day in range(0, duration):
@@ -162,7 +161,6 @@ def _format_for_color(time):
     :param time:
     :return:
     """
-
     if time <= 1:
         color = 0
     elif time < 5:
