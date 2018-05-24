@@ -86,8 +86,8 @@
                                     <defs>
                                         <linearGradient id="{{ loop.index0 }}{{ outer_loop.index0 }}" x1="0%" y1="0%"
                                                         x2="100%" y2="0%">
-                                            <stop offset="0%" style="stop-color:#E3F2FD;"/>
-                                            <stop offset="50%" style="stop-color:#E3F2FD;"/>
+                                            <stop offset="0%" style="stop-color:{{ colors[time.reading_color] }};"/>
+                                            <stop offset="50%" style="stop-color:{{ colors[time.reading_color] }};"/>
                                             <stop offset="50%" style="stop-color:{{ colors[time.exercise_color] }};"/>
                                             <stop offset="100%" style="stop-color:{{ colors[time.exercise_color] }};"/>
                                         </linearGradient>
@@ -101,9 +101,9 @@
             {% endfor %}
             <tr>
                 <th></th>
-                {% for time in github_tables[0].day_list %}
+                {% for time in github_tables[0] %}
                     <th>
-                        <div style="font-size: 8px">  {{ time.date }} </div>
+                        <div style="font-size: 8px">  {{ time }} </div>
                     </th>
                 {% endfor %}
             </tr>

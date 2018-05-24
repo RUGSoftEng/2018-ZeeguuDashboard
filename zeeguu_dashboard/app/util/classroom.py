@@ -17,12 +17,16 @@ def format_class_table_data(student_data, duration):
     :param duration:
     :return:
     """
-    student_times = []
-    student_times.append({})
+    now = datetime.today()
     duration = int(duration)
+    student_times = []
+    ideal_days = []
+    for i in range(duration):
+        ideal_days.append((now-timedelta(days=i)).strftime("%d-%m"))
+    student_times.append(ideal_days)
+
 
     for s in student_data:
-        now = datetime.today()
         day_list = []
         for day in range(0, duration):
             day_dictionary = {
