@@ -39,11 +39,11 @@
 
         <div class="dropdown pull-right">
             <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
-                <span class="glyphicon glyphicon-filter"></span> Filter
+                <span class="glyphicon glyphicon-filter"></span> {{ (time|int /7) |int}} weeks
             </button>
             <div id="myDropdown" class="dropdown-content">
                 <a href="{{ '/class/' + class_id + '/14/' }}">2 Weeks</a>
-                <a href="{{ '/class/' + class_id + '/28/' }}">1 month</a>
+                <a href="{{ '/class/' + class_id + '/28/' }}">4 Weeks</a>
             </div>
         </div>
 
