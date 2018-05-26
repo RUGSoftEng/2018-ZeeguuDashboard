@@ -7,6 +7,25 @@ This file contains all of the utility functions for loading and formatting user 
 """
 
 
+def get_correct_time(time):
+    """
+    Returns correct string according to time given as a string
+    :param time:
+    :return:
+    """
+
+    if time == '7':
+        return "1 Week"
+    elif time == '14':
+        return "2 Weeks"
+    elif time == '30':
+        return "1 Month"
+    elif time == '180':
+        return "6 Months"
+    elif time == '365':
+        return "1 Year"
+
+
 def load_user_info(user_id, duration):
     """
     Loads an invidiual users data.

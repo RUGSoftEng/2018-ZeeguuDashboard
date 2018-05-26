@@ -1,12 +1,10 @@
-{% extends "base.html" %}
-
+{% extends "base/base.html" %}
 
 {% block content %}
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/slider.css') }}">
 
     <div class="col-lg-4"></div>
-
     <div class="row justify-content-center" style="border-radius: 10px">
         <div class="col-lg-4">
             <div class="login-content card">
@@ -29,6 +27,9 @@
                                 <label>Invitation Code:</label>
                                 <input type="text" class="form-control" id="inv_code" name="inv_code"
                                        placeholder="{{ class_info.inv_code }}">
+                                {% for error in form.inv_code.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
                             </div>
 
                             <label>Max Students:</label> <span id="demo"></span>

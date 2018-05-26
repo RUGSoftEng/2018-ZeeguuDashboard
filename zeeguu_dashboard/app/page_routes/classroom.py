@@ -6,6 +6,7 @@ from app.forms.edit_cohort import EditCohort
 from app.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data, \
     edit_class_info, add_student_learning_proportion
 from app.util.permissions import has_class_permission, has_session
+from app.page_routes.homepage import homepage
 
 """
 This file takes care of all of the class related page_routes:
@@ -14,6 +15,7 @@ This file takes care of all of the class related page_routes:
 - removing it
 - creating new classes
 """
+
 
 @app.route('/class/<class_id>/<filter_table_time>/', methods=['GET'])
 def class_page_set_cookie(class_id, filter_table_time):
@@ -29,36 +31,58 @@ def class_page_set_cookie(class_id, filter_table_time):
     return response
 
 
-@app.route('/class/<class_id>/', methods=['GET'])
+@app.route('/class/<class_id>/', methods=['GET', 'POST'])
 @has_class_permission
 def load_class(class_id):
     """
     Function for loading a class of students when the proper route '/class/<class_id>/' is called.
-    Requires permission (the logged in user must be a teacher of the class).
+    Requires permission (the logged in user must be a teacher of the class). The class is loaded,
+    when the 'GET' method is used. If the 'POST' method is used, the class is deleted.
     :param class_id: The id number of the class.
     :return: Renders and returns a class page.
     """
-    filter_table_time = request.cookies.get('filter_table_time')
-    if not filter_table_time:
-        filter_table_time = 14
+    if request.method == 'GET':
+        filter_table_time = request.cookies.get('filter_table_time')
+        if not filter_table_time:
+            filter_table_time = time = app.config["DEFAULT_STUDENT_TIME"]
 
-    students = load_students(class_id, 365)
-    students = add_student_learning_proportion(students)
+        time = request.cookies.get('time')
+        if not time:
+            time = app.config["DEFAULT_STUDENT_TIME"]
 
-    if students is None:
-        return redirect('/')
-    class_info = load_class_info(class_id)
+        students = None
+        github_tables = None
 
-    github_tables = format_class_table_data(students, filter_table_time)
+        if int(filter_table_time) > int(time):
+            students = load_students(class_id, filter_table_time)
+            github_tables = format_class_table_data(students, filter_table_time)
+            students = load_students(class_id, time)
+        else:
+            students = load_students(class_id, time)
+            github_tables = format_class_table_data(students, filter_table_time)
 
-    return render_template('classpage.html',
-                           title=class_info['name'],
-                           students=students,
-                           github_tables=github_tables,
-                           class_info=class_info,
-                           class_id=class_id,
-                           time=filter_table_time
-                           )
+        if students is None:
+            return redirect('/')
+        students = add_student_learning_proportion(students)
+        class_info = load_class_info(class_id)
+        if not students or not github_tables:
+            return render_template("empty_classpage.html", class_info=class_info)
+        return render_template('classpage.html',
+                               title=class_info['name'],
+                               students=students,
+                               github_tables=github_tables,
+                               class_info=class_info,
+                               class_id=class_id,
+                               time=filter_table_time
+                               )
+
+
+@app.route('/remove_class/<class_id>/', methods=['GET'])
+@has_class_permission
+def remove(class_id):
+    remove_class(class_id)
+    messages = ["Sucessfully removed class."]
+    return homepage(messages)
 
 
 @app.route('/edit_class/<class_id>/', methods=['GET', 'POST'])
@@ -71,32 +95,21 @@ def edit_class(class_id):
     :return: Renders and returns an edit class page.
     """
     class_info = load_class_info(class_id)
-    form = EditCohort()
+    form = EditCohort(class_info["inv_code"])
+
     if form.validate_on_submit():
         inv_code = form.inv_code.data
         name = form.class_name.data
         max_students = form.max_students.data
         edit_class_info(class_id=class_id, name=name, invite_code=inv_code, max_students=max_students)
-        return redirect('/')
+        messages = []
+        messages.append("Edit sucessful")
+        return homepage(messages)
     return render_template('edit_class.html',
                            title='Edit classroom',
                            form=form,
-                           class_info=class_info
+                           class_info=class_info,
                            )
-
-
-@app.route('/remove_class/<class_id>/')
-@has_class_permission
-def remove_classroom(class_id):
-    """
-    Function for removing a class when the proper route '/remove_class/<class_id>' is called.
-    Removes the class and redirects the user to the home page.
-    Requires permission (the logged in user must be a teacher of the class).
-    :param class_id: The id number of the class.
-    :return: Redirects the user to the home page.
-    """
-    remove_class(class_id)
-    return redirect('/')
 
 
 @app.route('/create_classroom/', methods=['GET', 'POST'])
@@ -114,7 +127,8 @@ def create_classroom():
         max_students = form.max_students.data
         language_id = form.class_language_id.data
         create_class(name=name, inv_code=inv_code, max_students=max_students, language_id=language_id)
-        return redirect('/')
+        messages = ["Sucessfully added class."]
+        return homepage(messages)
 
     return render_template('createcohort.html',
                            title='Create classroom',

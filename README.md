@@ -15,15 +15,7 @@ The current Zeeguu system is not set up for teachers, individuals can sign up to
 ## How to Install
 
  1. Clone this repo
- 2. Make a python virtual environment with the following packages:
-	 1. Flask
-	 2. Flask-Bootstrap
-	 3. Flask-Migrate
-	 4. Flask-SQLAlchemy
-	 5. Flask-WTF
-	 6. Jinja2
-	 7. WTForms
-	 8. requests
+ 2. Make a python virtual environment with the following packages by running the command `pip3 install -r requirements.txt` and generate output suitable for a requirements file by running `pip freeze > requirements.txt`
  3. Set environment variables 'ZEEGUU_DASHBOARD_CONFIG' and 'API_PATH'. You can set 'ZEEGUU_DASHBOARD_CONFIG' to the path with default.cfg in the project. The API_PATH must include an ip and port. This is hidden to protect the API server. 
  4. Run using flask
 
