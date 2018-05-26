@@ -190,7 +190,6 @@
                             </td>
                         {% endif %}
                         <td width="9%" sorttable_customkey = {{student.exercises_done + student.reading_time}}>
-                            {{student.exercises_done + student.reading_time}}
                             <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
                                 {{ ((student.exercises_done + student.reading_time)/60)|int }} h
                                 {{ ((student.exercises_done + student.reading_time)%60)|int }} m
