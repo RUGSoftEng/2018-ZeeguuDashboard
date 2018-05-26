@@ -120,7 +120,7 @@
             {% endfor %}
             <a data-toggle="tooltip" title=">20hr">
                 <svg width="15" height="15">
-                    <rect width="15" height="15" style="fill:{{ colors[i] }};"/>
+                    <rect width="15" height="15" style="fill:{{ colors[4] }};"/>
                 </svg>
             </a>
             More
@@ -135,7 +135,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th class="sorttable_numeric">Reading / Exercises</th>
+                    <th class="sorttable_nosort">Reading / Exercises</th>
                     <th class="sorttable_numeric">Time</th>
                 </tr>
                 </thead>
@@ -152,7 +152,7 @@
 
                         {% if not (student.exercises_done + student.reading_time) == 0 %}
 
-                            <td width="69%">
+                            <td width="69%" sorttable_customkey = {{student.exercises_done + student.reading_time}}>
                                 <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
                                     <div class="progress-bar bg-primary wow animated progress-animated"
                                          role="progressbar"
