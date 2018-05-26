@@ -17,12 +17,15 @@ def format_class_table_data(student_data, duration):
     :param duration:
     :return:
     """
-    student_times = []
-    student_times.append({})
+    now = datetime.today()
     duration = int(duration)
+    student_times = []
+    ideal_days = []
+    for i in range(duration):
+        ideal_days.append((now-timedelta(days=i)).strftime("%d-%m"))
+    student_times.append(ideal_days)
 
     for s in student_data:
-        now = datetime.today()
         day_list = []
         for day in range(0, duration):
             day_dictionary = {
@@ -30,7 +33,7 @@ def format_class_table_data(student_data, duration):
                 "reading": s.get("reading_time_list")[day],
                 "exercise": s.get("exercise_time_list")[day],
                 "reading_color": _format_for_color(s.get("reading_time_list")[day]),
-                "exercise_color": _format_for_color(s.get("reading_time_list")[day])
+                "exercise_color": _format_for_color(s.get("exercise_time_list")[day])
             }
             day_list.append(day_dictionary)
             now = now - timedelta(days=1);
@@ -126,11 +129,16 @@ def add_student_learning_proportion(students):
     :return: Same list with added element "learning_proportion" for each student dictionary.
     """
     for student in students:
+        student["learning_proportion"] = 100
         if not (student["reading_time"] == 0 and student["exercises_done"] == 0):
-            student["learning_proportion"] = 100*student["reading_time"]/(student["exercises_done"]+student["reading_time"])
+            student["learning_proportion"] = 100 * student["reading_time"] / (
+                student["exercises_done"] + student["reading_time"])
+        elif student["reading_time"] == 0 and student["exercises_done"] == 0:
+            student["learning_proportion"] = -1
+        elif student["reading_time"] == 0:
+            student["learning_proportion"] = 0
         else:
-            student["learning_proportion"] = 50
-
+            student["learning_proportion"] = 100
     return students
 
 
@@ -147,39 +155,17 @@ def verify_invite_code_exists(inv_code):
     return True
 
 
-def reformat_time_spent(students):
-    """
-    This function is a quick hotfix to reformat the user data for jinja2.
-    :param students:
-    :return:
-    """
-    for student in students:
-        reading_time = student["reading_time_list"]
-        exercise_time = student["exercise_time_list"]
-        tmp_list = []
-        for i in range(7):
-            tmp_list.append({"reading": _format_for_color(reading_time[i]),
-                             "exercise": _format_for_color(exercise_time[i])})
-
-        del student["reading_time_list"]
-        del student["exercise_time_list"]
-
-        student['time'] = tmp_list
-
-    return students
-
-
 def _format_for_color(time):
     """
     Part of the hotfix
     :param time:
     :return:
     """
-    if 0 <= time <= 5:
+    if time <= 1:
         color = 0
-    elif time < 10:
+    elif time < 5:
         color = 1
-    elif time < 15:
+    elif time < 10:
         color = 2
     elif time < 20:
         color = 3

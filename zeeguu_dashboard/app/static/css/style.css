@@ -2507,7 +2507,7 @@ textarea {
   transition-duration: 0.3s;
 }
 .dataTables_filter {
-  float: right;
+  float: left;
   margin-top: 0px;
 }
 .dataTables_filter input {
