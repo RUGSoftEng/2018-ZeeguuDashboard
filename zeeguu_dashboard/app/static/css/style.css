@@ -70,6 +70,11 @@
 42. responsive
 
 */
+
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+    content: " \25B4\25BE"
+}
+
 .preloader {
   width: 100%;
   height: 100%;
