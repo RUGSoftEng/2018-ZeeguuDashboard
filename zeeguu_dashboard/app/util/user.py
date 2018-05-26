@@ -88,4 +88,6 @@ def sort_user_bookmarks(dict):
                 new_days.setdefault(bookmark['title'], {})
                 new_days['title']['context'] = {}
                 new_days['title']['context'] = bookmark
+
+    print (dict)
     return dict
