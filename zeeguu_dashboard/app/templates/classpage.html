@@ -146,7 +146,7 @@
                         </td>
 
 
-                        {% if not  student.learning_proportion == -1 %}
+                        {% if not (student.exercises_done + student.reading_time) == 0 %}
 
                             <td width="69%">
                                 <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
@@ -163,7 +163,7 @@
                             </td>
                         {% endif %}
 
-                        {% if student.learning_proportion == -1 %}
+                        {% if (student.exercises_done + student.reading_time) == 0  %}
 
                             <td width="69%">
                                 <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
