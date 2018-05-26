@@ -220,7 +220,7 @@ h6 {
 }
 @media (max-width: 1023px) {
   .page-wrapper {
-    margin-left: 10%;
+    /*margin-left: 10%;*/
     min-height: 100%;
     max-height: 100%;
     -webkit-transition: 0.2s ease-in;
@@ -4746,8 +4746,7 @@ footer p {
 */
 @media (max-width: 768px) {
   .card {
-    display: inline-block;
-    width: 100%;
+    overflow: scroll;
   }
 }
 @media (max-width: 360px) {

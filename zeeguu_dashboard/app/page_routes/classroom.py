@@ -73,7 +73,8 @@ def load_class(class_id):
                                github_tables=github_tables,
                                class_info=class_info,
                                class_id=class_id,
-                               time=filter_table_time
+                               time=filter_table_time,
+                               isMobile=request.user_agent.platform
                                )
 
 
