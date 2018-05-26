@@ -65,10 +65,8 @@ def load_class(class_id):
             return redirect('/')
         students = add_student_learning_proportion(students)
         class_info = load_class_info(class_id)
-
         if not students or not github_tables:
             return render_template("empty_classpage.html", class_info=class_info)
-
         return render_template('classpage.html',
                                title=class_info['name'],
                                students=students,
@@ -77,10 +75,14 @@ def load_class(class_id):
                                class_id=class_id,
                                time=filter_table_time
                                )
-    elif request.method == 'POST':
-        remove_class(class_id)
-        messages = ["Sucessfully removed class."]
-        return homepage(messages)
+
+
+@app.route('/remove_class/<class_id>/', methods=['GET'])
+@has_class_permission
+def remove(class_id):
+    remove_class(class_id)
+    messages = ["Sucessfully removed class."]
+    return homepage(messages)
 
 
 @app.route('/edit_class/<class_id>/', methods=['GET', 'POST'])
