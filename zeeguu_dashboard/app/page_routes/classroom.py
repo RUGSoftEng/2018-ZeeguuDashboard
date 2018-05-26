@@ -75,10 +75,14 @@ def load_class(class_id):
                                class_id=class_id,
                                time=filter_table_time
                                )
-    elif request.method == 'POST':
-        remove_class(class_id)
-        messages = ["Sucessfully removed class."]
-        return homepage(messages)
+
+
+@app.route('/remove_class/<class_id>/', methods=['GET'])
+@has_class_permission
+def remove(class_id):
+    remove_class(class_id)
+    messages = ["Sucessfully removed class."]
+    return homepage(messages)
 
 
 @app.route('/edit_class/<class_id>/', methods=['GET', 'POST'])
