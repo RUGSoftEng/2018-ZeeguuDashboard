@@ -134,7 +134,7 @@ def add_student_learning_proportion(students):
             student["learning_proportion"] = 100 * student["reading_time"] / (
                 student["exercises_done"] + student["reading_time"])
         elif student["reading_time"] == 0 and student["exercises_done"] == 0:
-            student["learning_proportion"] = -1
+            student["learning_proportion"] = 0
         elif student["reading_time"] == 0:
             student["learning_proportion"] = 0
         else:

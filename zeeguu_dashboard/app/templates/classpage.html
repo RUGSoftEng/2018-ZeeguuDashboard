@@ -3,7 +3,7 @@
 {% block content %}
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog" style="padding-right: 20%; padding-left: 20%;">
+    <div class="modal fade" id="myModal" role="dialog" style="padding-right: 10%; padding-left: 10%;">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
+    <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px; overflow: scroll">
         <div class="card-title">{{ class_info.name }}</div>
 
         <div class="dropdown pull-right">
@@ -69,7 +69,6 @@
                     }
                 }
             }</script>
-
 
         <hr>
         <table style="width:100%; font-size:12px; line-height: 18px" align="center">
@@ -128,7 +127,6 @@
         </div>
         <br>
 
-
         <hr>
         <br>
 
@@ -152,7 +150,7 @@
                         </td>
 
 
-                        {% if not  student.learning_proportion == -1 %}
+                        {% if not (student.exercises_done + student.reading_time) == 0 %}
 
                             <td width="69%">
                                 <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
@@ -171,7 +169,7 @@
                             </td>
                         {% endif %}
 
-                        {% if student.learning_proportion == -1 %}
+                        {% if (student.exercises_done + student.reading_time) == 0  %}
 
                             <td width="69%" sorttable_customkey = {{student.exercises_done + student.reading_time}}>
                                 <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
