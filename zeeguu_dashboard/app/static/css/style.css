@@ -2352,9 +2352,9 @@ textarea {
 .modal-dialog {
   margin: 30px auto;
   position: relative;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%) !important;
-  width: 70%;
+  width: 85%;
 }
 .modal-header .close {
   font-size: 14px;
@@ -2363,8 +2363,8 @@ textarea {
 }
 .modal-content {
   border-radius: 3px;
-  margin-left: 30%;
-  margin-right: 30%;
+  margin-left: 11%;
+  margin-right: 11%;
   background: #546e7a;
 }
 .timeline {
