@@ -35,8 +35,22 @@
         </div>
     </div>
 
+    <!--Modal for heatmap description-->
+    <div class="modal fade" id="heatmapModal" role="dialog" style="padding-right: 10%; padding-left: 10%;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h6 style="color: whitesmoke">
+                        This is a heatmap which showcases the activity of your students.</h6>
+                    <h6 style="color: whitesmoke"> You may choose to view their
+                        activity either on the last two weeks or on the last four weeks.</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px; overflow: scroll">
-        <div class="card-title">{{ class_info.name }}</div>
+        <div class="card-title" style="cursor: alias;" data-toggle="modal" data-target="#heatmapModal">{{ class_info.name }}</div>
 
         <div class="dropdown pull-right">
             <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
