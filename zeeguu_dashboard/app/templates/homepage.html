@@ -2,9 +2,9 @@
 
 {% block content %}
     {% for msg in messages %}
-            <center>
-                <span style="color: blue;">[{{ msg }}]</span>
-            </center>
+        <div class="alert alert-info" role="alert" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 16px">
+            {{ msg }}
+        </div>
     {% endfor %}
     <div class="row page-titles" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
 
