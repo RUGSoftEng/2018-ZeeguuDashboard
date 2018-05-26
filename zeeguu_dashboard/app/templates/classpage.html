@@ -3,7 +3,7 @@
 {% block content %}
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog" style="padding-right: 20%; padding-left: 20%;">
+    <div class="modal fade" id="myModal" role="dialog" style="padding-right: 10%; padding-left: 10%;">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -19,7 +19,7 @@
                 <div class="modal-footer">
                     <form action="{{ '/class/' + class_info.id }}/" method="POST">
                         {% if class_info.cur_students == 0 %}
-                        <a href={{ '/remove_class/' + class_info.id }}>
+                            <a href={{ '/remove_class/' + class_info.id }}>
                             <button type="submit" class="btn btn-default bg-danger" style="border-color: #455a64">Delete
                                 Class
                             </button>
@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
+    <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px; overflow: scroll">
         <div class="card-title">{{ class_info.name }}</div>
 
         <div class="dropdown pull-right">
@@ -69,7 +69,6 @@
                     }
                 }
             }</script>
-
 
         <hr>
         <table style="width:100%; font-size:12px; line-height: 18px" align="center">
@@ -121,7 +120,6 @@
                     {% endfor %}
                 </th>
             </tr>
-
 
         </table>
 
