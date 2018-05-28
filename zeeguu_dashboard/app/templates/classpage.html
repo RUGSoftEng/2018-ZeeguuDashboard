@@ -1,253 +1,259 @@
-{% extends "base/classpage_base.html" %}
+    {% extends "base/classpage_base.html" %}
 
-{% block content %}
+    {% block content %}
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog" style="padding-right: 10%; padding-left: 10%;">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title" style="color: white">{{ class_info.name }}</h2>
-            </div>
-            <div class="modal-body">
-                <h6 style="color: whitesmoke">Language: {{ class_info.language_name }}</h6>
-                <h6 style="color: whitesmoke">Invite Code: {{ class_info.inv_code }}</h6>
-                <h6 style="color: whitesmoke">Number of students: {{ class_info.cur_students }}</h6>
-                <h6 style="color: whitesmoke">Max students: {{ class_info.max_students }}</h6>
-            </div>
-            <div class="modal-footer">
-                <form action="{{ '/class/' + class_info.id }}/" method="POST">
-                    {% if class_info.cur_students == 0 %}
-                    <a href={{ '/remove_class/' + class_info.id }}>
-                    <button type="submit" class="btn btn-default bg-danger" style="border-color: #455a64">Delete
-                        Class
-                    </button>
-                    {% endif %}
-                    <a href={{ '/edit_class/' + class_info.id }}>
-                    <button type="button" class="btn btn-default bg-primary" style="border-color: #455a64">
-                        Edit
-                    </button>
-                    </a>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Modal for heat map description-->
-<div class="modal fade" id="heatmapModal" role="dialog" style="padding-right: 10%; padding-left: 10%;">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-body">
-                <h6 style="color: whitesmoke">
-                    This is a heatmap which showcases the activity of your students.</h6>
-                <h6 style="color: whitesmoke"> You may choose to view their
-                    activity either on the last two weeks or on the last four weeks.</h6>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog" style="padding-right: 10%; padding-left: 10%;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title" style="color: white">{{ class_info.name }}</h2>
+                </div>
+                <div class="modal-body">
+                    <h6 style="color: whitesmoke">Language: {{ class_info.language_name }}</h6>
+                    <h6 style="color: whitesmoke">Invite Code: {{ class_info.inv_code }}</h6>
+                    <h6 style="color: whitesmoke">Number of students: {{ class_info.cur_students }}</h6>
+                    <h6 style="color: whitesmoke">Max students: {{ class_info.max_students }}</h6>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ '/class/' + class_info.id }}/" method="POST">
+                        {% if class_info.cur_students == 0 %}
+                        <a href={{ '/remove_class/' + class_info.id }}>
+                        <button type="submit" class="btn btn-default bg-danger" style="border-color: #455a64">Delete
+                            Class
+                        </button>
+                        {% endif %}
+                        <a href={{ '/edit_class/' + class_info.id }}>
+                        <button type="button" class="btn btn-default bg-primary" style="border-color: #455a64">
+                            Edit
+                        </button>
+                        </a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px; overflow: scroll">
-    <div class="card-title" style="cursor: alias;" data-toggle="modal" data-target="#heatmapModal">{{ class_info.name }}</div>
-
-    <div class="dropdown pull-right">
-        <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
-            <span class="glyphicon glyphicon-filter"></span> {{ (time|int /7) |int }} weeks
-        </button>
-        <div id="myDropdown" class="dropdown-content">
-            <a href="{{ '/class/' + class_id + '/14/' }}">2 Weeks</a>
-            <a href="{{ '/class/' + class_id + '/28/' }}">4 Weeks</a>
+    <!--Modal for heat map description-->
+    <div class="modal fade" id="heatmapModal" role="dialog" style="padding-right: 10%; padding-left: 10%;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h6 style="color: whitesmoke">
+                        This is a heatmap which showcases the activity of your students.</h6>
+                    <h6 style="color: whitesmoke"> You may choose to view their
+                        activity either on the last two weeks or on the last four weeks.</h6>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script>
-            /* When the user clicks on the button,
-            toggle between hiding and showing the dropdown content */
-            function myFunction() {
-                document.getElementById("myDropdown").classList.toggle("show");
-            }
+    <div class="card"
+         style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px; overflow: scroll">
+        <div class="card-title" style="cursor: alias;" data-toggle="modal" data-target="#heatmapModal">{{ class_info.name
+            }}
+        </div>
 
-            // Close the dropdown if the user clicks outside of it
-            window.onclick = function (event) {
-                if (!event.target.matches('.dropbtn')) {
+        <div class="dropdown pull-right">
+            <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
+                <span class="glyphicon glyphicon-filter"></span> {{ (time|int /7) |int }} weeks
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="{{ '/class/' + class_id + '/14/' }}">2 Weeks</a>
+                <a href="{{ '/class/' + class_id + '/28/' }}">4 Weeks</a>
+            </div>
+        </div>
 
-                    var dropdowns = document.getElementsByClassName("dropdown-content");
-                    var i;
-                    for (i = 0; i < dropdowns.length; i++) {
-                        var openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
+        <script>
+                /* When the user clicks on the button,
+                toggle between hiding and showing the dropdown content */
+                function myFunction() {
+                    document.getElementById("myDropdown").classList.toggle("show");
+                }
+
+                // Close the dropdown if the user clicks outside of it
+                window.onclick = function (event) {
+                    if (!event.target.matches('.dropbtn')) {
+
+                        var dropdowns = document.getElementsByClassName("dropdown-content");
+                        var i;
+                        for (i = 0; i < dropdowns.length; i++) {
+                            var openDropdown = dropdowns[i];
+                            if (openDropdown.classList.contains('show')) {
+                                openDropdown.classList.remove('show');
+                            }
                         }
                     }
                 }
+
+        </script>
+
+        <hr>
+        <table style="width:100%; font-size:12px; line-height: 18px" align="center">
+            {% set colors = ['#E3F2FD', '#90CAF9', '#42A5F5', '#1E88E5', '#1565C0'] %}
+            {% for student in github_tables %}
+            <tr>
+                <td>
+                    <div class="text-inverse">{{ student.name }}</div>
+                </td>
+                {% set outer_loop = loop %}
+                {% for time in student.day_list %}
+                <td>
+                    <a data-toggle="tooltip" title="Reading={{ time.reading }} | Execise={{ time.exercise }}">
+                        <svg width="20" height="10">
+                            <defs>
+                                <linearGradient id="{{ loop.index0 }}{{ outer_loop.index0 }}" x1="0%" y1="0%"
+                                                x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:{{ colors[time.reading_color] }};"/>
+                                    <stop offset="50%" style="stop-color:{{ colors[time.reading_color] }};"/>
+                                    <stop offset="50%" style="stop-color:{{ colors[time.exercise_color] }};"/>
+                                    <stop offset="100%" style="stop-color:{{ colors[time.exercise_color] }};"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="20" height="10" fill="url(#{{ loop.index0 }}{{ outer_loop.index0 }})"/>
+                        </svg>
+                    </a>
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            <tr>
+                <th></th>
+                {% for time in github_tables[0] %}
+                <th>
+                    <div style="font-size: 8px"> {{ time }}</div>
+                </th>
+                {% endfor %}
+            </tr>
+        </table>
+
+        <br>
+        <div class="pull-right" style="font-size: 12px"> Less
+            {% for i in range(4) %}
+            <a data-toggle="tooltip" title="<{{ (i+1)*5 }}hr">
+                <svg width="15" height="15">
+                    <rect width="15" height="15" style="fill:{{ colors[i] }};"/>
+                </svg>
+            </a>
+            {% endfor %}
+            <a data-toggle="tooltip" title=">20hr">
+                <svg width="15" height="15">
+                    <rect width="15" height="15" style="fill:{{ colors[4] }};"/>
+                </svg>
+            </a>
+            More
+        </div>
+        <br>
+
+        <hr>
+        <br>
+
+        <div class="table-responsive m-t-40">
+            <table class="display nowrap table table-hover sortable" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="sorttable_nosort">Reading / Exercises</th>
+                    <th class="sorttable_numeric">Time</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for student in students %}
+                <tr>
+                    <td width="22%">
+                        <h5><a href={{ '/student/'+student.id +'/' }}>
+                            <div class="text-inverse">{{ student.name }}</div>
+                            </a></h5>
+                    </td>
+
+
+                    {% if not (student.exercises_done + student.reading_time) == 0 %}
+
+                    <td width="69%" title="Time spent on Reading(blue) and/or Exercises(dark grey)"
+                        sorttable_customkey={{student.exercises_done + student.reading_time}}>
+                        <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
+                            <div class="progress-bar bg-primary wow animated progress-animated"
+                                 role="progressbar"
+                                 style="width: {{ student.learning_proportion }}%;">
+                                {{ student.learning_proportion|round|int }}%
+                            </div>
+                            <div class="progress-bar bg-success wow animated progress-animated"
+                                 role="progressbar"
+                                 style="width: {{ 100-student.learning_proportion|round|int }}%; background-color: #607D8B !important;">
+                                {{ 100-student.learning_proportion|round|int }}%
+                            </div>
+
+                        </div>
+                    </td>
+                    {% endif %}
+
+                    {% if (student.exercises_done + student.reading_time) == 0 %}
+
+                    <td width="69%" sorttable_customkey={{student.exercises_done + student.reading_time}}>
+                        <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
+                            <div class="progress-bar bg-primary wow animated progress-animated"
+                                 role="progressbar"
+                                 style="width: 0%;">
+                                {{ 0 }}%
+                            </div>
+                            <div class="progress-bar bg-success wow animated progress-animated"
+                                 role="progressbar"
+                                 style="width: {{ 0 }}%; background-color: #607D8B !important;">
+                                {{ 0 }}%
+                            </div>
+
+                        </div>
+                    </td>
+                    {% endif %}
+                    <td width="9%" sorttable_customkey={{student.exercises_done + student.reading_time}}>
+                        <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
+                            {{ ((student.exercises_done + student.reading_time)/60)|int }} h
+                            {{ ((student.exercises_done + student.reading_time)%60)|int }} m
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <script src="{{ url_for('static', filename='js/lib/jquery/jquery.min.js') }}"></script>
+    {#
+    <script src="{{ url_for('static', filename='js/lib/datatables/datatables.min.js') }}"></script>#}
+    {#
+    <script src="{{ url_for('static', filename='js/lib/datatables/datatables-init.js') }}"></script>#}
+    <script src="{{ url_for('static', filename='js/lib/jquery/sorttable.js') }}"></script>
+
+    {% endblock %}
+
+    {% block buttons %}
+
+    <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"
+            data-toggle="modal" data-target="#myModal">
+        &#9432
+    </button>
+
+    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect"
+            style="color:#4285f4!important"><
+    </button>
+
+    <script>
+            function goBack() {
+                window.history.back();
             }
+
+            $(".progress-bar").animate({
+                width: "70%"
+            }, 2500);
+
+
+
     </script>
 
-    <hr>
-    <table style="width:100%; font-size:12px; line-height: 18px" align="center">
-        {% set colors = ['#E3F2FD', '#90CAF9', '#42A5F5', '#1E88E5', '#1565C0'] %}
-        {% for student in github_tables %}
-        <tr>
-            <td>
-                <div class="text-inverse">{{ student.name }}</div>
-            </td>
-            {% set outer_loop = loop %}
-            {% for time in student.day_list %}
-            <td>
-                <a data-toggle="tooltip" title="Reading={{ time.reading }} | Execise={{ time.exercise }}">
-                    <svg width="20" height="10">
-                        <defs>
-                            <linearGradient id="{{ loop.index0 }}{{ outer_loop.index0 }}" x1="0%" y1="0%"
-                                            x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:{{ colors[time.reading_color] }};"/>
-                                <stop offset="50%" style="stop-color:{{ colors[time.reading_color] }};"/>
-                                <stop offset="50%" style="stop-color:{{ colors[time.exercise_color] }};"/>
-                                <stop offset="100%" style="stop-color:{{ colors[time.exercise_color] }};"/>
-                            </linearGradient>
-                        </defs>
-                        <rect width="20" height="10" fill="url(#{{ loop.index0 }}{{ outer_loop.index0 }})"/>
-                    </svg>
-                </a>
-            </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-        <tr>
-            <th></th>
-            {% for time in github_tables[0] %}
-            <th>
-                <div style="font-size: 8px"> {{ time }}</div>
-            </th>
-            {% endfor %}
-        </tr>
-    </table>
 
-    <br>
-    <div class="pull-right" style="font-size: 12px"> Less
-        {% for i in range(4) %}
-        <a data-toggle="tooltip" title="<{{ (i+1)*5 }}hr">
-            <svg width="15" height="15">
-                <rect width="15" height="15" style="fill:{{ colors[i] }};"/>
-            </svg>
-        </a>
-        {% endfor %}
-        <a data-toggle="tooltip" title=">20hr">
-            <svg width="15" height="15">
-                <rect width="15" height="15" style="fill:{{ colors[4] }};"/>
-            </svg>
-        </a>
-        More
-    </div>
-    <br>
-
-    <hr>
-    <br>
-
-    <div class="table-responsive m-t-40">
-        <table class="display nowrap table table-hover sortable" cellspacing="0" width="100%">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th class="sorttable_nosort">Reading / Exercises</th>
-                <th class="sorttable_numeric">Time</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            {% for student in students %}
-            <tr>
-                <td width="22%">
-                    <h5><a href={{ '/student/'+student.id +'/' }}>
-                        <div class="text-inverse">{{ student.name }}</div>
-                        </a></h5>
-                </td>
-
-
-                {% if not (student.exercises_done + student.reading_time) == 0 %}
-
-                <td width="69%" title="Time spent on Reading(blue) and/or Exercises(dark grey)" sorttable_customkey={{student.exercises_done + student.reading_time}}>
-                    <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
-                        <div class="progress-bar bg-primary wow animated progress-animated"
-                             role="progressbar"
-                             style="width: {{ student.learning_proportion }}%;">
-                            {{ student.learning_proportion|round|int }}%
-                        </div>
-                        <div class="progress-bar bg-success wow animated progress-animated"
-                             role="progressbar"
-                             style="width: {{ 100-student.learning_proportion|round|int }}%; background-color: #607D8B !important;">
-                            {{ 100-student.learning_proportion|round|int }}%
-                        </div>
-
-                    </div>
-                </td>
-                {% endif %}
-
-                {% if (student.exercises_done + student.reading_time) == 0 %}
-
-                <td width="69%" sorttable_customkey={{student.exercises_done + student.reading_time}}>
-                    <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
-                        <div class="progress-bar bg-primary wow animated progress-animated"
-                             role="progressbar"
-                             style="width: 0%;">
-                            {{ 0 }}%
-                        </div>
-                        <div class="progress-bar bg-success wow animated progress-animated"
-                             role="progressbar"
-                             style="width: {{ 0 }}%; background-color: #607D8B !important;">
-                            {{ 0 }}%
-                        </div>
-
-                    </div>
-                </td>
-                {% endif %}
-                <td width="9%" sorttable_customkey={{student.exercises_done + student.reading_time}}>
-                    <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
-                        {{ ((student.exercises_done + student.reading_time)/60)|int }} h
-                        {{ ((student.exercises_done + student.reading_time)%60)|int }} m
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<!-- End Wrapper -->
-<!-- All Jquery -->
-<script src="{{ url_for('static', filename='js/lib/jquery/jquery.min.js') }}"></script>
-{#
-<script src="{{ url_for('static', filename='js/lib/datatables/datatables.min.js') }}"></script>#}
-{#
-<script src="{{ url_for('static', filename='js/lib/datatables/datatables-init.js') }}"></script>#}
-<script src="{{ url_for('static', filename='js/lib/jquery/sorttable.js') }}"></script>
-
-{% endblock %}
-
-{% block buttons %}
-
-<button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"
-        data-toggle="modal" data-target="#myModal">
-    &#9432
-</button>
-
-<button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect"
-        style="color:#4285f4!important"><
-</button>
-
-<script>
-        function goBack() {
-            window.history.back();
-        }
-
-        $(".progress-bar").animate({
-            width: "70%"
-        }, 2500);
-
-
-</script>
-
-
-{% endblock %}
+    {% endblock %}
