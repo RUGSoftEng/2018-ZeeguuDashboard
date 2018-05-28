@@ -17,20 +17,6 @@ This file takes care of all of the class related page_routes:
 """
 
 
-@app.route('/class/<class_id>/<filter_table_time>/', methods=['GET'])
-def class_page_set_cookie(class_id, filter_table_time):
-    """
-    Sets cookie for filter table time
-    :param class_id: the id for this class.
-    :param filter_table_time: time for the filter_table
-    :return: Renders and returns a class page.
-    """
-    redirect_to_index = redirect('/class/' + class_id + '/')
-    response = app.make_response(redirect_to_index)
-    response.set_cookie('filter_table_time', filter_table_time, max_age=60 * 60 * 24 * 365 * 2)
-    return response
-
-
 @app.route('/class/<class_id>/', methods=['GET', 'POST'])
 @has_class_permission
 def load_class(class_id):
