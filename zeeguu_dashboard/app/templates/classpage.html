@@ -51,8 +51,9 @@
 
     <div class="card"
          style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px; overflow: scroll">
-        <div class="card-title" style="cursor: alias;" data-toggle="modal" data-target="#heatmapModal">{{ class_info.name
-                }}
+
+        <div class="card-title" style="cursor: alias;" data-toggle="modal"
+             data-target="#heatmapModal">{{ class_info.name }}
         </div>
 
         <div class="dropdown pull-right">
@@ -155,7 +156,10 @@
         <br>
 
         <div class="table-responsive m-t-40">
-            <table class="display nowrap table table-hover sortable" cellspacing="0" width="100%">
+           <input id="ai" type="search" class="light-table-filter" data-table="order-table" placeholder="Search student name...">
+            <br>
+            <br>
+            <table class="order-table table display nowrap table table-hover sortable" cellspacing="0" width="100%">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -175,9 +179,8 @@
 
 
                         {% if not (student.exercises_done + student.reading_time) == 0 %}
-
                             <td width="69%" title="Time spent on Reading(blue) and/or Exercises(dark grey)"
-                                sorttable_customkey={{student.exercises_done + student.reading_time}}>
+                                sorttable_customkey={{ student.exercises_done + student.reading_time }}>
                                 <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
                                     <div class="progress-bar bg-primary wow animated progress-animated"
                                          role="progressbar"
@@ -195,8 +198,7 @@
                         {% endif %}
 
                         {% if (student.exercises_done + student.reading_time) == 0 %}
-
-                            <td width="69%" sorttable_customkey={{student.exercises_done + student.reading_time}}>
+                            <td width="69%" sorttable_customkey={{ student.exercises_done + student.reading_time }}>
                                 <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
                                     <div class="progress-bar bg-primary wow animated progress-animated"
                                          role="progressbar"
@@ -208,11 +210,11 @@
                                          style="width: {{ 0 }}%; background-color: #607D8B !important;">
                                         {{ 0 }}%
                                     </div>
-
                                 </div>
                             </td>
                         {% endif %}
-                        <td width="9%" sorttable_customkey={{student.exercises_done + student.reading_time}}>
+
+                        <td width="9%" sorttable_customkey={{ student.exercises_done + student.reading_time }}>
                             <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
                                 {{ ((student.exercises_done + student.reading_time)/60)|int }} h
                                 {{ ((student.exercises_done + student.reading_time)%60)|int }} m
@@ -228,6 +230,7 @@
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="{{ url_for('static', filename='js/lib/jquery/jquery.min.js') }}"></script>
+
     <script src="{{ url_for('static', filename='js/lib/jquery/sorttable.js') }}"></script>
 
 {% endblock %}
@@ -251,7 +254,46 @@
         $(".progress-bar").animate({
             width: "70%"
         }, 2500);
+
+
     </script>
 
+    <script>
+        'use strict';
 
+        var LightTableFilter = (function (Arr) {
+
+            var _input;
+
+            function _onInputEvent(e) {
+                _input = e.target;
+                var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+                Arr.forEach.call(tables, function (table) {
+                    Arr.forEach.call(table.tBodies, function (tbody) {
+                        Arr.forEach.call(tbody.rows, _filter);
+                    });
+                });
+            }
+
+            function _filter(row) {
+                var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+                row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+            }
+
+            return {
+                init: function () {
+                    var inputs = document.getElementsByClassName('light-table-filter');
+                    Arr.forEach.call(inputs, function (input) {
+                        input.oninput = _onInputEvent;
+                    });
+                }
+            };
+        })(Array.prototype);
+
+        document.addEventListener('readystatechange', function () {
+            if (document.readyState === 'complete') {
+                LightTableFilter.init();
+            }
+        });
+    </script>
 {% endblock %}
