@@ -71,6 +71,18 @@
 
 */
 
+#ai {
+    background-image: url('/static/img/s.png'); /* Add a search icon to input */
+    background-size: 20px;
+    background-position: 10px 10px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 35%; /* Full-width */
+    font-size: 12px; /* Increase font-size */
+    padding: 10px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
 table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
     content: " \25B4\25BE"
 }
