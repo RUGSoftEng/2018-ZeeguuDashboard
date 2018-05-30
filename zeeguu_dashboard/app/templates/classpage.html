@@ -137,13 +137,13 @@
         <br>
         <div class="pull-right" style="font-size: 12px"> Less
             {% for i in range(4) %}
-                <a data-toggle="tooltip" title="<{{ (i+1)*5 }}hr">
+                <a data-toggle="tooltip" title="<{{ (i*5) }}mins">
                     <svg width="15" height="15">
                         <rect width="15" height="15" style="fill:{{ colors[i] }};"/>
                     </svg>
                 </a>
             {% endfor %}
-            <a data-toggle="tooltip" title=">20hr">
+            <a data-toggle="tooltip" title=">15min">
                 <svg width="15" height="15">
                     <rect width="15" height="15" style="fill:{{ colors[4] }};"/>
                 </svg>
@@ -216,8 +216,8 @@
 
                         <td width="9%" sorttable_customkey={{ student.exercises_done + student.reading_time }}>
                             <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
-                                {{ ((student.exercises_done + student.reading_time)/60)|int }} h
-                                {{ ((student.exercises_done + student.reading_time)%60)|int }} m
+                                {{ ((student.exercises_done + student.reading_time)/3600)|int }} h
+                                {{ ((student.exercises_done + student.reading_time)/60)|int }} m
                             </div>
                         </td>
                     </tr>

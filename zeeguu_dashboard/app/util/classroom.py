@@ -163,11 +163,11 @@ def _format_for_color(time):
     """
     if time <= 1:
         color = 0
-    elif time < 5:
+    elif time < 300:
         color = 1
-    elif time < 10:
+    elif time < 600:
         color = 2
-    elif time < 20:
+    elif time < 900:
         color = 3
     else:
         color = 4
