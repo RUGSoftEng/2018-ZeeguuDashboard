@@ -1,8 +1,7 @@
 from functools import wraps
-
 from flask import redirect, session
-
 from app.api.api_connection import api_get
+from app import app
 
 """
 This file contains all of the functions responsible for validating the user on different page_routes.
@@ -17,7 +16,7 @@ def check_session():
     if not 'sessionID' in session.keys():
         session['sessionID'] = '0'
 
-    permission_check = api_get('validate').text
+    permission_check = api_get('validate', raise_for_status=False).text
 
     if permission_check == "OK":
         return True
@@ -85,7 +84,7 @@ def has_student_permission(func):
         time is initialized to the standard time frame for bookmarks
         """
         permission_check = ''
-        time = 14
+        time = app.config["DEFAULT_STUDENT_TIME"]
         for key, value in kwargs.items():
             if key == "student_id":
                 permission_check = api_get('has_permission_for_user_info/' + str(value)).text

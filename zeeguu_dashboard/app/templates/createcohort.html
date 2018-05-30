@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base/base.html" %}
 
 {% block content %}
 
@@ -26,12 +26,13 @@
 
                             <div class="form-group">
                                 <label>Language:</label>
-                                <select class="form-control" class="form-control" id="class_language_id" name="class_language_id">
-                                    <option value = "nl">Dutch</option>
-                                    <option value = "en">English</option>
-                                    <option value = "de">German</option>
-                                    <option value = "es">Spanish</option>
-                                    <option value = "fr">French</option>
+                                <select class="form-control" class="form-control" id="class_language_id"
+                                        name="class_language_id">
+                                    <option value="nl">Dutch</option>
+                                    <option value="en">English</option>
+                                    <option value="de">German</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="fr">French</option>
                                 </select>
                             </div>
 
@@ -46,7 +47,8 @@
 
                             <label>Max Students:</label> <span id="demo"></span>
                             <div class="form-group">
-                                <input type = "range" min="1" max="50" value="15" class="slider" id="max_students" name="max_students">
+                                <input type="range" min="1" max="50" value="15" class="slider" id="max_students"
+                                       name="max_students">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary" style="background: #4680ff">Submit</button>
