@@ -17,20 +17,6 @@ This file takes care of all of the class related page_routes:
 """
 
 
-@app.route('/class/<class_id>/<filter_table_time>/', methods=['GET'])
-def class_page_set_cookie(class_id, filter_table_time):
-    """
-    Sets cookie for filter table time
-    :param class_id: the id for this class.
-    :param filter_table_time: time for the filter_table
-    :return: Renders and returns a class page.
-    """
-    redirect_to_index = redirect('/class/' + class_id + '/')
-    response = app.make_response(redirect_to_index)
-    response.set_cookie('filter_table_time', filter_table_time, max_age=60 * 60 * 24 * 365 * 2)
-    return response
-
-
 @app.route('/class/<class_id>/', methods=['GET', 'POST'])
 @has_class_permission
 def load_class(class_id):
@@ -65,10 +51,8 @@ def load_class(class_id):
             return redirect('/')
         students = add_student_learning_proportion(students)
         class_info = load_class_info(class_id)
-
         if not students or not github_tables:
             return render_template("empty_classpage.html", class_info=class_info)
-
         return render_template('classpage.html',
                                title=class_info['name'],
                                students=students,
@@ -77,10 +61,14 @@ def load_class(class_id):
                                class_id=class_id,
                                time=filter_table_time
                                )
-    elif request.method == 'POST':
-        remove_class(class_id)
-        messages = ["Sucessfully removed class."]
-        return homepage(messages)
+
+
+@app.route('/remove_class/<class_id>/', methods=['GET'])
+@has_class_permission
+def remove(class_id):
+    remove_class(class_id)
+    messages = ["Sucessfully removed class."]
+    return homepage(messages)
 
 
 @app.route('/edit_class/<class_id>/', methods=['GET', 'POST'])

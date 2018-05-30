@@ -70,6 +70,23 @@
 42. responsive
 
 */
+
+#ai {
+    background-image: url('/static/img/s.png'); /* Add a search icon to input */
+    background-size: 20px;
+    background-position: 10px 10px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 35%; /* Full-width */
+    font-size: 12px; /* Increase font-size */
+    padding: 10px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+    content: " \25B4\25BE"
+}
+
 .preloader {
   width: 100%;
   height: 100%;
@@ -220,7 +237,6 @@ h6 {
 }
 @media (max-width: 1023px) {
   .page-wrapper {
-    margin-left: 10%;
     min-height: 100%;
     max-height: 100%;
     -webkit-transition: 0.2s ease-in;
@@ -2352,9 +2368,9 @@ textarea {
 .modal-dialog {
   margin: 30px auto;
   position: relative;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%) !important;
-  width: 70%;
+  width: 85%;
 }
 .modal-header .close {
   font-size: 14px;
@@ -2363,8 +2379,8 @@ textarea {
 }
 .modal-content {
   border-radius: 3px;
-  margin-left: 30%;
-  margin-right: 30%;
+  margin-left: 11%;
+  margin-right: 11%;
   background: #546e7a;
 }
 .timeline {
@@ -2507,7 +2523,7 @@ textarea {
   transition-duration: 0.3s;
 }
 .dataTables_filter {
-  float: right;
+  float: left;
   margin-top: 0px;
 }
 .dataTables_filter input {
@@ -4746,8 +4762,6 @@ footer p {
 */
 @media (max-width: 768px) {
   .card {
-    display: inline-block;
-    width: 100%;
   }
 }
 @media (max-width: 360px) {
@@ -5501,7 +5515,7 @@ tbody tr td:last-child {
   height: 75px;
 }
 .login-content {
-  margin: 0 0;
+  /*margin: 0 0;*/
 }
 .login-form {
   background: #ffffff;
