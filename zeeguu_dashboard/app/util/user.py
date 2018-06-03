@@ -13,7 +13,6 @@ def get_correct_time(time):
     :param time:
     :return:
     """
-
     if time == '7':
         return "1 Week"
     elif time == '14':
