@@ -7,6 +7,7 @@ from app.util.classroom import load_students, load_class_info, remove_class, cre
     edit_class_info, add_student_learning_proportion
 from app.util.permissions import has_class_permission, has_session
 from app.page_routes.homepage import homepage
+from app.util.user import get_correct_time
 
 """
 This file takes care of all of the class related page_routes:
@@ -51,6 +52,8 @@ def load_class(class_id):
             return redirect('/')
         students = add_student_learning_proportion(students)
         class_info = load_class_info(class_id)
+
+        print(filter_table_time)
         if not students or not github_tables:
             return render_template("empty_classpage.html", class_info=class_info)
         return render_template('classpage.html',
@@ -59,7 +62,8 @@ def load_class(class_id):
                                github_tables=github_tables,
                                class_info=class_info,
                                class_id=class_id,
-                               time=filter_table_time
+                               time=filter_table_time,
+                               students_time=get_correct_time(time)
                                )
 
 
