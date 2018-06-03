@@ -14,15 +14,15 @@ def get_correct_time(time):
     :return:
     """
     if time == '7':
-        return "1 Week"
+        return "1 week"
     elif time == '14':
-        return "2 Weeks"
+        return "2 weeks"
     elif time == '30':
-        return "1 Month"
+        return "1 month"
     elif time == '180':
-        return "6 Months"
+        return "6 months"
     elif time == '365':
-        return "1 Year"
+        return "1 year"
 
 
 def load_user_info(user_id, duration):
