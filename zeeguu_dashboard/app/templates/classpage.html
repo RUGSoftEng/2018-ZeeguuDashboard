@@ -109,7 +109,7 @@
                         <td>
 
                             <a data-toggle="tooltip"
-                               title="Reading={% if time.reading < 60 %}{{ (time.reading)|int }} sec {%else%} Reading={{ (time.reading/60)|int }} min {% endif %} | {% if time.reading < 60 %} Execise={{ time.exercise|int }} sec {% else %} Execise={{ (time.exercise/60)|int }} min {% endif %}">
+                               title="{% if time.reading < 60 %}Reading={{ (time.reading)|int }} sec {%else%} Reading={{ (time.reading/60)|int }} min {% endif %} | {% if time.reading < 60 %} Execise={{ time.exercise|int }} sec {% else %} Execise={{ (time.exercise/60)|int }} min {% endif %}">
                                 <svg width="20" height="10">
                                     <defs>
                                         <linearGradient id="{{ loop.index0 }}{{ outer_loop.index0 }}" x1="0%" y1="0%"
