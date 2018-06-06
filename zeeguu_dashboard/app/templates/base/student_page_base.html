@@ -18,16 +18,10 @@
         </div>
     </div>
 
-    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"><</button>
-
     <script>
-        function goBack() {
-            window.history.back();
-        }
-
         /* Saves the cookie */
         function saveCookie(time) {
-            document.cookie = "time = " + time;
+            document.cookie = "time = " + time + ";path=/";
             location.reload();
         }
 
@@ -40,7 +34,6 @@
         // Close the dropdown if the user clicks outside of it
         window.onclick = function(event) {
             if (!event.target.matches('.dropbtn')) {
-
                 var dropdowns = document.getElementsByClassName("dropdown-content");
                 var i;
                 for (i = 0; i < dropdowns.length; i++) {
