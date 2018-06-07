@@ -49,7 +49,7 @@ def load_user_data(user_id, time, filtered=True):
     stats = json.loads(stats_json)
     if filtered is True:
         stats = filter_user_bookmarks(stats)
-        stats = sort_user_bookmarks(stats)
+        #stats = sort_user_bookmarks(stats)
     return stats
 
 
@@ -78,16 +78,20 @@ def sort_user_bookmarks(dict):
     for day in dict:
         new_days = {}
         for bookmark in day["bookmarks"]:
-            if bookmark['title'] in new_days:
-                if bookmark['context'] in new_days['title']:
-                    new_days['title']['context'] = bookmark
+            #title exists
+            if bookmark["title"] in new_days:
+                #context exists
+                if bookmark["context"] in new_days['title']:
+                    new_days["title"]["context"] = bookmark
                 else:
-                    new_days['title'] = bookmark['context']
-                    new_days['title']['context'] = bookmark
+                    #title exists and create context
+                    new_days["title"] = bookmark["context"]
+                    new_days["title"]["context"] = bookmark
             else:
-                new_days.setdefault(bookmark['title'], {})
-                new_days['title']['context'] = {}
-                new_days['title']['context'] = bookmark
+                #create title
+                new_days.setdefault(bookmark["title"], {})
+                new_days["title"]["context"] = {}
+                new_days["title"]["context"] = bookmark
 
     print (dict)
     return dict
