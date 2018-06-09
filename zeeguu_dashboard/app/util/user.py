@@ -91,13 +91,13 @@ def sort_user_bookmarks(info_list):
                         if sentence['context'] == bookmark['context']:
                             exists_sentence = True
                             sentence['bookmarks'].append(bookmark)
-                    if exists_sentence == False:
+                    if exists_sentence is False:
                         sentence_element = {}
                         sentence_element['context'] = bookmark['context']
                         sentence_element['bookmarks'] = list()
                         sentence_element['bookmarks'].append(bookmark)
                         article['sentence_list'].append(sentence_element)
-            if exists_article == False:
+            if exists_article is False:
                 article_element = {}
                 article_element['title'] = bookmark['title']
                 article_element['url'] = bookmark['url']
@@ -108,7 +108,5 @@ def sort_user_bookmarks(info_list):
                 sentence_element['bookmarks'] = list()
                 article_element['sentence_list'].append(sentence_element)
                 sentence_element['bookmarks'].append(bookmark)
-
-    print(master_list)
     return master_list
 
