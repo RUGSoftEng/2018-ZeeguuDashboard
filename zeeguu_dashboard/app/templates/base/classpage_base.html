@@ -4,6 +4,9 @@
     {#    Add student page content here    #}
 {% endblock %}
 
+{% block breadcrumb %}
+    <a href="/class/{{ class_id }}/"><h3 class="text-primary">{{ class_info.name }}</h3></a>
+{% endblock %}
 
 {% block buttons %}
     <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important" data-toggle="modal" data-target="#myModal">

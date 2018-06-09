@@ -4,6 +4,12 @@
     {#    Add student page content here    #}
 {% endblock %}
 
+{% block breadcrumb %}
+    <a href="/class/{{ class_id }}/"><h3 class="text-primary">{{ class_name }}</h3></a>
+    <a href="/class/{{ class_id }}/student/{{ student_id }}/"><h3 class="text-primary">{{ info.name }}</h3></a>
+
+{% endblock %}
+
 {% block buttons %}
     <div class="dropdown">
         <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
