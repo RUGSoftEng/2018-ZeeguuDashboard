@@ -49,7 +49,7 @@ def load_user_data(user_id, time, filtered=True):
     stats = json.loads(stats_json)
     if filtered is True:
         stats = filter_user_bookmarks(stats)
-        #stats = sort_user_bookmarks(stats)
+        stats = sort_user_bookmarks(stats)
     return stats
 
 
@@ -69,29 +69,44 @@ def filter_user_bookmarks(dict):
     return dict
 
 
-def sort_user_bookmarks(dict):
-    """
+def sort_user_bookmarks(info_list):
+    master_list = list()
+    for element in info_list:
+        master_element = {}
+        master_element['date'] = element['date']
+        master_element['article_list'] = list()
+        master_list.append(master_element)
+        print("baselist created")
+        for bookmark in element['bookmarks']:
+            exists_article = False
+            for article in master_element['article_list']:
+                if article['title'] == bookmark['title']:
+                    exists_article = True
+                    exists_sentence = False
+                    for sentence in article['sentence_list']:
+                        if sentence['context'] == bookmark['context']:
+                            exists_sentence = True
+                            sentence['bookmarks'].append(bookmark)
+                    if exists_sentence == False:
+                        print("adding sentance")
+                        sentence_element = {}
+                        sentence_element['context'] = bookmark['context']
+                        sentence_element['bookmarks'] = list()
+                        sentence_element['bookmarks'].append(bookmark)
+                        article['sentence_list'].append(sentence_element)
 
-    :param dict:
-    :return:
-    """
-    for day in dict:
-        new_days = {}
-        for bookmark in day["bookmarks"]:
-            #title exists
-            if bookmark["title"] in new_days:
-                #context exists
-                if bookmark["context"] in new_days['title']:
-                    new_days["title"]["context"] = bookmark
-                else:
-                    #title exists and create context
-                    new_days["title"] = bookmark["context"]
-                    new_days["title"]["context"] = bookmark
-            else:
-                #create title
-                new_days.setdefault(bookmark["title"], {})
-                new_days["title"]["context"] = {}
-                new_days["title"]["context"] = bookmark
+            if exists_article == False:
+                print('adding article')
+                article_element = {}
+                article_element['title'] = bookmark['title']
+                article_element['sentence_list'] = list()
+                master_element['article_list'].append(article_element)
+                sentence_element = {}
+                sentence_element['context'] = bookmark['context']
+                sentence_element['bookmarks'] = list()
+                article_element['sentence_list'].append(sentence_element)
+                sentence_element['bookmarks'].append(bookmark)
 
-    print (dict)
-    return dict
+    print(master_list)
+    return master_list
+
