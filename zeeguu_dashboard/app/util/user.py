@@ -70,13 +70,17 @@ def filter_user_bookmarks(dict):
 
 
 def sort_user_bookmarks(info_list):
+    """
+    Function to filter bookmarks.
+    :param dict: this is the unfiltered bookmarks
+    :return: Dictionary of bookmarks where duplicated entries are removed.
+    """
     master_list = list()
     for element in info_list:
         master_element = {}
         master_element['date'] = element['date']
         master_element['article_list'] = list()
         master_list.append(master_element)
-        print("baselist created")
         for bookmark in element['bookmarks']:
             exists_article = False
             for article in master_element['article_list']:
@@ -88,17 +92,15 @@ def sort_user_bookmarks(info_list):
                             exists_sentence = True
                             sentence['bookmarks'].append(bookmark)
                     if exists_sentence == False:
-                        print("adding sentance")
                         sentence_element = {}
                         sentence_element['context'] = bookmark['context']
                         sentence_element['bookmarks'] = list()
                         sentence_element['bookmarks'].append(bookmark)
                         article['sentence_list'].append(sentence_element)
-
             if exists_article == False:
-                print('adding article')
                 article_element = {}
                 article_element['title'] = bookmark['title']
+                article_element['url'] = bookmark['url']
                 article_element['sentence_list'] = list()
                 master_element['article_list'].append(article_element)
                 sentence_element = {}
