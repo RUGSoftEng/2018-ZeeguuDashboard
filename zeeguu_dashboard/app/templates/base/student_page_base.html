@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <a href="/class/{{ class_id }}/"><h3 class="text-primary">{{ class_name }}</h3></a>
-    <a href="/class/{{ class_id }}/student/{{ student_id }}/"><h3 class="text-primary">{{ info.name }}</h3></a>
+<li><a href="/class/{{ class_id }}/"><h3 class="text-primary">{{ class_name }}</h3></a></li>
+    <li><a href="/class/{{ class_id }}/student/{{ student_id }}/"><h3 class="text-primary">{{ info.name }}</h3></a></li>
 
 {% endblock %}
 
