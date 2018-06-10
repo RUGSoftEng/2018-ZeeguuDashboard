@@ -10,24 +10,27 @@
         <div class="container-fluid" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-top: 15px">
             <h1>{{ block.date }}</h1>
         </div>
-
-        {% for bookmark in block.bookmarks %}
+        {% for article in block.article_list %}
             <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
-                <div class="d-flex w-100 justify-content-between">
-                    {{ bookmark.from }}
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    {{ bookmark.to }}
-
-                    <div class="pull-right">
-                        <a href={{ bookmark.url }}>
-                            <button type="button" class="btn btn-default btn-primary m-b-10 m-l-5"
-                                    style="background: #4680ff">Go to article
-                            </button>
-                        </a>
+            <h3>Article: {{ article.title }}</h3>
+            <div class="pull-right">
+                <a href={{ article.url }}>
+                    <button type="button" class="btn btn-default btn-primary m-b-10 m-l-5"
+                            style="background: #4680ff">Go to article
+                    </button>
+                </a>
+            </div>
+            {% for sentence in article.sentence_list %}
+                {% for bookmark in sentence.bookmarks %}
+                    <div class="d-flex w-100 justify-content-between">
+                        {{ bookmark.from }}
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        {{ bookmark.to }}
                     </div>
-
-                </div>
-                <small>{{ bookmark.context }}</small>
+                {% endfor %}
+                <small>{{ sentence.context }}</small>
+                <br style="margin-bottom:15px;"/>
+            {% endfor %}
             </div>
         {% endfor %}
         <hr>
