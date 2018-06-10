@@ -3,7 +3,7 @@
 {% block content %}
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog" style="padding-right: 20%; padding-left: 20%;">
+    <div class="modal fade" id="myModal" role="dialog" style="padding-right: 10%; padding-left: 10%;">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -19,7 +19,7 @@
                 <div class="modal-footer">
                     <form action="{{ '/class/' + class_info.id }}/" method="POST">
                         {% if class_info.cur_students == 0 %}
-                        <a href={{ '/remove_class/' + class_info.id }}>
+                            <a href={{ '/remove_class/' + class_info.id }}>
                             <button type="submit" class="btn btn-default bg-danger" style="border-color: #455a64">Delete
                                 Class
                             </button>
@@ -35,20 +35,46 @@
         </div>
     </div>
 
-    <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
-        <div class="card-title">{{ class_info.name }}</div>
-
-        <div class="dropdown pull-right">
-            <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
-                <span class="glyphicon glyphicon-filter"></span> {{ (time|int /7) |int}} weeks
-            </button>
-            <div id="myDropdown" class="dropdown-content">
-                <a href="{{ '/class/' + class_id + '/14/' }}">2 Weeks</a>
-                <a href="{{ '/class/' + class_id + '/28/' }}">4 Weeks</a>
+    <!--Modal for heat map description-->
+    <div class="modal fade" id="heatmapModal" role="dialog" style="padding-right: 10%; padding-left: 10%;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h6 style="color: whitesmoke">
+                        This is a heatmap which showcases the activity of your students.</h6>
+                    <h6 style="color: whitesmoke"> You may choose to view their
+                        activity either on the last two weeks or on the last four weeks.</h6>
+                </div>
             </div>
         </div>
+    </div>
+
+    <div class="card"
+         style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px; overflow: scroll">
+
+        <div class="card-title" style="cursor: alias; text-align: center;" data-toggle="modal"
+             data-target="#heatmapModal">Activity Heat Map
+        </div>
+
+        {% if time == '30' %}
+            <button type="button" style = "color:black" class="btn btn-outline-secondary pull-right" onclick="saveHeatMapCookie('30')" >4 weeks</button>
+        {% else %}
+            <button type="button" class="btn btn-outline-secondary pull-right" onclick="saveHeatMapCookie('30')" >4 weeks</button>
+        {% endif %}
+
+        {% if time == '14' %}
+            <button type="button" style = "color:black" class="btn btn-outline-secondary pull-right" onclick="saveHeatMapCookie('14')" >2 weeks</button>
+        {% else %}
+            <button type="button" class="btn btn-outline-secondary pull-right" onclick="saveHeatMapCookie('14')" >2 weeks</button>
+        {% endif %}
 
         <script>
+            /* Saves the cookie */
+            function saveHeatMapCookie(time) {
+                document.cookie = "filter_table_time = " + time;
+                location.reload();
+            }
+
             /* When the user clicks on the button,
             toggle between hiding and showing the dropdown content */
             function myFunction() {
@@ -58,7 +84,6 @@
             // Close the dropdown if the user clicks outside of it
             window.onclick = function (event) {
                 if (!event.target.matches('.dropbtn')) {
-
                     var dropdowns = document.getElementsByClassName("dropdown-content");
                     var i;
                     for (i = 0; i < dropdowns.length; i++) {
@@ -68,9 +93,9 @@
                         }
                     }
                 }
-            }</script>
+            }
 
-
+        </script>
         <hr>
         <table style="width:100%; font-size:12px; line-height: 18px" align="center">
             {% set colors = ['#E3F2FD', '#90CAF9', '#42A5F5', '#1E88E5', '#1565C0'] %}
@@ -82,7 +107,9 @@
                     {% set outer_loop = loop %}
                     {% for time in student.day_list %}
                         <td>
-                            <a data-toggle="tooltip" title="Reading={{time.reading}} | Execise={{time.exercise}}">
+
+                            <a data-toggle="tooltip"
+                               title="{% if time.reading < 60 %}Reading={{ (time.reading)|int }} sec {%else%} Reading={{ (time.reading/60)|int }} min {% endif %} | {% if time.reading < 60 %} Execise={{ time.exercise|int }} sec {% else %} Execise={{ (time.exercise/60)|int }} min {% endif %}">
                                 <svg width="20" height="10">
                                     <defs>
                                         <linearGradient id="{{ loop.index0 }}{{ outer_loop.index0 }}" x1="0%" y1="0%"
@@ -104,37 +131,44 @@
                 <th></th>
                 {% for time in github_tables[0] %}
                     <th>
-                        <div style="font-size: 8px">  {{ time }} </div>
+                        <div style="font-size: 8px"> {{ time }}</div>
                     </th>
                 {% endfor %}
             </tr>
-
-            <tr>
-                <th>
-                    <div style="font-size: 8px"> Less &emsp; &nbsp; More</div>
-                    {% for i in range(4) %}
-                        <a data-toggle="tooltip" title="{{ i*5 }} mins">
-                            <svg width="10" height="10">
-                                <rect width="10" height="10" style="fill:{{ colors[i] }};"/>
-                            </svg>
-                        </a>
-                    {% endfor %}
-                </th>
-            </tr>
-
-
         </table>
+
+        <br>
+        <div class="pull-right" style="font-size: 12px"> Less
+            {% for i in range(4) %}
+                <a data-toggle="tooltip" title="<{{ (i*5) }}mins">
+                    <svg width="15" height="15">
+                        <rect width="15" height="15" style="fill:{{ colors[i] }};"/>
+                    </svg>
+                </a>
+            {% endfor %}
+            <a data-toggle="tooltip" title=">15min">
+                <svg width="15" height="15">
+                    <rect width="15" height="15" style="fill:{{ colors[4] }};"/>
+                </svg>
+            </a>
+            More
+        </div>
+        <br>
 
         <hr>
         <br>
 
         <div class="table-responsive m-t-40">
-            <table id="example23" class="display nowrap table table-hover" cellspacing="0" width="100%">
+            <input id="ai" type="search" class="light-table-filter" data-table="order-table"
+                   placeholder="Search student name...">
+            <br>
+            <br>
+            <table class="order-table table display nowrap table table-hover sortable" cellspacing="0" width="100%">
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Reading / Exercises</th>
-                    <th>Time</th>
+                    <th class="sorttable_nosort">Reading / Exercises</th>
+                    <th class="sorttable_numeric">Time</th>
                 </tr>
                 </thead>
 
@@ -142,21 +176,23 @@
                 {% for student in students %}
                     <tr>
                         <td width="22%">
-                            <h5><a href={{ '/student/'+student.id +'/' }}>
+                            <h5><a href={{ '/class/' + class_id }}{{ '/student/' + student.id + '/' }}>
                                 <div class="text-inverse">{{ student.name }}</div>
                             </a></h5>
                         </td>
 
 
-                        {% if not  student.learning_proportion == -1 %}
-
-                            <td width="69%">
+                        {% if not (student.exercises_done + student.reading_time) == 0 %}
+                            <td width="69%" title="Time spent on Reading(blue) and/or Exercises(dark grey)"
+                                sorttable_customkey={{ student.exercises_done + student.reading_time }}>
                                 <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
-                                    <div class="progress-bar bg-primary wow animated progress-animated" role="progressbar"
+                                    <div class="progress-bar bg-primary wow animated progress-animated"
+                                         role="progressbar"
                                          style="width: {{ student.learning_proportion }}%;">
                                         {{ student.learning_proportion|round|int }}%
                                     </div>
-                                    <div class="progress-bar bg-success wow animated progress-animated" role="progressbar"
+                                    <div class="progress-bar bg-success wow animated progress-animated"
+                                         role="progressbar"
                                          style="width: {{ 100-student.learning_proportion|round|int }}%; background-color: #607D8B !important;">
                                         {{ 100-student.learning_proportion|round|int }}%
                                     </div>
@@ -165,26 +201,27 @@
                             </td>
                         {% endif %}
 
-                        {% if student.learning_proportion == -1 %}
-
-                            <td width="69%">
+                        {% if (student.exercises_done + student.reading_time) == 0 %}
+                            <td width="69%" sorttable_customkey={{ student.exercises_done + student.reading_time }}>
                                 <div class="progress" style="height: 20px; margin-bottom: 3%; margin-top: 2%">
-                                    <div class="progress-bar bg-primary wow animated progress-animated" role="progressbar"
+                                    <div class="progress-bar bg-primary wow animated progress-animated"
+                                         role="progressbar"
                                          style="width: 0%;">
                                         {{ 0 }}%
                                     </div>
-                                    <div class="progress-bar bg-success wow animated progress-animated" role="progressbar"
+                                    <div class="progress-bar bg-success wow animated progress-animated"
+                                         role="progressbar"
                                          style="width: {{ 0 }}%; background-color: #607D8B !important;">
                                         {{ 0 }}%
                                     </div>
-
                                 </div>
                             </td>
                         {% endif %}
-                        <td width="9%">
+
+                        <td width="9%" sorttable_customkey={{ student.exercises_done + student.reading_time }}>
                             <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
-                                {{ ((student.exercises_done + student.reading_time)/60)|int }} h
-                                {{ ((student.exercises_done + student.reading_time)%60)|int }} m
+                                {{ ((student.exercises_done + student.reading_time)/3600)|int }} h
+                                {{ (((student.exercises_done + student.reading_time)/60)%60)|int }} m
                             </div>
                         </td>
                     </tr>
@@ -197,31 +234,101 @@
     <!-- End Wrapper -->
     <!-- All Jquery -->
     <script src="{{ url_for('static', filename='js/lib/jquery/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/lib/datatables/datatables.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/lib/datatables/datatables-init.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/lib/jquery/sorttable.js') }}"></script>
 
 {% endblock %}
 
 {% block buttons %}
 
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
+            <span class="glyphicon glyphicon-filter"></span> {{ students_time }}
+        </button>
+        <div id="myDropdown" class="dropdown-content">
+            <a onclick="saveCookie('7')">1 Week</a>
+            <a onclick="saveCookie('14')">2 Weeks</a>
+            <a onclick="saveCookie('30')">1 Month</a>
+            <a onclick="saveCookie('180')">6 Months</a>
+            <a onclick="saveCookie('365')">1 Year</a>
+        </div>
+    </div>
+
+    <script>
+        /* Saves the cookie */
+        function saveCookie(time) {
+            document.cookie = "time = " + time + ";path=/";
+            location.reload();
+        }
+
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        $(".progress-bar").animate({
+            width: "70%"
+        }, 2500);
+    </script>
+
+    <script>
+        var LightTableFilter = (function (Arr) {
+
+            var _input;
+
+            function _onInputEvent(e) {
+                _input = e.target;
+                var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+                Arr.forEach.call(tables, function (table) {
+                    Arr.forEach.call(table.tBodies, function (tbody) {
+                        Arr.forEach.call(tbody.rows, _filter);
+                    });
+                });
+            }
+
+            function _filter(row) {
+                var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+                row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+            }
+
+            return {
+                init: function () {
+                    var inputs = document.getElementsByClassName('light-table-filter');
+                    Arr.forEach.call(inputs, function (input) {
+                        input.oninput = _onInputEvent;
+                    });
+                }
+            };
+        })(Array.prototype);
+
+        document.addEventListener('readystatechange', function () {
+            if (document.readyState === 'complete') {
+                LightTableFilter.init();
+            }
+        });
+
+    </script>
+
     <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"
             data-toggle="modal" data-target="#myModal">
         &#9432
     </button>
-
-    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect"
-            style="color:#4285f4!important"><
-    </button>
-
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-
-        $(".progress-bar").animate({
-            width: "70%"
-        }, 2500);
-
-    </script>
 
 {% endblock %}

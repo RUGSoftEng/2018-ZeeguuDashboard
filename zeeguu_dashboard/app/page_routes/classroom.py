@@ -7,6 +7,7 @@ from app.util.classroom import load_students, load_class_info, remove_class, cre
     edit_class_info, add_student_learning_proportion
 from app.util.permissions import has_class_permission, has_session
 from app.page_routes.homepage import homepage
+from app.util.user import get_correct_time
 
 """
 This file takes care of all of the class related page_routes:
@@ -15,20 +16,6 @@ This file takes care of all of the class related page_routes:
 - removing it
 - creating new classes
 """
-
-
-@app.route('/class/<class_id>/<filter_table_time>/', methods=['GET'])
-def class_page_set_cookie(class_id, filter_table_time):
-    """
-    Sets cookie for filter table time
-    :param class_id: the id for this class.
-    :param filter_table_time: time for the filter_table
-    :return: Renders and returns a class page.
-    """
-    redirect_to_index = redirect('/class/' + class_id + '/')
-    response = app.make_response(redirect_to_index)
-    response.set_cookie('filter_table_time', filter_table_time, max_age=60 * 60 * 24 * 365 * 2)
-    return response
 
 
 @app.route('/class/<class_id>/', methods=['GET', 'POST'])
@@ -65,6 +52,7 @@ def load_class(class_id):
             return redirect('/')
         students = add_student_learning_proportion(students)
         class_info = load_class_info(class_id)
+
         if not students or not github_tables:
             return render_template("empty_classpage.html", class_info=class_info)
         return render_template('classpage.html',
@@ -73,7 +61,8 @@ def load_class(class_id):
                                github_tables=github_tables,
                                class_info=class_info,
                                class_id=class_id,
-                               time=filter_table_time
+                               time=filter_table_time,
+                               students_time=get_correct_time(time)
                                )
 
 

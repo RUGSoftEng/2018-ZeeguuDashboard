@@ -134,7 +134,7 @@ def add_student_learning_proportion(students):
             student["learning_proportion"] = 100 * student["reading_time"] / (
                 student["exercises_done"] + student["reading_time"])
         elif student["reading_time"] == 0 and student["exercises_done"] == 0:
-            student["learning_proportion"] = -1
+            student["learning_proportion"] = 0
         elif student["reading_time"] == 0:
             student["learning_proportion"] = 0
         else:
@@ -163,11 +163,11 @@ def _format_for_color(time):
     """
     if time <= 1:
         color = 0
-    elif time < 5:
+    elif time < 300:
         color = 1
-    elif time < 10:
+    elif time < 600:
         color = 2
-    elif time < 20:
+    elif time < 900:
         color = 3
     else:
         color = 4
