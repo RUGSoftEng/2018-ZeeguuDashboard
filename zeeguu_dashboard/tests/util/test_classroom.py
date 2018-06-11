@@ -489,7 +489,7 @@ class TestClassroom(unittest.TestCase):
         package = {'name': name, 'inv_code': invite_code, 'max_students': max_students}
 
         classroom.edit_class_info(class_id, name, invite_code, max_students)
-        fake_api_post.assert_called_with('hoi')
+        fake_api_post.assert_called_with('update_cohort/' + str(class_id), package=package)
 
 
 if __name__ == '__main__':
