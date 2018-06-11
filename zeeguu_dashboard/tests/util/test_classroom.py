@@ -1,3 +1,4 @@
+import json
 import unittest
 from unittest.mock import patch, MagicMock
 
@@ -106,6 +107,182 @@ class TestClassroom(unittest.TestCase):
         assert classroom._format_for_color(300) == 2
         assert classroom._format_for_color(600) == 3
         assert classroom._format_for_color(900) == 4
+
+    def test_add_student_learning_proportion(self):
+        fake_students = json.loads("""[{
+            "id": "0",
+            "name": "student0",
+            "email": "email_address",
+            "reading_time": 5000,
+            "exercises_done": 5000,
+            "last_article": "place holder article",
+            "reading_time_list": [
+                0,
+                0,
+                0,
+                2500,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2500,
+                0,
+                0,
+                0,
+                0
+            ],
+            "exercise_time_list": [
+                0,
+                0,
+                0,
+                0,
+                2500,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2500,
+                0
+            ]
+        },
+        {
+            "id": "1",
+            "name": "student1",
+            "email": "email_address",
+            "reading_time": 5000,
+            "exercises_done": 0,
+            "last_article": "place holder article",
+            "reading_time_list": [
+                0,
+                0,
+                0,
+                2500,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2500,
+                0,
+                0,
+                0,
+                0
+            ],
+            "exercise_time_list": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        {
+            "id": "2",
+            "name": "student2",
+            "email": "email_address",
+            "reading_time": 0,
+            "exercises_done": 5000,
+            "last_article": "place holder article",
+            "reading_time_list": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "exercise_time_list": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2500,
+                2500,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        {
+            "id": "3",
+            "name": "student3",
+            "email": "email_address",
+            "reading_time": 0,
+            "exercises_done": 0,
+            "last_article": "place holder article",
+            "reading_time_list": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "exercise_time_list": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }]""")
+
+        appended_fake_students = classroom.add_student_learning_proportion(students=fake_students)
+        assert (appended_fake_students[0]['learning_proportion']) == 50
+        assert (appended_fake_students[1]['learning_proportion']) == 100
+        assert (appended_fake_students[2]['learning_proportion']) == 0
+        assert (appended_fake_students[3]['learning_proportion']) == 0
 
 
 if __name__ == '__main__':
