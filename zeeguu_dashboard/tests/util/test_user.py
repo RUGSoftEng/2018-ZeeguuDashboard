@@ -155,3 +155,10 @@ class TestUser(unittest.TestCase):
 
         real_result = user.filter_user_bookmarks(days)
         assert real_result == expected_result
+
+    def test_get_correct_time(self):
+        assert (user.get_correct_time('7')) == '1 week'
+        assert (user.get_correct_time('14')) == '2 weeks'
+        assert (user.get_correct_time('30')) == '1 month'
+        assert (user.get_correct_time('180')) == '6 months'
+        assert (user.get_correct_time('365')) == '1 year'
