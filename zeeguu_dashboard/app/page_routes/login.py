@@ -1,6 +1,6 @@
 import flask
 import requests
-from flask import make_response, render_template
+from flask import make_response, render_template, redirect
 
 from app import app
 from app.forms.create_login import CreateLogin
@@ -27,11 +27,13 @@ def login():
         email = form.email.data
         password = form.password.data
         dict = {'password': password}
-        res = requests.post(app.config['API_PATH'] + session_path + email, data=dict).text
-
+        res = requests.post(app.config['API_PATH'] + session_path + email, data=dict)
+        var = res.status_code
+        res = res.text
         response = make_response('cookie', 200)
         response.set_cookie('sessionID', str(res), max_age=1000000)
 
         flask.session['sessionID'] = res
-
+        if var == 200:
+            return redirect("/teacher")
     return render_template('loginpage.html', title="login page", form=form)
