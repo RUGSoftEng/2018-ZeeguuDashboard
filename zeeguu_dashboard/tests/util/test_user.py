@@ -34,13 +34,13 @@ class TestUser(unittest.TestCase):
 
     @patch('app.util.user.api_get')
     def test_load_user_data(self, mock_api_get):
-        user655_json = """[{
+        fake_user_json = """[{
                 "date": "Sunday, 18 June 2017",
                 "bookmarks":
                     [
                         {
-                            "id": 18897,
-                            "to": "With tense face",
+                            "id": 0,
+                            "to": "The quick",
                             "from_lang": "fr",
                             "to_lang": "en",
                             "title": "title0",
@@ -49,12 +49,12 @@ class TestUser(unittest.TestCase):
                             "learned_datetime": "",
                             "origin_rank": "",
                             "starred": false,
-                            "from": "à face tendu",
+                            "from": "The quick",
                             "context": "context0"
                         },
                         {
-                            "id": 18897,
-                            "to": "With tense face",
+                            "id": 1,
+                            "to": "The quick brown fox",
                             "from_lang": "fr",
                             "to_lang": "en",
                             "title": "title0",
@@ -63,12 +63,12 @@ class TestUser(unittest.TestCase):
                             "learned_datetime": "",
                             "origin_rank": "",
                             "starred": false,
-                            "from": "à face tendu",
+                            "from": "The quick brown fox",
                             "context": "context0"
                         },
                         {
-                            "id": 18896,
-                            "to": "To face",
+                            "id": 2,
+                            "to": "The quick brown fox jumps over",
                             "from_lang": "fr",
                             "to_lang": "en",
                             "title": "title0",
@@ -77,12 +77,12 @@ class TestUser(unittest.TestCase):
                             "learned_datetime": "",
                             "origin_rank": "",
                             "starred": false,
-                            "from": "à face",
+                            "from": "The quick brown fox jumps over",
                             "context": "context0"
                         },
                         {
-                            "id": 18895,
-                            "to": "at",
+                            "id": 3,
+                            "to": "The quick brown fox jumps over the lazy",
                             "from_lang": "fr",
                             "to_lang": "en",
                             "title": "title0",
@@ -91,7 +91,7 @@ class TestUser(unittest.TestCase):
                             "learned_datetime": "",
                             "origin_rank": 12,
                             "starred": false,
-                            "from": "à",
+                            "from": "The quick brown fox jumps over the lazy",
                             "context": "context0"
                         }
                  ]
@@ -101,7 +101,7 @@ class TestUser(unittest.TestCase):
                 "bookmarks":
                     [
                         {
-                            "id": 18879,
+                            "id": 4,
                             "to": "support",
                             "from_lang": "fr",
                             "to_lang": "en",
@@ -112,10 +112,10 @@ class TestUser(unittest.TestCase):
                             "origin_rank": "",
                             "starred": false,
                             "from": "d’appui",
-                            "context": "Elle est devenue le point d’appui dans la zone des forces spéciales américaines, et dans une moindre mesure britanniques, depuis que des révolutionnaires syriens sont parvenus, avec un tel appui occidental, à déloger Daech d’Al-Tanf en mars 2016."
+                            "context": "context1"
                         },
                         {
-                            "id": 18878,
+                            "id": 5,
                             "to": "lock",
                             "from_lang": "fr",
                             "to_lang": "en",
@@ -126,28 +126,31 @@ class TestUser(unittest.TestCase):
                             "origin_rank": "",
                             "starred": false,
                             "from": "verrou",
-                            "context": "Mais sa localisation stratégique sur la route entre Damas et Bagdad en fait le verrou du contrôle du triangle frontalier entre la Syrie, la Jordanie et l’Irak."
+                            "context": "context2"
                         }
                     ]
 
             }]"""
 
-        user655 = json.loads(user655_json)
-        user655_filtered = user.filter_user_bookmarks(user655)
-        user655_filtered_and_sorted = user.sort_user_bookmarks(user655_filtered)
+        fake_user = json.loads(fake_user_json)
+        fake_user_filtered = user.filter_user_bookmarks(fake_user)
+        fake_user_filtered_and_sorted = user.sort_user_bookmarks(fake_user_filtered)
 
         app = flask.Flask(__name__)
 
         with app.test_request_context('/?name=Chris'):
             mock = MagicMock()
-            mock.text = user655_json
+            mock.text = fake_user_json
             mock_api_get.return_value = mock
 
             user_id = 0
             time = 0
-            assert user.load_user_data(user_id, time, True) == user655_filtered_and_sorted
+            assert user.load_user_data(user_id, time, True) == fake_user_filtered_and_sorted
 
     def test_filter_user_bookmarks(self):
+        base_case = []
+        assert (user.filter_user_bookmarks(base_case) == [])
+
         day0 = {'bookmarks': [{'from': 'meer'}, {'from': 'zout'}, {'from': 'GRANATE'}]}
         day1 = {'bookmarks': [{'from': 'hallo'}, {'from': 'alsjeblieft'}, {'from': 'alsjeblieft'}]}
         days = [day0, day1]
@@ -171,8 +174,8 @@ class TestUser(unittest.TestCase):
                 "bookmarks":
                     [
                         {
-                            "id": 18897,
-                            "to": "With tense face",
+                            "id": 0,
+                            "to": "The quick",
                             "from_lang": "fr",
                             "to_lang": "en",
                             "title": "title0",
@@ -181,12 +184,12 @@ class TestUser(unittest.TestCase):
                             "learned_datetime": "",
                             "origin_rank": "",
                             "starred": false,
-                            "from": "à face tendu",
+                            "from": "The quick",
                             "context": "context0"
                         },
                         {
-                            "id": 18897,
-                            "to": "With tense face",
+                            "id": 1,
+                            "to": "The quick brown fox",
                             "from_lang": "fr",
                             "to_lang": "en",
                             "title": "title0",
@@ -195,12 +198,12 @@ class TestUser(unittest.TestCase):
                             "learned_datetime": "",
                             "origin_rank": "",
                             "starred": false,
-                            "from": "à face tendu",
+                            "from": "The quick brown fox",
                             "context": "context0"
                         },
                         {
-                            "id": 18896,
-                            "to": "To face",
+                            "id": 2,
+                            "to": "The quick brown fox jumps over",
                             "from_lang": "fr",
                             "to_lang": "en",
                             "title": "title0",
@@ -209,12 +212,12 @@ class TestUser(unittest.TestCase):
                             "learned_datetime": "",
                             "origin_rank": "",
                             "starred": false,
-                            "from": "à face",
+                            "from": "The quick brown fox jumps over",
                             "context": "context0"
                         },
                         {
-                            "id": 18895,
-                            "to": "at",
+                            "id": 3,
+                            "to": "The quick brown fox jumps over the lazy",
                             "from_lang": "fr",
                             "to_lang": "en",
                             "title": "title0",
@@ -223,7 +226,7 @@ class TestUser(unittest.TestCase):
                             "learned_datetime": "",
                             "origin_rank": 12,
                             "starred": false,
-                            "from": "à",
+                            "from": "The quick brown fox jumps over the lazy",
                             "context": "context0"
                         }
                  ]
@@ -233,7 +236,7 @@ class TestUser(unittest.TestCase):
                 "bookmarks":
                     [
                         {
-                            "id": 18879,
+                            "id": 4,
                             "to": "support",
                             "from_lang": "fr",
                             "to_lang": "en",
@@ -247,7 +250,7 @@ class TestUser(unittest.TestCase):
                             "context": "context1"
                         },
                         {
-                            "id": 18878,
+                            "id": 5,
                             "to": "lock",
                             "from_lang": "fr",
                             "to_lang": "en",
@@ -264,109 +267,87 @@ class TestUser(unittest.TestCase):
 
             }]""")
 
-        expected_output = [{
-            'date': 'Sunday, 18 June 2017',
-            'article_list':
-                [
-                    {
-                        'title': 'title0',
-                        'url': 'url0',
-                        'sentence_list':
-                            [
-                                {
-                                    'context': 'context0',
-                                    'bookmarks':
-                                        [
-                                            {
-                                                'id': 18897,
-                                                'to': 'With tense face',
-                                                'from_lang': 'fr',
-                                                'to_lang': 'en',
-                                                'title': 'title0',
-                                                'url': 'url0',
-                                                'origin_importance': 0,
-                                                'learned_datetime': '',
-                                                'origin_rank': '',
-                                                'starred': False,
-                                                'from': 'à face tendu',
-                                                'context': 'context0'
-                                            },
-                                            {'id': 18897,
-                                             'to': 'With tense face',
-                                             'from_lang': 'fr',
-                                             'to_lang': 'en',
-                                             'title': 'title0',
-                                             'url': 'url0',
-                                             'origin_importance': 0,
-                                             'learned_datetime': '',
-                                             'origin_rank': '',
-                                             'starred': False,
-                                             'from': 'à face tendu',
-                                             'context': 'context0'
-                                             },
-                                            {'id': 18896,
-                                             'to': 'To face',
-                                             'from_lang': 'fr',
-                                             'to_lang': 'en',
-                                             'title': 'title0',
-                                             'url': 'url0',
-                                             'origin_importance': 0,
-                                             'learned_datetime': '',
-                                             'origin_rank': '',
-                                             'starred': False,
-                                             'from': 'à face',
-                                             'context': 'context0'
-                                             },
-                                            {'id': 18895,
-                                             'to': 'at',
-                                             'from_lang': 'fr',
-                                             'to_lang': 'en',
-                                             'title': 'title0',
-                                             'url': 'url0',
-                                             'origin_importance': 15.08,
-                                             'learned_datetime': '',
-                                             'origin_rank': 12,
-                                             'starred': False,
-                                             'from': 'à',
-                                             'context': 'context0'
-                                             }
-                                        ]
-                                }
-                            ]
-                    }
-                ]},
-            {'date': 'Monday, 19 June 2017', 'article_list': [{'title': 'title0', 'url': 'url0', 'sentence_list': [{
-                'context': 'context1',
-                'bookmarks': [
-                    {
-                        'id': 18879,
-                        'to': 'support',
-                        'from_lang': 'fr',
-                        'to_lang': 'en',
-                        'title': 'title0',
-                        'url': 'url0',
-                        'origin_importance': 0,
-                        'learned_datetime': '',
-                        'origin_rank': '',
-                        'starred': False,
-                        'from': 'd’appui',
-                        'context': 'context1'}]},
-                {
-                    'context': 'context2',
-                    'bookmarks': [
-                        {
-                            'id': 18878,
-                            'to': 'lock',
-                            'from_lang': 'fr',
-                            'to_lang': 'en',
-                            'title': 'title0',
-                            'url': 'url0',
-                            'origin_importance': 0,
-                            'learned_datetime': '',
-                            'origin_rank': '',
-                            'starred': False,
-                            'from': 'verrou',
-                            'context': 'context2'}]}]}]}
-        ]
+        expected_output = [
+            {'date': 'Sunday, 18 June 2017',
+             'article_list': [{'title': 'title0',
+                               'url': 'url0',
+                               'sentence_list': [{'context': 'context0',
+                                                  'bookmarks': [{'id': 0,
+                                                                 'to': 'The quick',
+                                                                 'from_lang': 'fr',
+                                                                 'to_lang': 'en',
+                                                                 'title': 'title0',
+                                                                 'url': 'url0',
+                                                                 'origin_importance': 0,
+                                                                 'learned_datetime': '',
+                                                                 'origin_rank': '',
+                                                                 'starred': False,
+                                                                 'from': 'The quick',
+                                                                 'context': 'context0'},
+                                                                {'id': 1,
+                                                                 'to': 'The quick brown fox',
+                                                                 'from_lang': 'fr',
+                                                                 'to_lang': 'en',
+                                                                 'title': 'title0',
+                                                                 'url': 'url0',
+                                                                 'origin_importance': 0,
+                                                                 'learned_datetime': '',
+                                                                 'origin_rank': '',
+                                                                 'starred': False,
+                                                                 'from': 'The quick brown fox',
+                                                                 'context': 'context0'},
+                                                                {'id': 2,
+                                                                 'to': 'The quick brown fox jumps over',
+                                                                 'from_lang': 'fr',
+                                                                 'to_lang': 'en',
+                                                                 'title': 'title0',
+                                                                 'url': 'url0',
+                                                                 'origin_importance': 0,
+                                                                 'learned_datetime': '',
+                                                                 'origin_rank': '',
+                                                                 'starred': False,
+                                                                 'from': 'The quick brown fox jumps over',
+                                                                 'context': 'context0'},
+                                                                {'id': 3,
+                                                                 'to': 'The quick brown fox jumps over the lazy',
+                                                                 'from_lang': 'fr',
+                                                                 'to_lang': 'en',
+                                                                 'title': 'title0',
+                                                                 'url': 'url0',
+                                                                 'origin_importance': 15.08,
+                                                                 'learned_datetime': '',
+                                                                 'origin_rank': 12,
+                                                                 'starred': False,
+                                                                 'from': 'The quick brown fox jumps over the lazy',
+                                                                 'context': 'context0'}]}]}]},
+            {'date': 'Monday, 19 June 2017',
+             'article_list': [{'title': 'title0',
+                               'url': 'url0',
+                               'sentence_list': [{'context': 'context1',
+                                                  'bookmarks': [{'id': 4,
+                                                                 'to': 'support',
+                                                                 'from_lang': 'fr',
+                                                                 'to_lang': 'en',
+                                                                 'title': 'title0',
+                                                                 'url': 'url0',
+                                                                 'origin_importance': 0,
+                                                                 'learned_datetime': '',
+                                                                 'origin_rank': '',
+                                                                 'starred': False,
+                                                                 'from': 'd’appui',
+                                                                 'context': 'context1'}]},
+                                                 {'context': 'context2',
+                                                  'bookmarks': [{'id': 5,
+                                                                 'to': 'lock',
+                                                                 'from_lang': 'fr',
+                                                                 'to_lang': 'en',
+                                                                 'title': 'title0',
+                                                                 'url': 'url0',
+                                                                 'origin_importance': 0,
+                                                                 'learned_datetime': '',
+                                                                 'origin_rank': '',
+                                                                 'starred': False,
+                                                                 'from': 'verrou',
+                                                                 'context': 'context2'}]}]}]}]
 
         assert (user.sort_user_bookmarks(fake_input) == expected_output)
