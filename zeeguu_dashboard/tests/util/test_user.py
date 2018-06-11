@@ -162,3 +162,211 @@ class TestUser(unittest.TestCase):
         assert (user.get_correct_time('30')) == '1 month'
         assert (user.get_correct_time('180')) == '6 months'
         assert (user.get_correct_time('365')) == '1 year'
+
+    def test_sort_user_bookmarks(self):
+        base_case = []
+        assert (user.sort_user_bookmarks([]) == base_case)
+        fake_input = json.loads("""[{
+                "date": "Sunday, 18 June 2017",
+                "bookmarks":
+                    [
+                        {
+                            "id": 18897,
+                            "to": "With tense face",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 0,
+                            "learned_datetime": "",
+                            "origin_rank": "",
+                            "starred": false,
+                            "from": "à face tendu",
+                            "context": "context0"
+                        },
+                        {
+                            "id": 18897,
+                            "to": "With tense face",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 0,
+                            "learned_datetime": "",
+                            "origin_rank": "",
+                            "starred": false,
+                            "from": "à face tendu",
+                            "context": "context0"
+                        },
+                        {
+                            "id": 18896,
+                            "to": "To face",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 0,
+                            "learned_datetime": "",
+                            "origin_rank": "",
+                            "starred": false,
+                            "from": "à face",
+                            "context": "context0"
+                        },
+                        {
+                            "id": 18895,
+                            "to": "at",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 15.08,
+                            "learned_datetime": "",
+                            "origin_rank": 12,
+                            "starred": false,
+                            "from": "à",
+                            "context": "context0"
+                        }
+                 ]
+            },
+            {
+                "date": "Monday, 19 June 2017",
+                "bookmarks":
+                    [
+                        {
+                            "id": 18879,
+                            "to": "support",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 0,
+                            "learned_datetime": "",
+                            "origin_rank": "",
+                            "starred": false,
+                            "from": "d’appui",
+                            "context": "context1"
+                        },
+                        {
+                            "id": 18878,
+                            "to": "lock",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 0,
+                            "learned_datetime": "",
+                            "origin_rank": "",
+                            "starred": false,
+                            "from": "verrou",
+                            "context": "context2"
+                        }
+                    ]
+
+            }]""")
+
+        expected_output = [{
+            'date': 'Sunday, 18 June 2017',
+            'article_list':
+                [
+                    {
+                        'title': 'title0',
+                        'url': 'url0',
+                        'sentence_list':
+                            [
+                                {
+                                    'context': 'context0',
+                                    'bookmarks':
+                                        [
+                                            {
+                                                'id': 18897,
+                                                'to': 'With tense face',
+                                                'from_lang': 'fr',
+                                                'to_lang': 'en',
+                                                'title': 'title0',
+                                                'url': 'url0',
+                                                'origin_importance': 0,
+                                                'learned_datetime': '',
+                                                'origin_rank': '',
+                                                'starred': False,
+                                                'from': 'à face tendu',
+                                                'context': 'context0'
+                                            },
+                                            {'id': 18897,
+                                             'to': 'With tense face',
+                                             'from_lang': 'fr',
+                                             'to_lang': 'en',
+                                             'title': 'title0',
+                                             'url': 'url0',
+                                             'origin_importance': 0,
+                                             'learned_datetime': '',
+                                             'origin_rank': '',
+                                             'starred': False,
+                                             'from': 'à face tendu',
+                                             'context': 'context0'
+                                             },
+                                            {'id': 18896,
+                                             'to': 'To face',
+                                             'from_lang': 'fr',
+                                             'to_lang': 'en',
+                                             'title': 'title0',
+                                             'url': 'url0',
+                                             'origin_importance': 0,
+                                             'learned_datetime': '',
+                                             'origin_rank': '',
+                                             'starred': False,
+                                             'from': 'à face',
+                                             'context': 'context0'
+                                             },
+                                            {'id': 18895,
+                                             'to': 'at',
+                                             'from_lang': 'fr',
+                                             'to_lang': 'en',
+                                             'title': 'title0',
+                                             'url': 'url0',
+                                             'origin_importance': 15.08,
+                                             'learned_datetime': '',
+                                             'origin_rank': 12,
+                                             'starred': False,
+                                             'from': 'à',
+                                             'context': 'context0'
+                                             }
+                                        ]
+                                }
+                            ]
+                    }
+                ]},
+            {'date': 'Monday, 19 June 2017', 'article_list': [{'title': 'title0', 'url': 'url0', 'sentence_list': [{
+                'context': 'context1',
+                'bookmarks': [
+                    {
+                        'id': 18879,
+                        'to': 'support',
+                        'from_lang': 'fr',
+                        'to_lang': 'en',
+                        'title': 'title0',
+                        'url': 'url0',
+                        'origin_importance': 0,
+                        'learned_datetime': '',
+                        'origin_rank': '',
+                        'starred': False,
+                        'from': 'd’appui',
+                        'context': 'context1'}]},
+                {
+                    'context': 'context2',
+                    'bookmarks': [
+                        {
+                            'id': 18878,
+                            'to': 'lock',
+                            'from_lang': 'fr',
+                            'to_lang': 'en',
+                            'title': 'title0',
+                            'url': 'url0',
+                            'origin_importance': 0,
+                            'learned_datetime': '',
+                            'origin_rank': '',
+                            'starred': False,
+                            'from': 'verrou',
+                            'context': 'context2'}]}]}]}
+        ]
+
+        assert (user.sort_user_bookmarks(fake_input) == expected_output)
