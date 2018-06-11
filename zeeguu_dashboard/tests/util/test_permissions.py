@@ -49,10 +49,10 @@ class TestPermissions(unittest.TestCase):
 
         mock_api_get.assert_called_with('has_permission_for_cohort/' + str(class_id))
 
+    @patch('app.util.permissions.app')
     @patch('app.util.permissions.check_session')
     @patch('app.util.permissions.api_get')
-    def broken_has_class_permission(self, mock_api_get, mock_check_session):
-        return
+    def test_has_class_permission(self, mock_api_get, mock_check_session, mock_app):
         @permissions.has_student_permission
         def test_function(student_id, time):
             return True
@@ -60,6 +60,10 @@ class TestPermissions(unittest.TestCase):
         mock = MagicMock()
         mock.text = "OK"
         mock_api_get.return_value = mock
+
+        config_mock = MagicMock()
+        config_mock.config["DEFAULT_STUDENT_TIME"] = 14
+        mock_app = config_mock
 
         student_id = 1
 
