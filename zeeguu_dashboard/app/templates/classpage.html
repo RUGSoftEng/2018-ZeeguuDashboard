@@ -52,8 +52,8 @@
     <div class="card"
          style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px; overflow: scroll">
 
-        <div class="card-title" style="cursor: alias;" data-toggle="modal"
-             data-target="#heatmapModal">{{ class_info.name }}
+        <div class="card-title" style="cursor: alias; text-align: center;" data-toggle="modal"
+             data-target="#heatmapModal">Activity Heat Map
         </div>
 
         {% if time == '30' %}
@@ -158,7 +158,7 @@
         <hr>
         <br>
 
-        <div class="table-responsive m-t-40">
+        <div class="table-responsive m-t-40" style="min-height: 800px;">
             <input id="ai" type="search" class="light-table-filter" data-table="order-table"
                    placeholder="Search student name...">
             <br>
@@ -176,7 +176,7 @@
                 {% for student in students %}
                     <tr>
                         <td width="22%">
-                            <h5><a href={{ '/student/'+student.id +'/' }}>
+                            <h5><a href={{ '/class/' + class_id }}{{ '/student/' + student.id + '/' }}>
                                 <div class="text-inverse">{{ student.name }}</div>
                             </a></h5>
                         </td>
