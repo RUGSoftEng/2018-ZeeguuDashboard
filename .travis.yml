@@ -11,4 +11,7 @@ install:
 
 script:
   - cd zeeguu_dashboard
-  - nose2
+  - py.test --cov=./ tests/
+
+after_success:
+  - coveralls
