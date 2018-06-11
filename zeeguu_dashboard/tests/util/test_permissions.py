@@ -28,7 +28,7 @@ class TestPermissions(unittest.TestCase):
         assert permissions.check_session()
 
         mock_object.text = 'NOT OK'
-        assert permissions.check_session()
+        assert not permissions.check_session()
 
     @patch('app.util.permissions.check_session')
     def test_has_session(func, mock_check_session):
