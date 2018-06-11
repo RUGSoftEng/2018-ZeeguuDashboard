@@ -23,30 +23,129 @@ class TestUser(unittest.TestCase):
     @patch('app.util.user.api_get')
     def test_load_user_info(self, mock_api_get):
         user_id = 0
+        duration = 0
         mock = MagicMock()
         app = flask.Flask(__name__)
 
         with app.test_request_context('/?name=Chris'):
             mock.text = '["foo", {"bar":["baz", null, 1.0, 2]}]'
             mock_api_get.return_value = mock
-            assert user.load_user_info(user_id) == json.loads(mock.text)
+            assert user.load_user_info(user_id, duration) == json.loads(mock.text)
 
     @patch('app.util.user.api_get')
     def test_load_user_data(self, mock_api_get):
-        day0 = {'bookmarks': [{'from': 'meer'}, {'from': 'zout'}, {'from': 'GRANATE'}]}
-        day1 = {'bookmarks': [{'from': 'hallo'}, {'from': 'alsjeblieft'}, {'from': 'alsjeblieft'}]}
-        days = [day0, day1]
-        expected_result = [day0, {'bookmarks': [{'from': 'hallo'}, {'from': 'alsjeblieft'}]}]
+        user655_json = """[{
+                "date": "Sunday, 18 June 2017",
+                "bookmarks":
+                    [
+                        {
+                            "id": 18897,
+                            "to": "With tense face",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 0,
+                            "learned_datetime": "",
+                            "origin_rank": "",
+                            "starred": false,
+                            "from": "à face tendu",
+                            "context": "context0"
+                        },
+                        {
+                            "id": 18897,
+                            "to": "With tense face",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 0,
+                            "learned_datetime": "",
+                            "origin_rank": "",
+                            "starred": false,
+                            "from": "à face tendu",
+                            "context": "context0"
+                        },
+                        {
+                            "id": 18896,
+                            "to": "To face",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 0,
+                            "learned_datetime": "",
+                            "origin_rank": "",
+                            "starred": false,
+                            "from": "à face",
+                            "context": "context0"
+                        },
+                        {
+                            "id": 18895,
+                            "to": "at",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 15.08,
+                            "learned_datetime": "",
+                            "origin_rank": 12,
+                            "starred": false,
+                            "from": "à",
+                            "context": "context0"
+                        }
+                 ]
+            },
+            {
+                "date": "Monday, 19 June 2017",
+                "bookmarks":
+                    [
+                        {
+                            "id": 18879,
+                            "to": "support",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 0,
+                            "learned_datetime": "",
+                            "origin_rank": "",
+                            "starred": false,
+                            "from": "d’appui",
+                            "context": "Elle est devenue le point d’appui dans la zone des forces spéciales américaines, et dans une moindre mesure britanniques, depuis que des révolutionnaires syriens sont parvenus, avec un tel appui occidental, à déloger Daech d’Al-Tanf en mars 2016."
+                        },
+                        {
+                            "id": 18878,
+                            "to": "lock",
+                            "from_lang": "fr",
+                            "to_lang": "en",
+                            "title": "title0",
+                            "url": "url0",
+                            "origin_importance": 0,
+                            "learned_datetime": "",
+                            "origin_rank": "",
+                            "starred": false,
+                            "from": "verrou",
+                            "context": "Mais sa localisation stratégique sur la route entre Damas et Bagdad en fait le verrou du contrôle du triangle frontalier entre la Syrie, la Jordanie et l’Irak."
+                        }
+                    ]
+
+            }]"""
+
+        user655 = json.loads(user655_json)
+        user655_filtered = user.filter_user_bookmarks(user655)
+        user655_filtered_and_sorted = user.sort_user_bookmarks(user655_filtered)
+
         app = flask.Flask(__name__)
 
         with app.test_request_context('/?name=Chris'):
             mock = MagicMock()
-            mock.text = json.dumps(days)
+            mock.text = user655_json
             mock_api_get.return_value = mock
 
             user_id = 0
             time = 0
-            assert user.load_user_data(user_id, time) == expected_result
+            assert user.load_user_data(user_id, time, True) == user655_filtered_and_sorted
 
     def test_filter_user_bookmarks(self):
         day0 = {'bookmarks': [{'from': 'meer'}, {'from': 'zout'}, {'from': 'GRANATE'}]}
