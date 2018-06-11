@@ -98,6 +98,15 @@ class TestClassroom(unittest.TestCase):
         assert classroom.verify_invite_code_exists(inv_code)
         mock_api_get.assert_called_with('invite_code_usable/' + str(inv_code))
 
+    def test_format_for_color(self):
+        assert classroom._format_for_color(0) == 0
+        assert classroom._format_for_color(1) == 0
+        assert classroom._format_for_color(2) == 1
+        assert classroom._format_for_color(299) == 1
+        assert classroom._format_for_color(300) == 2
+        assert classroom._format_for_color(600) == 3
+        assert classroom._format_for_color(900) == 4
+
 
 if __name__ == '__main__':
     unittest.main()
