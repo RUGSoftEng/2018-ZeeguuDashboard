@@ -284,6 +284,17 @@ class TestClassroom(unittest.TestCase):
         assert (appended_fake_students[2]['learning_proportion']) == 0
         assert (appended_fake_students[3]['learning_proportion']) == 0
 
+    @patch('app.util.classroom.api_post')
+    def test_edit_class_info(self, fake_api_post):
+        class_id = 0
+        name = 'name'
+        invite_code = 0
+        max_students = 0
+        package = {'name': name, 'inv_code': invite_code, 'max_students': max_students}
+
+        classroom.edit_class_info(class_id, name, invite_code, max_students)
+        fake_api_post.assert_called_with('update_cohort/' + str(class_id), package=package)
+
 
 if __name__ == '__main__':
     unittest.main()
