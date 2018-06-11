@@ -52,7 +52,7 @@ class TestPermissions(unittest.TestCase):
     @patch('app.util.permissions.app')
     @patch('app.util.permissions.check_session')
     @patch('app.util.permissions.api_get')
-    def test_has_class_permission(self, mock_api_get, mock_check_session, mock_app):
+    def test_has_student_permission(self, mock_api_get, mock_check_session, mock_app):
         @permissions.has_student_permission
         def test_function(student_id, time):
             return True
