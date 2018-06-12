@@ -3,7 +3,7 @@
 # Zeeguu Dashboard
 
 
-[![Build Status](https://travis-ci.org/RUGSoftEng/2018-ZeeguuDashboard.svg?branch=develop)](https://travis-ci.org/RUGSoftEng/2018-ZeeguuDashboard)
+[![Coverage Status](https://coveralls.io/repos/github/RUGSoftEng/2018-ZeeguuDashboard/badge.svg?branch=fix%2Funit_testing)](https://coveralls.io/github/RUGSoftEng/2018-ZeeguuDashboard?branch=fix%2Funit_testing)
 
 ## What is Zeeguu and what is this project about? (Zeeguu Dashboard
 
