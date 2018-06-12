@@ -3,10 +3,11 @@ Flask-WTF
 Flask-Bootstrap
 Flask-Migrate
 Flask-SQLAlchemy
-pytest
 Jinja2
 WTForms
 requests
 Werkzeug
-nose2
 mysqlclient
+pytest
+pytest-cov
+coveralls

@@ -1,4 +1,6 @@
+import json
 import unittest
+from datetime import datetime, timedelta
 from unittest.mock import patch, MagicMock
 
 from app.util import classroom
@@ -16,6 +18,201 @@ class TestClassroom(unittest.TestCase):
 
     def tearDown(self):
         pass
+
+    def test_format_class_table_data(self):
+        duration = 14
+        number_fake_students = 4
+        fake_student = json.loads("""[{
+                    "id": "0",
+                    "name": "student0",
+                    "email": "email_address",
+                    "reading_time": 5000,
+                    "exercises_done": 5000,
+                    "last_article": "place holder article",
+                    "reading_time_list": [
+                        0,
+                        0,
+                        0,
+                        2500,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        2500,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "exercise_time_list": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        2500,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        2500,
+                        0
+                    ]
+                },
+                {
+                    "id": "1",
+                    "name": "student1",
+                    "email": "email_address",
+                    "reading_time": 5000,
+                    "exercises_done": 0,
+                    "last_article": "place holder article",
+                    "reading_time_list": [
+                        0,
+                        0,
+                        0,
+                        2500,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        2500,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "exercise_time_list": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "id": "2",
+                    "name": "student2",
+                    "email": "email_address",
+                    "reading_time": 0,
+                    "exercises_done": 5000,
+                    "last_article": "place holder article",
+                    "reading_time_list": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "exercise_time_list": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        2500,
+                        2500,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "id": "3",
+                    "name": "student3",
+                    "email": "email_address",
+                    "reading_time": 0,
+                    "exercises_done": 0,
+                    "last_article": "place holder article",
+                    "reading_time_list": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "exercise_time_list": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                }]""")
+
+        expected_student_return = []
+        ideal_days = []
+        now = datetime.today()
+
+        for i in range(duration):
+            ideal_days.append((now - timedelta(days=i)).strftime("%d-%m"))
+        expected_student_return.append(ideal_days)
+
+        for i in range(0, number_fake_students):
+            day = []
+            for j in range(0, duration):
+                day.append({
+                    "date": now.strftime("%d-%m"),
+                    "reading": fake_student[i]['reading_time_list'][j],
+                    "exercise": fake_student[i]['exercise_time_list'][j],
+                    "reading_color": classroom._format_for_color(fake_student[i]['reading_time_list'][j]),
+                    "exercise_color": classroom._format_for_color(fake_student[i]['exercise_time_list'][j])
+                })
+                now = now - timedelta(days=1);
+            expected_student_return.append({'name': fake_student[i]['name'], 'day_list': day})
+
+        assert classroom.format_class_table_data(fake_student, duration) == expected_student_return
 
     @patch('app.util.classroom.api_post')
     def test_create_class(self, mock_api_post):
@@ -77,9 +274,10 @@ class TestClassroom(unittest.TestCase):
         mock_json.loads.return_value = 'json return value'
 
         class_id = 0
-        students = classroom.load_students(class_id)
+        duration = 0
+        students = classroom.load_students(class_id, duration)
 
-        mock_api_get.assert_called_with("users_from_cohort/" + str(class_id))
+        mock_api_get.assert_called_with("users_from_cohort/" + str(class_id) + '/' + str(duration))
         mock_json.loads.assert_called_with('text return value')
         assert students == 'json return value'
 
@@ -96,6 +294,202 @@ class TestClassroom(unittest.TestCase):
         mock.text = 'NOPE'
         assert classroom.verify_invite_code_exists(inv_code)
         mock_api_get.assert_called_with('invite_code_usable/' + str(inv_code))
+
+    def test_format_for_color(self):
+        assert classroom._format_for_color(0) == 0
+        assert classroom._format_for_color(1) == 0
+        assert classroom._format_for_color(2) == 1
+        assert classroom._format_for_color(299) == 1
+        assert classroom._format_for_color(300) == 2
+        assert classroom._format_for_color(600) == 3
+        assert classroom._format_for_color(900) == 4
+
+    def test_add_student_learning_proportion(self):
+        fake_students = json.loads("""[{
+            "id": "0",
+            "name": "student0",
+            "email": "email_address",
+            "reading_time": 5000,
+            "exercises_done": 5000,
+            "last_article": "place holder article",
+            "reading_time_list": [
+                0,
+                0,
+                0,
+                2500,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2500,
+                0,
+                0,
+                0,
+                0
+            ],
+            "exercise_time_list": [
+                0,
+                0,
+                0,
+                0,
+                2500,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2500,
+                0
+            ]
+        },
+        {
+            "id": "1",
+            "name": "student1",
+            "email": "email_address",
+            "reading_time": 5000,
+            "exercises_done": 0,
+            "last_article": "place holder article",
+            "reading_time_list": [
+                0,
+                0,
+                0,
+                2500,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2500,
+                0,
+                0,
+                0,
+                0
+            ],
+            "exercise_time_list": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        {
+            "id": "2",
+            "name": "student2",
+            "email": "email_address",
+            "reading_time": 0,
+            "exercises_done": 5000,
+            "last_article": "place holder article",
+            "reading_time_list": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "exercise_time_list": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2500,
+                2500,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        {
+            "id": "3",
+            "name": "student3",
+            "email": "email_address",
+            "reading_time": 0,
+            "exercises_done": 0,
+            "last_article": "place holder article",
+            "reading_time_list": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "exercise_time_list": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }]""")
+
+        appended_fake_students = classroom.add_student_learning_proportion(students=fake_students)
+        assert (appended_fake_students[0]['learning_proportion']) == 50
+        assert (appended_fake_students[1]['learning_proportion']) == 100
+        assert (appended_fake_students[2]['learning_proportion']) == 0
+        assert (appended_fake_students[3]['learning_proportion']) == 0
+
+    @patch('app.util.classroom.api_post')
+    def test_edit_class_info(self, fake_api_post):
+        class_id = 0
+        name = 'name'
+        invite_code = 0
+        max_students = 0
+        package = {'name': name, 'inv_code': invite_code, 'max_students': max_students}
+
+        classroom.edit_class_info(class_id, name, invite_code, max_students)
+        fake_api_post.assert_called_with('update_cohort/' + str(class_id), package=package)
 
 
 if __name__ == '__main__':

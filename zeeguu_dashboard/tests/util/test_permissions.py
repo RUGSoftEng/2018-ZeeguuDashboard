@@ -18,6 +18,30 @@ class TestPermissions(unittest.TestCase):
     def tearDown(self):
         pass
 
+    @patch('app.util.permissions.session')
+    @patch('app.util.permissions.api_get')
+    def test_check_session(self, mock_api_get, mock_sesison):
+        mock_object = MagicMock()
+        mock_object.text = 'OK'
+        mock_api_get.return_value = mock_object
+
+        assert permissions.check_session()
+
+        mock_object.text = 'NOT OK'
+        assert not permissions.check_session()
+
+    @patch('app.util.permissions.check_session')
+    def test_has_session(func, mock_check_session):
+        mock_check_session.return_value = True
+
+        @permissions.has_session
+        def test_function():
+            return True
+
+        assert test_function()
+        mock_check_session.return_value = False
+        assert test_function().status_code == 302
+
     @patch('app.util.permissions.check_session')
     @patch('app.util.permissions.api_get')
     def test_has_class_permission(self, mock_api_get, mock_check_session):
@@ -33,7 +57,7 @@ class TestPermissions(unittest.TestCase):
 
         mock_check_session.return_value = True
 
-        assert test_function(class_id=class_id) == True
+        assert test_function(class_id=class_id)
 
         mock_check_session.return_value = False
         assert test_function(class_id=class_id).status_code == 302
@@ -49,9 +73,10 @@ class TestPermissions(unittest.TestCase):
 
         mock_api_get.assert_called_with('has_permission_for_cohort/' + str(class_id))
 
+    @patch('app.util.permissions.app')
     @patch('app.util.permissions.check_session')
     @patch('app.util.permissions.api_get')
-    def test_has_class_permission(self, mock_api_get, mock_check_session):
+    def test_has_student_permission(self, mock_api_get, mock_check_session, mock_app):
         @permissions.has_student_permission
         def test_function(student_id, time):
             return True
@@ -60,11 +85,15 @@ class TestPermissions(unittest.TestCase):
         mock.text = "OK"
         mock_api_get.return_value = mock
 
+        config_mock = MagicMock()
+        config_mock.config["DEFAULT_STUDENT_TIME"] = 14
+        mock_app = config_mock
+
         student_id = 1
 
         mock_check_session.return_value = True
 
-        assert test_function(student_id=student_id, time=14) == True
+        assert test_function(student_id=student_id, time=14)
         assert test_function(student_id=student_id, time=600).status_code == 302
 
         mock_check_session.return_value = False

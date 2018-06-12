@@ -71,7 +71,7 @@ def filter_user_bookmarks(dict):
 def sort_user_bookmarks(info_list):
     """
     Function to sort user bookmarks into order.
-    :param info_list: this is the unfiltered bookmarks list.
+    :param info_list: this is the unsorted bookmarks list.
     :return: The sorted version of list of dictionary of bookmarks.
     """
     master_list = list()
