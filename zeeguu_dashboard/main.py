@@ -12,7 +12,7 @@ if len(arguments) > 0:
             app.debug = True
 
 app.config.from_pyfile(os.environ.get("ZEEGUU_DASHBOARD_CONFIG"), silent=False)
-app.config["API_PATH"] = "http://" + os.environ.get("API_PATH") + "/"
+app.config["API_PATH"] = os.environ.get("ZEEGUU_API") + "/"
 bootstrap = Bootstrap(app)
 
 app.run(use_reloader=False)
