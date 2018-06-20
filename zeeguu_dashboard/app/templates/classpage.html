@@ -52,23 +52,25 @@
     <div class="card"
          style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px; overflow: scroll">
 
-        <div class="card-title" style="cursor: alias;" data-toggle="modal"
-             data-target="#heatmapModal">{{ class_info.name }}
+        <div class="card-title" style="cursor: alias; text-align: center;" data-toggle="modal"
+             data-target="#heatmapModal">Activity Heat Map
         </div>
 
-        <div class="dropdown pull-right">
-            <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
-                <span class="glyphicon glyphicon-filter"></span> {{ (time|int /7) |int }} weeks
-            </button>
-            <div id="myDropdown" class="dropdown-content">
-                <a onclick="saveCookie('14')">2 Weeks</a>
-                <a onclick="saveCookie('28')">4 Weeks</a>
-            </div>
-        </div>
+        {% if time == '30' %}
+            <button type="button" style = "color:black" class="btn btn-outline-secondary pull-right" onclick="saveHeatMapCookie('30')" >4 weeks</button>
+        {% else %}
+            <button type="button" class="btn btn-outline-secondary pull-right" onclick="saveHeatMapCookie('30')" >4 weeks</button>
+        {% endif %}
+
+        {% if time == '14' %}
+            <button type="button" style = "color:black" class="btn btn-outline-secondary pull-right" onclick="saveHeatMapCookie('14')" >2 weeks</button>
+        {% else %}
+            <button type="button" class="btn btn-outline-secondary pull-right" onclick="saveHeatMapCookie('14')" >2 weeks</button>
+        {% endif %}
 
         <script>
             /* Saves the cookie */
-            function saveCookie(time) {
+            function saveHeatMapCookie(time) {
                 document.cookie = "filter_table_time = " + time;
                 location.reload();
             }
@@ -94,7 +96,6 @@
             }
 
         </script>
-
         <hr>
         <table style="width:100%; font-size:12px; line-height: 18px" align="center">
             {% set colors = ['#E3F2FD', '#90CAF9', '#42A5F5', '#1E88E5', '#1565C0'] %}
@@ -106,7 +107,9 @@
                     {% set outer_loop = loop %}
                     {% for time in student.day_list %}
                         <td>
-                            <a data-toggle="tooltip" title="Reading={{ time.reading }} | Execise={{ time.exercise }}">
+
+                            <a data-toggle="tooltip"
+                               title="{% if time.reading < 60 %}Reading={{ (time.reading)|int }} sec {%else%} Reading={{ (time.reading/60)|int }} min {% endif %} | {% if time.reading < 60 %} Execise={{ time.exercise|int }} sec {% else %} Execise={{ (time.exercise/60)|int }} min {% endif %}">
                                 <svg width="20" height="10">
                                     <defs>
                                         <linearGradient id="{{ loop.index0 }}{{ outer_loop.index0 }}" x1="0%" y1="0%"
@@ -137,13 +140,13 @@
         <br>
         <div class="pull-right" style="font-size: 12px"> Less
             {% for i in range(4) %}
-                <a data-toggle="tooltip" title="<{{ (i+1)*5 }}hr">
+                <a data-toggle="tooltip" title="<{{ (i*5) }}mins">
                     <svg width="15" height="15">
                         <rect width="15" height="15" style="fill:{{ colors[i] }};"/>
                     </svg>
                 </a>
             {% endfor %}
-            <a data-toggle="tooltip" title=">20hr">
+            <a data-toggle="tooltip" title=">15min">
                 <svg width="15" height="15">
                     <rect width="15" height="15" style="fill:{{ colors[4] }};"/>
                 </svg>
@@ -155,8 +158,9 @@
         <hr>
         <br>
 
-        <div class="table-responsive m-t-40">
-           <input id="ai" type="search" class="light-table-filter" data-table="order-table" placeholder="Search student name...">
+        <div class="table-responsive m-t-40" style="min-height: 800px;">
+            <input id="ai" type="search" class="light-table-filter" data-table="order-table"
+                   placeholder="Search student name...">
             <br>
             <br>
             <table class="order-table table display nowrap table table-hover sortable" cellspacing="0" width="100%">
@@ -172,7 +176,7 @@
                 {% for student in students %}
                     <tr>
                         <td width="22%">
-                            <h5><a href={{ '/student/'+student.id +'/' }}>
+                            <h5><a href={{ '/class/' + class_id }}{{ '/student/' + student.id + '/' }}>
                                 <div class="text-inverse">{{ student.name }}</div>
                             </a></h5>
                         </td>
@@ -216,8 +220,8 @@
 
                         <td width="9%" sorttable_customkey={{ student.exercises_done + student.reading_time }}>
                             <div class="text-accent-4" style="margin-bottom: 1%; margin-top: 2%">
-                                {{ ((student.exercises_done + student.reading_time)/60)|int }} h
-                                {{ ((student.exercises_done + student.reading_time)%60)|int }} m
+                                {{ ((student.exercises_done + student.reading_time)/3600)|int }} h
+                                {{ (((student.exercises_done + student.reading_time)/60)%60)|int }} m
                             </div>
                         </td>
                     </tr>
@@ -237,30 +241,54 @@
 
 {% block buttons %}
 
-    <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"
-            data-toggle="modal" data-target="#myModal">
-        &#9432
-    </button>
-
-    <button type="button" onclick="goBack()" class="btn btn-outline-secondary btn-rounded waves-effect"
-            style="color:#4285f4!important"><
-    </button>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn btn btn-outline-secondary btn-rounded waves-effect">
+            <span class="glyphicon glyphicon-filter"></span> {{ students_time }}
+        </button>
+        <div id="myDropdown" class="dropdown-content">
+            <a onclick="saveCookie('7')">1 Week</a>
+            <a onclick="saveCookie('14')">2 Weeks</a>
+            <a onclick="saveCookie('30')">1 Month</a>
+            <a onclick="saveCookie('180')">6 Months</a>
+            <a onclick="saveCookie('365')">1 Year</a>
+        </div>
+    </div>
 
     <script>
-        function goBack() {
-            window.history.back();
+        /* Saves the cookie */
+        function saveCookie(time) {
+            document.cookie = "time = " + time + ";path=/";
+            location.reload();
         }
 
-        $(".progress-bar").animate({
-            width: "70%"
-        }, 2500);
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
 
-
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
     </script>
 
     <script>
-        'use strict';
+        $(".progress-bar").animate({
+            width: "70%"
+        }, 2500);
+    </script>
 
+    <script>
         var LightTableFilter = (function (Arr) {
 
             var _input;
@@ -295,5 +323,12 @@
                 LightTableFilter.init();
             }
         });
+
     </script>
+
+    <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" style="color:#4285f4!important"
+            data-toggle="modal" data-target="#myModal">
+        &#9432
+    </button>
+
 {% endblock %}

@@ -13,17 +13,16 @@ def get_correct_time(time):
     :param time:
     :return:
     """
-
     if time == '7':
-        return "1 Week"
+        return "1 week"
     elif time == '14':
-        return "2 Weeks"
+        return "2 weeks"
     elif time == '30':
-        return "1 Month"
+        return "1 month"
     elif time == '180':
-        return "6 Months"
+        return "6 months"
     elif time == '365':
-        return "1 Year"
+        return "1 year"
 
 
 def load_user_info(user_id, duration):
@@ -49,6 +48,7 @@ def load_user_data(user_id, time, filtered=True):
     stats = json.loads(stats_json)
     if filtered is True:
         stats = filter_user_bookmarks(stats)
+        stats = sort_user_bookmarks(stats)
     return stats
 
 
@@ -66,3 +66,46 @@ def filter_user_bookmarks(dict):
             else:
                 word_string = bookmark["from"]
     return dict
+
+
+def sort_user_bookmarks(info_list):
+    """
+    Function to sort user bookmarks into order.
+    :param info_list: this is the unsorted bookmarks list.
+    :return: The sorted version of list of dictionary of bookmarks.
+    """
+    master_list = list()
+    for element in info_list:
+        master_element = dict()
+        master_element['date'] = element['date']
+        master_element['article_list'] = list()
+        master_list.append(master_element)
+        for bookmark in element['bookmarks']:
+            exists_article = False
+            for article in master_element['article_list']:
+                if article['title'] == bookmark['title']:
+                    exists_article = True
+                    exists_sentence = False
+                    for sentence in article['sentence_list']:
+                        if sentence['context'] == bookmark['context']:
+                            exists_sentence = True
+                            sentence['bookmarks'].append(bookmark)
+                    if exists_sentence is False:
+                        sentence_element = dict()
+                        sentence_element['context'] = bookmark['context']
+                        sentence_element['bookmarks'] = list()
+                        sentence_element['bookmarks'].append(bookmark)
+                        article['sentence_list'].append(sentence_element)
+            if exists_article is False:
+                article_element = dict()
+                article_element['title'] = bookmark['title']
+                article_element['url'] = bookmark['url']
+                article_element['sentence_list'] = list()
+                master_element['article_list'].append(article_element)
+                sentence_element = dict()
+                sentence_element['context'] = bookmark['context']
+                sentence_element['bookmarks'] = list()
+                article_element['sentence_list'].append(sentence_element)
+                sentence_element['bookmarks'].append(bookmark)
+    return master_list
+
