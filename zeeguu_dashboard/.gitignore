@@ -8,6 +8,7 @@ venv
 .idea
 *build*
 *.egg-info*
+*.egg
 # Text editor backup files #
 ############################
 *~

@@ -1,0 +1,2 @@
+recursive-include zeeguu_teacher_dashboard/templates *
+recursive-include zeeguu_teacher_dashboard/static *
