@@ -2,8 +2,8 @@ import flask
 import requests
 from flask import make_response, render_template, redirect
 
-from app import app
-from app.forms.create_login import CreateLogin
+from zeeguu_teacher_dashboard import app
+from zeeguu_teacher_dashboard.forms.create_login import CreateLogin
 
 """
 This file contains the route for user login.

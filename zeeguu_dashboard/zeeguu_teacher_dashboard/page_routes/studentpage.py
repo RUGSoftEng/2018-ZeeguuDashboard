@@ -1,9 +1,9 @@
 from flask import render_template, redirect, request
 
-from app import app
-from app.util.classroom import load_class_info
-from app.util.permissions import has_student_permission
-from app.util.user import load_user_data, load_user_info, filter_user_bookmarks, get_correct_time, sort_user_bookmarks
+from zeeguu_teacher_dashboard import app
+from zeeguu_teacher_dashboard.util.classroom import load_class_info
+from zeeguu_teacher_dashboard.util.permissions import has_student_permission
+from zeeguu_teacher_dashboard.util.user import load_user_data, load_user_info, filter_user_bookmarks, get_correct_time, sort_user_bookmarks
 
 """
 This file contains the routes for a student page.

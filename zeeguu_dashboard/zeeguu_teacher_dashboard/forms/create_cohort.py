@@ -1,34 +1,37 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
-from app.util.classroom import verify_invite_code_exists
+
+from zeeguu_teacher_dashboard.util.classroom import verify_invite_code_exists
+
+"""
+The create cohort form class file.
+"""
 
 
-class EditCohort(FlaskForm):
+class CreateCohort(FlaskForm):
     """
-    This class extends FlaskForm. It is used when editing class information.
+    This class extends from FlaskForm. It is used for the form when filling out
+    the information of a new class.
     """
     class_name = StringField('Class room name', validators=[DataRequired()])
-    inv_code = StringField('Invite code')
+    inv_code = StringField('Invite code', validators=[DataRequired()])
+    class_language_id = StringField('Language', validators=[DataRequired()])
     max_students = StringField('Max students', validators=[DataRequired()])
     submit = SubmitField('Create classroom')
-    old_inv_code = None
 
     def validate(self):
         """
-        This function validates the EditCohort form.
+        This function validates the CreateCohort form.
         It extends from the normal validation as we need to validate whether some
         filled in data is already in use (the class invite code).
         :return: Returns a boolean, indicating whether the form is properly filled out or not.
         """
         if not FlaskForm.validate(self):
             return False
-        if verify_invite_code_exists(self.inv_code.data) and not (self.inv_code.data == self.old_inv_code):
+        if verify_invite_code_exists(self.inv_code.data):
             tmp = list(self.inv_code.errors)
             tmp.append("Code already in use!")
             self.inv_code.errors = tuple(tmp)
             return False
         return True
-    def __init__(self, old_code, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.old_inv_code = old_code

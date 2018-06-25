@@ -1,13 +1,13 @@
 from flask import redirect, render_template, request
 
-from app import app
-from app.forms.create_cohort import CreateCohort
-from app.forms.edit_cohort import EditCohort
-from app.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data, \
+from zeeguu_teacher_dashboard import app
+from zeeguu_teacher_dashboard.forms.create_cohort import CreateCohort
+from zeeguu_teacher_dashboard.forms.edit_cohort import EditCohort
+from zeeguu_teacher_dashboard.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data, \
     edit_class_info, add_student_learning_proportion
-from app.util.permissions import has_class_permission, has_session
-from app.page_routes.homepage import homepage
-from app.util.user import get_correct_time
+from zeeguu_teacher_dashboard.util.permissions import has_class_permission, has_session
+from zeeguu_teacher_dashboard.page_routes.homepage import homepage
+from zeeguu_teacher_dashboard.util.user import get_correct_time
 
 """
 This file takes care of all of the class related page_routes:
