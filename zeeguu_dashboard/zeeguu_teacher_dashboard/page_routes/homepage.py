@@ -13,12 +13,12 @@ This file contains the routes for the homepage.
 def to_homepage():
     """
     This route redirects to the homepage, when only the URL is searched by the browser (for convenience).
-    :return: Redirects to '/teacher' endpoint.
+    :return: Redirects to '/home' endpoint.
     """
     return redirect(url_for("homepage"))
 
 
-@app.route('/teacher/')
+@app.route('/home/')
 @has_session
 def homepage(messages=[]):
     """
