@@ -35,5 +35,5 @@ def login():
 
         flask.session['sessionID'] = res
         if var == 200:
-            return redirect("/teacher")
+            return redirect("teacher")
     return render_template('loginpage.html', title="login page", form=form)
