@@ -1,4 +1,4 @@
-from flask import render_template, redirect
+from flask import render_template, redirect, url_for
 
 from zeeguu_teacher_dashboard import app
 from zeeguu_teacher_dashboard.util.classroom import load_classes
@@ -15,7 +15,7 @@ def to_homepage():
     This route redirects to the homepage, when only the URL is searched by the browser (for convenience).
     :return: Redirects to '/teacher' endpoint.
     """
-    return redirect("/teacher")
+    return redirect(url_for("homepage"))
 
 
 @app.route('/teacher/')
