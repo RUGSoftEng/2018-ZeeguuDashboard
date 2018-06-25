@@ -1,6 +1,6 @@
 import flask
 import requests
-from flask import make_response, render_template, redirect
+from flask import make_response, render_template, redirect, url_for
 
 from zeeguu_teacher_dashboard import app
 from zeeguu_teacher_dashboard.forms.create_login import CreateLogin
@@ -35,5 +35,5 @@ def login():
 
         flask.session['sessionID'] = res
         if var == 200:
-            return redirect("teacher")
+            return redirect(url_for("to_homepage"))
     return render_template('loginpage.html', title="login page", form=form)
