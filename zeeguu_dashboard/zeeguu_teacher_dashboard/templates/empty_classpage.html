@@ -1,0 +1,38 @@
+{% extends "base/classpage_base.html" %}
+
+{% block content %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog" style="padding-right: 20%; padding-left: 20%;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title" style="color: white">{{ class_info.name }}</h2>
+                </div>
+                <div class="modal-body">
+                    <h6 style="color: whitesmoke">Language: {{ class_info.language_name }}</h6>
+                    <h6 style="color: whitesmoke">Invite Code: {{ class_info.inv_code }}</h6>
+                    <h6 style="color: whitesmoke">Number of students: {{ class_info.cur_students }}</h6>
+                    <h6 style="color: whitesmoke">Max students: {{ class_info.max_students }}</h6>
+                </div>
+                <div class="modal-footer">
+                    <a href={{'/remove_class/' + class_info.id }}>
+                        <button type="button" class="btn btn-default bg-danger" style="border-color: #455a64">Delete Class</button>
+                    </a>
+                    <a href={{'edit_class/' + class_info.id }}>
+                        <button type="button" class="btn btn-default bg-primary" style="border-color: #455a64">Edit</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
+        <img src="static/img/face.png" class="center-block">
+        <h2 style="text-align:center">This class has no students</h2>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/lib/jquery/jquery.min.js') }}"></script>
+
+{% endblock %}
