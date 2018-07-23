@@ -17,10 +17,10 @@
                     <h6 style="color: whitesmoke">Max students: {{ class_info.max_students }}</h6>
                 </div>
                 <div class="modal-footer">
-                    <a href={{'/remove_class/' + class_info.id }}>
+                    <a href={{ url_for('remove', class_id=class_info.id) }}>
                         <button type="button" class="btn btn-default bg-danger" style="border-color: #455a64">Delete Class</button>
                     </a>
-                    <a href={{'edit_class/' + class_info.id }}>
+                    <a href={{ url_for ('edit_class', class_id=class_info.id) }}>
                         <button type="button" class="btn btn-default bg-primary" style="border-color: #455a64">Edit</button>
                     </a>
                 </div>
