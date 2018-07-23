@@ -3,7 +3,7 @@ import unittest
 from datetime import datetime, timedelta
 from unittest.mock import patch, MagicMock
 
-from app.util import classroom
+from zeeguu_teacher_dashboard.util import classroom
 
 """
 This file contains a test function for every function inside the utility classroom.py. Testing is done via unittest and 
@@ -214,7 +214,7 @@ class TestClassroom(unittest.TestCase):
 
         assert classroom.format_class_table_data(fake_student, duration) == expected_student_return
 
-    @patch('app.util.classroom.api_post')
+    @patch('zeeguu_teacher_dashboard.util.classroom.api_post')
     def test_create_class(self, mock_api_post):
         name = 'class'
         inv_code = 'INV'
@@ -227,14 +227,14 @@ class TestClassroom(unittest.TestCase):
                                                                'max_students': max_students,
                                                                'language_id': language_id})
 
-    @patch('app.util.classroom.api_post')
+    @patch('zeeguu_teacher_dashboard.util.classroom.api_post')
     def test_remove_class(self, mock_api_post):
         class_id = 0
         classroom.remove_class(class_id)
         mock_api_post.assert_called_with('remove_cohort/' + str(class_id))
 
-    @patch('app.util.classroom.api_get')
-    @patch('app.util.classroom.json')
+    @patch('zeeguu_teacher_dashboard.util.classroom.api_get')
+    @patch('zeeguu_teacher_dashboard.util.classroom.json')
     def test_load_class_info(self, mock_json, mock_api_get):
         mock = MagicMock()
         mock.text = 'text return value'
@@ -249,8 +249,8 @@ class TestClassroom(unittest.TestCase):
         mock_json.loads.assert_called_with('text return value')
         assert class_info == 'json return value'
 
-    @patch('app.util.classroom.api_get')
-    @patch('app.util.classroom.json')
+    @patch('zeeguu_teacher_dashboard.util.classroom.api_get')
+    @patch('zeeguu_teacher_dashboard.util.classroom.json')
     def test_load_classes(self, mock_json, mock_api_get):
         mock = MagicMock()
         mock.text = 'text return value'
@@ -264,8 +264,8 @@ class TestClassroom(unittest.TestCase):
         mock_json.loads.assert_called_with('text return value')
         assert classes == 'json return value'
 
-    @patch('app.util.classroom.api_get')
-    @patch('app.util.classroom.json')
+    @patch('zeeguu_teacher_dashboard.util.classroom.api_get')
+    @patch('zeeguu_teacher_dashboard.util.classroom.json')
     def test_load_students(self, mock_json, mock_api_get):
         mock = MagicMock()
         mock.text = 'text return value'
@@ -281,7 +281,7 @@ class TestClassroom(unittest.TestCase):
         mock_json.loads.assert_called_with('text return value')
         assert students == 'json return value'
 
-    @patch('app.util.classroom.api_get')
+    @patch('zeeguu_teacher_dashboard.util.classroom.api_get')
     def test_verify_invite_code_exists(self, mock_api_get):
         mock = MagicMock()
         mock.text = "OK"
@@ -480,7 +480,7 @@ class TestClassroom(unittest.TestCase):
         assert (appended_fake_students[2]['learning_proportion']) == 0
         assert (appended_fake_students[3]['learning_proportion']) == 0
 
-    @patch('app.util.classroom.api_post')
+    @patch('zeeguu_teacher_dashboard.util.classroom.api_post')
     def test_edit_class_info(self, fake_api_post):
         class_id = 0
         name = 'name'

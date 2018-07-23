@@ -1,0 +1,36 @@
+{% extends "base/student_page_base.html" %}
+
+{% block content %}
+    <div class="container-fluid" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
+        <h1 style="text-align: center; font-size: 42px">{{ info.name }}</h1>
+        <hr>
+    </div>
+
+    {% for block in stats %}
+        <div class="container-fluid" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-top: 15px">
+            <h1>{{ block.date }}</h1>
+        </div>
+        {% for article in block.article_list %}
+            <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
+            <a href={{ article.url }}>
+            <h3> {{ article.title or article.url }}</h3>
+            </a>
+            {% for sentence in article.sentence_list %}
+                {{ sentence.context }}
+                <div style="margin-left: 32px"> 
+                {% for bookmark in sentence.bookmarks %}
+                    <div class="d-flex w-100 justify-content-between">
+                        {{ bookmark.from }}
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        {{ bookmark.to }}
+                    </div>
+                {% endfor %}
+                </div>
+                <br/>
+                <br/>
+            {% endfor %}
+            </div>
+        {% endfor %}
+        <hr>
+    {% endfor %}
+{% endblock %}
