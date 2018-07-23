@@ -12,14 +12,9 @@
         </div>
         {% for article in block.article_list %}
             <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
-            <h3>Article: {{ article.title }}</h3>
-            <div class="pull-right">
-                <a href={{ article.url }}>
-                    <button type="button" class="btn btn-default btn-primary m-b-10 m-l-5"
-                            style="background: #4680ff">Go to article
-                    </button>
-                </a>
-            </div>
+            <a href={{ article.url }}>
+            <h3> {{ article.title or article.url }}</h3>
+            </a>
             {% for sentence in article.sentence_list %}
                 {{ sentence.context }}
                 <div style="margin-left: 32px"> 
