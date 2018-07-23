@@ -21,6 +21,8 @@
                 </a>
             </div>
             {% for sentence in article.sentence_list %}
+                {{ sentence.context }}
+                <div style="margin-left: 32px"> 
                 {% for bookmark in sentence.bookmarks %}
                     <div class="d-flex w-100 justify-content-between">
                         {{ bookmark.from }}
@@ -28,8 +30,9 @@
                         {{ bookmark.to }}
                     </div>
                 {% endfor %}
-                <small>{{ sentence.context }}</small>
-                <br style="margin-bottom:15px;"/>
+                </div>
+                <br/>
+                <br/>
             {% endfor %}
             </div>
         {% endfor %}
