@@ -176,7 +176,7 @@
                 {% for student in students %}
                     <tr>
                         <td width="22%">
-                            <h5><a href={{ '/class/' + class_id }}{{ '/student/' + student.id + '/' }}>
+                            <h5><a href={{ url_for('student_page', class_id=class_id, student_id=student.id) }}>
                                 <div class="text-inverse">{{ student.name }}</div>
                             </a></h5>
                         </td>
