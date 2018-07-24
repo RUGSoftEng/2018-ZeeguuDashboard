@@ -7,22 +7,27 @@
     </div>
 
     {% for block in stats %}
-        <div class="container-fluid" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-top: 15px">
+        <div class="container-fluid" style="border-radius: 10px; width: 800px; margin: 0 auto; float: none; margin-top: 15px">
             <h1>{{ block.date }}</h1>
         </div>
         {% for article in block.article_list %}
-            <div class="card" style="border-radius: 10px; width: 80%; margin: 0 auto; float: none; margin-bottom: 10px">
+            <div class="card" style="border-radius: 10px; width: 800px; margin: 0 auto; float: none; margin-bottom: 10px">
             <a href={{ article.url }}>
-            <h3> {{ article.title or article.url }}</h3>
+            <h1 style="text-align:center"> {{ article.title or 'unknown title'}}</h1>
             </a>
+            <br/>
             {% for sentence in article.sentence_list %}
+                <h3>
                 {{ sentence.context }}
+                </h3>
                 <div style="margin-left: 32px"> 
                 {% for bookmark in sentence.bookmarks %}
                     <div class="d-flex w-100 justify-content-between">
+                        <h4>
                         {{ bookmark.from }}
                         <span class="glyphicon glyphicon-chevron-right"></span>
                         {{ bookmark.to }}
+                        </h4>
                     </div>
                 {% endfor %}
                 </div>
