@@ -22,7 +22,7 @@ def format_class_table_data(student_data, duration):
     student_times = []
     ideal_days = []
     for i in range(duration):
-        ideal_days.append((now-timedelta(days=i)).strftime("%d-%m"))
+        ideal_days.append((now - timedelta(days=i)).strftime("%d-%m"))
     student_times.append(ideal_days)
 
     for s in student_data:
@@ -132,7 +132,7 @@ def add_student_learning_proportion(students):
         student["learning_proportion"] = 100
         if not (student["reading_time"] == 0 and student["exercises_done"] == 0):
             student["learning_proportion"] = 100 * student["reading_time"] / (
-                student["exercises_done"] + student["reading_time"])
+                    student["exercises_done"] + student["reading_time"])
         elif student["reading_time"] == 0 and student["exercises_done"] == 0:
             student["learning_proportion"] = 0
         elif student["reading_time"] == 0:
@@ -140,6 +140,20 @@ def add_student_learning_proportion(students):
         else:
             student["learning_proportion"] = 100
     return students
+
+
+def add_total_and_normalized_time(students):
+    max_activity = 0
+    for student in students:
+        student_total = student['exercises_done'] + student['reading_time']
+        student ['total_time']= student_total
+        if student_total > max_activity:
+            max_activity = student_total
+
+    if max_activity > 0:
+        for student in students:
+            student_total = student['exercises_done'] + student['reading_time']
+            student['normalized_activity_proportion'] = student_total / max_activity * 100
 
 
 def verify_invite_code_exists(inv_code):
