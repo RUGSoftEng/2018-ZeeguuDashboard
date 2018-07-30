@@ -3,8 +3,9 @@ from flask import redirect, render_template, request
 from zeeguu_teacher_dashboard import app
 from zeeguu_teacher_dashboard.forms.create_cohort import CreateCohort
 from zeeguu_teacher_dashboard.forms.edit_cohort import EditCohort
-from zeeguu_teacher_dashboard.util.classroom import load_students, load_class_info, remove_class, create_class, format_class_table_data, \
-    edit_class_info, add_student_learning_proportion
+from zeeguu_teacher_dashboard.util.classroom import load_students, load_class_info, remove_class, create_class, \
+    format_class_table_data, \
+    edit_class_info, add_student_learning_proportion, add_total_and_normalized_time
 from zeeguu_teacher_dashboard.util.permissions import has_class_permission, has_session
 from zeeguu_teacher_dashboard.page_routes.homepage import homepage
 from zeeguu_teacher_dashboard.util.user import get_correct_time
@@ -28,42 +29,34 @@ def load_class(class_id):
     :param class_id: The id number of the class.
     :return: Renders and returns a class page.
     """
-    if request.method == 'GET':
-        filter_table_time = request.cookies.get('filter_table_time')
-        if not filter_table_time:
-            filter_table_time = time = app.config["DEFAULT_STUDENT_TIME"]
 
-        time = request.cookies.get('time')
-        if not time:
-            time = app.config["DEFAULT_STUDENT_TIME"]
+    time = request.cookies.get('time')
+    if not time:
+        time = app.config["DEFAULT_STUDENT_TIME"]
 
-        students = None
-        github_tables = None
+    students = load_students(class_id, time)
 
-        if int(filter_table_time) > int(time):
-            students = load_students(class_id, filter_table_time)
-            github_tables = format_class_table_data(students, filter_table_time)
-            students = load_students(class_id, time)
-        else:
-            students = load_students(class_id, time)
-            github_tables = format_class_table_data(students, filter_table_time)
+    if students is None:
+        return redirect('/')
 
-        if students is None:
-            return redirect('/')
-        students = add_student_learning_proportion(students)
-        class_info = load_class_info(class_id)
+    add_student_learning_proportion(students)
+    add_total_and_normalized_time(students)
 
-        if not students or not github_tables:
-            return render_template("empty_classpage.html", class_info=class_info)
-        return render_template('classpage.html',
-                               title=class_info['name'],
-                               students=students,
-                               github_tables=github_tables,
-                               class_info=class_info,
-                               class_id=class_id,
-                               time=filter_table_time,
-                               students_time=get_correct_time(time)
-                               )
+    class_info = load_class_info(class_id)
+    
+    if not students:
+        return render_template("empty_classpage.html", class_info=class_info)
+
+    students = sorted(students, key=lambda x: x['total_time'], reverse=True)
+
+
+    return render_template('classpage.html',
+                           title=class_info['name'],
+                           students=students,
+                           class_info=class_info,
+                           class_id=class_id,
+                           students_time=get_correct_time(time)
+                           )
 
 
 @app.route('/remove_class/<class_id>/', methods=['GET'])
