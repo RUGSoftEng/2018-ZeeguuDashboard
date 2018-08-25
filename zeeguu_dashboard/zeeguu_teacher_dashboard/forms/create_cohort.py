@@ -1,8 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 
 from zeeguu_teacher_dashboard.util.classroom import verify_invite_code_exists
+
+from .edit_cohort import one_to_ten
 
 """
 The create cohort form class file.
@@ -14,10 +16,13 @@ class CreateCohort(FlaskForm):
     This class extends from FlaskForm. It is used for the form when filling out
     the information of a new class.
     """
-    class_name = StringField('Class room name', validators=[DataRequired()])
+    name = StringField('Class room name', validators=[DataRequired()])
     inv_code = StringField('Invite code', validators=[DataRequired()])
     class_language_id = StringField('Language', validators=[DataRequired()])
     max_students = StringField('Max students', validators=[DataRequired()])
+    declared_level_min = SelectField('Min: ', choices=one_to_ten)
+    declared_level_max = SelectField('Max: ', choices=one_to_ten)
+
     submit = SubmitField('Create classroom')
 
     def validate(self):

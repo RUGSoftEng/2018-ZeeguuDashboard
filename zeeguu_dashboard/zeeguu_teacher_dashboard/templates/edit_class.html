@@ -1,42 +1,48 @@
-{% extends "base/base.html" %}
+{% extends "base/classpage_base.html" %}
 
 {% block content %}
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/slider.css') }}">
 
-    <div class="col-lg-4"></div>
+    <div class="col-lg-3"></div>
     <div class="row justify-content-center" style="border-radius: 10px">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="login-content card">
                 <div class="login-form">
 
-                    <h2>Edit classroom</h2>
                     <br>
                     <form action="" method="post" role="form">
                         {{ form.csrf }}
                         {{ form.hidden_tag() }}
                         <div class="form-group">
                             <div class="form-group">
-                                <label>Classroom Name:</label>
-                                <input type="text" class="form-control" id="class_name" name="class_name"
-                                       placeholder="{{ class_info.class_name }}">
+                                <label>Class Name:</label>
+                                {{ form.name(class_="form-control") }}
+                                {% for error in form.name.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+
                             </div>
 
 
                             <div class="form-group">
                                 <label>Invitation Code:</label>
-                                <input type="text" class="form-control" id="inv_code" name="inv_code"
-                                       placeholder="{{ class_info.inv_code }}">
+                                {{ form.inv_code(class_="form-control") }}
                                 {% for error in form.inv_code.errors %}
                                     <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
                             </div>
 
-                            <label>Max Students:</label> <span id="demo"></span>
                             <div class="form-group">
-                                <input type="range" min="1" max="50" value="15" class="slider" id="max_students"
-                                       name="max_students">
+                                <label>Minimum Reading Level</label>
+                                {{ form.declared_level_min }}
                             </div>
+
+                            <div class="form-group">
+                                <label>Maximum Reading Level</label>
+                                {{ form.declared_level_max }}
+                            </div>
+
 
                         </div>
                         <button type="submit" class="btn btn-primary" style="background: #4680ff">Submit</button>

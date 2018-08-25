@@ -82,7 +82,7 @@ def load_class_info(class_id):
     return class_info
 
 
-def edit_class_info(class_id, name, invite_code, max_students):
+def update_class_info(class_id, name, invite_code, declared_level_min, declared_level_max):
     """
     Function for editing class information. Makes an API call with the proper data.
     :param class_id: The id number of the class.
@@ -91,7 +91,8 @@ def edit_class_info(class_id, name, invite_code, max_students):
     :param max_students: The maximum number of student
     :return:
     """
-    package = {'name': name, 'inv_code': invite_code, 'max_students': max_students}
+    package = {'name': name, 'inv_code': invite_code, 'declared_level_min': declared_level_min,
+               'declared_level_max': declared_level_max}
     api_post('update_cohort/' + str(class_id), package=package)
 
 
@@ -146,7 +147,7 @@ def add_total_and_normalized_time(students):
     max_activity = 0
     for student in students:
         student_total = student['exercises_done'] + student['reading_time']
-        student ['total_time']= student_total
+        student['total_time'] = student_total
         if student_total > max_activity:
             max_activity = student_total
 

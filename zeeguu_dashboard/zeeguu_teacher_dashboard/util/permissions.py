@@ -51,13 +51,13 @@ def has_class_permission(func):
     """
 
     @wraps(func)
-    def class_permission_wrapper(class_id):
+    def class_permission_wrapper(class_id, *args, **kwargs):
 
         if not check_session():
             return redirect('401')
         permission_check = api_get('has_permission_for_cohort/' + str(class_id)).text
         if permission_check == "OK":
-            return func(class_id)
+            return func(class_id, *args, **kwargs)
         else:
             return redirect('401')
 

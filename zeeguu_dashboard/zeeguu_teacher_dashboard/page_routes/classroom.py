@@ -5,7 +5,7 @@ from zeeguu_teacher_dashboard.forms.create_cohort import CreateCohort
 from zeeguu_teacher_dashboard.forms.edit_cohort import EditCohort
 from zeeguu_teacher_dashboard.util.classroom import load_students, load_class_info, remove_class, create_class, \
     format_class_table_data, \
-    edit_class_info, add_student_learning_proportion, add_total_and_normalized_time
+    update_class_info, add_student_learning_proportion, add_total_and_normalized_time
 from zeeguu_teacher_dashboard.util.permissions import has_class_permission, has_session
 from zeeguu_teacher_dashboard.page_routes.homepage import homepage
 from zeeguu_teacher_dashboard.util.user import get_correct_time
@@ -21,7 +21,7 @@ This file takes care of all of the class related page_routes:
 
 @app.route('/class/<class_id>/', methods=['GET', 'POST'])
 @has_class_permission
-def load_class(class_id):
+def load_class(class_id, messages=[]):
     """
     Function for loading a class of students when the proper route '/class/<class_id>/' is called.
     Requires permission (the logged in user must be a teacher of the class). The class is loaded,
@@ -43,19 +43,19 @@ def load_class(class_id):
     add_total_and_normalized_time(students)
 
     class_info = load_class_info(class_id)
-    
+
     if not students:
         return render_template("empty_classpage.html", class_info=class_info)
 
     students = sorted(students, key=lambda x: x['total_time'], reverse=True)
-
 
     return render_template('classpage.html',
                            title=class_info['name'],
                            students=students,
                            class_info=class_info,
                            class_id=class_id,
-                           students_time=get_correct_time(time)
+                           students_time=get_correct_time(time),
+                           messages=messages
                            )
 
 
@@ -77,20 +77,28 @@ def edit_class(class_id):
     :return: Renders and returns an edit class page.
     """
     class_info = load_class_info(class_id)
-    form = EditCohort(class_info["inv_code"])
 
-    if form.validate_on_submit():
+    form = EditCohort(class_info["inv_code"], request.form, **class_info)
+
+    if request.method == 'POST' and form.validate():
         inv_code = form.inv_code.data
-        name = form.class_name.data
-        max_students = form.max_students.data
-        edit_class_info(class_id=class_id, name=name, invite_code=inv_code, max_students=max_students)
+        name = form.name.data
+
+        update_class_info(class_id=class_id,
+                          name=name,
+                          invite_code=inv_code,
+                          declared_level_min=form.declared_level_min.data,
+                          declared_level_max=form.declared_level_max.data)
         messages = []
         messages.append("Edit sucessful")
-        return homepage(messages)
+        return load_class(class_id, messages)
+
+    print("class_id!!!" + str(class_id))
     return render_template('edit_class.html',
                            title='Edit classroom',
                            form=form,
                            class_info=class_info,
+                           class_id=class_id
                            )
 
 
@@ -103,8 +111,9 @@ def create_classroom():
     :return: Renders and returns a create class page.
     """
     form = CreateCohort()
+
     if form.validate_on_submit():
-        name = form.class_name.data
+        name = form.name.data
         inv_code = form.inv_code.data
         max_students = form.max_students.data
         language_id = form.class_language_id.data
@@ -112,7 +121,7 @@ def create_classroom():
         messages = ["Sucessfully added class."]
         return homepage(messages)
 
-    return render_template('createcohort.html',
+    return render_template('create_class.html',
                            title='Create classroom',
                            form=form
                            )
