@@ -26,7 +26,7 @@ class TestCreateCohort(unittest.TestCase):
 
         with app.test_request_context() as context:
             cohort = CreateCohort()
-            cohort.class_name.data = 'French'
+            cohort.name.data = 'French'
             cohort.class_language_id.data = 'fr'
             cohort.max_students.data = 15
             cohort.inv_code.data = 'invitecode'

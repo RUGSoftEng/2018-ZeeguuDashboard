@@ -485,10 +485,12 @@ class TestClassroom(unittest.TestCase):
         class_id = 0
         name = 'name'
         invite_code = 0
-        max_students = 0
-        package = {'name': name, 'inv_code': invite_code, 'max_students': max_students}
+        declared_level_min = 0
+        declared_level_max = 10
+        package = {'name': name, 'inv_code': invite_code, 'declared_level_min': declared_level_min,
+                   'declared_level_max': declared_level_max}
 
-        classroom.update_class_info(class_id, name, invite_code, max_students)
+        classroom.update_class_info(class_id, name, invite_code, declared_level_min, declared_level_max)
         fake_api_post.assert_called_with('update_cohort/' + str(class_id), package=package)
 
 
