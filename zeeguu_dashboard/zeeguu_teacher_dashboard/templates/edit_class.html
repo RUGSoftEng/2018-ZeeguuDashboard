@@ -15,6 +15,7 @@
                         {{ form.csrf }}
                         {{ form.hidden_tag() }}
                         <div class="form-group">
+
                             <div class="form-group">
                                 <label>Class Name:</label>
                                 {{ form.name(class_="form-control") }}
@@ -24,13 +25,13 @@
 
                             </div>
 
-
                             <div class="form-group">
-                                <label>Invitation Code:</label>
-                                {{ form.inv_code(class_="form-control") }}
-                                {% for error in form.inv_code.errors %}
-                                    <span style="color: red;">[{{ error }}]</span>
-                                {% endfor %}
+                                <label>Invite Code: {{ form.inv_code.data }}</label>
+                            </div>
+
+                            <hr/>
+                            <div class="form-group">
+                                <label>Language: {{ form.language_name.data }}</label>
                             </div>
 
                             <div class="form-group">
@@ -42,6 +43,9 @@
                                 <label>Maximum Reading Level</label>
                                 {{ form.declared_level_max }}
                             </div>
+
+                            <hr/>
+
 
 
                         </div>
@@ -61,7 +65,7 @@
         output.innerHTML = slider.value; // Display the default slider value
 
         // Update the current slider value (each time you drag the slider handle)
-        slider.oninput = function() {
+        slider.oninput = function () {
             output.innerHTML = this.value;
         }
     </script>

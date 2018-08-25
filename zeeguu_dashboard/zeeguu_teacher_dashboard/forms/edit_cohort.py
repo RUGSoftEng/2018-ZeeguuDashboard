@@ -36,6 +36,7 @@ class EditCohort(FlaskForm):
     inv_code = StringField('Invite code', [DataRequired(), validate_inv_code])
     declared_level_min = SelectField('Min: ', choices=one_to_ten)
     declared_level_max = SelectField('Max: ', choices=one_to_ten)
+    language_name = StringField('Language Name')
 
     old_inv_code = None
 
