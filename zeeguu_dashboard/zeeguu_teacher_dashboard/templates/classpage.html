@@ -11,10 +11,14 @@
                     <h2 class="modal-title" style="color: white">{{ class_info.name }}</h2>
                 </div>
                 <div class="modal-body">
-                    <h6 style="color: whitesmoke">Language: {{ class_info.language_name }}</h6>
                     <h6 style="color: whitesmoke">Invite Code: {{ class_info.inv_code }}</h6>
                     <h6 style="color: whitesmoke">Number of students: {{ class_info.cur_students }}</h6>
                     <h6 style="color: whitesmoke">Max students: {{ class_info.max_students }}</h6>
+                    <br/>
+                    <h6 style="color: whitesmoke">Language: {{ class_info.language_name }}</h6>
+                    <h6 style="color: whitesmoke">Min level: {{ class_info.declared_level_min}}</h6>
+                    <h6 style="color: whitesmoke">Max level: {{ class_info.declared_level_max}}</h6>
+
                 </div>
                 <div class="modal-footer">
                     <form action="{{ '/class/' + class_info.id }}/" method="POST">
