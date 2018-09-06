@@ -45,7 +45,7 @@ def load_class(class_id, messages=[]):
     class_info = load_class_info(class_id)
 
     if not students:
-        return render_template("empty_classpage.html", class_info=class_info)
+        return render_template("empty_classpage.html", class_info=class_info, class_id=class_id)
 
     students = sorted(students, key=lambda x: x['total_time'], reverse=True)
 
