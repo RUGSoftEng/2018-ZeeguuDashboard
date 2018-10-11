@@ -48,7 +48,7 @@
                     <form action="{{ '/class/' + class_info.id }}/" method="POST">
                         {% if class_info.cur_students == 0 %}
                             <a href={{ url_for('remove_class', class_id=class_info.id) }}>
-                            <button type="submit" class="btn btn-default bg-danger" style="border-color: #455a64">Delete
+                            <button type="button" class="btn btn-default bg-danger" style="border-color: #455a64">Delete
                                 Class
                             </button>
                             </a>
