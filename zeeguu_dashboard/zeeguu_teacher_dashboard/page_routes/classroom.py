@@ -61,7 +61,7 @@ def load_class(class_id, messages=[]):
 
 @app.route('/remove_class/<class_id>/', methods=['GET'])
 @has_class_permission
-def remove_class(class_id):
+def remove_class_route(class_id):
     print("class_id!!!" + str(class_id))
     remove_class(class_id)
     messages = ["Sucessfully removed class."]
