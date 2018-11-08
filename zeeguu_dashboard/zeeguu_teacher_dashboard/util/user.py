@@ -7,7 +7,7 @@ This file contains all of the utility functions for loading and formatting user 
 """
 
 
-def get_correct_time(time):
+def human_readable_time(time):
     """
     Returns correct string according to time given as a string
     :param time:

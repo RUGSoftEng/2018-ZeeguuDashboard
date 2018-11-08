@@ -243,7 +243,7 @@ class TestClassroom(unittest.TestCase):
         mock_json.loads.return_value = 'json return value'
 
         class_id = 0
-        class_info = classroom.load_class_info(class_id)
+        class_info = classroom.get_general_cohort_info(class_id)
 
         mock_api_get.assert_called_with("cohort_info/" + str(class_id))
         mock_json.loads.assert_called_with('text return value')

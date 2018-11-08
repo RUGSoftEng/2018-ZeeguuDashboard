@@ -68,7 +68,7 @@ def remove_class(class_id):
     api_post('remove_cohort/' + str(class_id))
 
 
-def load_class_info(class_id):
+def get_general_cohort_info(class_id):
     """
     Function for loading class information. Loads information in JSON format and converts it to dictionary.
     Requires permission (the logged in user must have permission to class)

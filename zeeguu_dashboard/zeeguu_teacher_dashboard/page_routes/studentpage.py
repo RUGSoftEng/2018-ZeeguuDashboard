@@ -1,9 +1,9 @@
 from flask import render_template, request
 
 from zeeguu_teacher_dashboard import app
-from zeeguu_teacher_dashboard.util.classroom import load_class_info
+from zeeguu_teacher_dashboard.util.classroom import get_general_cohort_info
 from zeeguu_teacher_dashboard.util.permissions import has_student_permission
-from zeeguu_teacher_dashboard.util.user import load_user_data, load_user_info, get_correct_time
+from zeeguu_teacher_dashboard.util.user import load_user_data, load_user_info, human_readable_time
 
 """
 This file contains the routes for a student page.
@@ -30,8 +30,8 @@ def student_page(class_id, student_id):
         total_articles_count += len(each['article_list'])
 
     info = load_user_info(student_id, time)
-    time = get_correct_time(time)
-    class_name = load_class_info(class_id)["name"]
+    time = human_readable_time(time)
+    class_name = get_general_cohort_info(class_id)["name"]
 
     return render_template("studentpage.html", title=info['name'], info=info, articles_by_date=articles_by_date,
                            student_id=student_id,

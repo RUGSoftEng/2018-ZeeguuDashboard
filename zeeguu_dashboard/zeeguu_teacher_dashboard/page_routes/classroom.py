@@ -3,12 +3,12 @@ from flask import redirect, render_template, request
 from zeeguu_teacher_dashboard import app
 from zeeguu_teacher_dashboard.forms.create_cohort import CreateCohort
 from zeeguu_teacher_dashboard.forms.edit_cohort import EditCohort
-from zeeguu_teacher_dashboard.util.classroom import load_students, load_class_info, remove_class, create_class, \
+from zeeguu_teacher_dashboard.util.classroom import load_students, get_general_cohort_info, remove_class, create_class, \
     format_class_table_data, \
     update_class_info, add_student_learning_proportion, add_total_and_normalized_time
 from zeeguu_teacher_dashboard.util.permissions import has_class_permission, has_session
 from zeeguu_teacher_dashboard.page_routes.homepage import homepage
-from zeeguu_teacher_dashboard.util.user import get_correct_time
+from zeeguu_teacher_dashboard.util.user import human_readable_time
 
 """
 This file takes care of all of the class related page_routes:
@@ -42,19 +42,19 @@ def load_class(class_id, messages=[]):
     add_student_learning_proportion(students)
     add_total_and_normalized_time(students)
 
-    class_info = load_class_info(class_id)
+    general_cohort_info = get_general_cohort_info(class_id)
 
     if not students:
-        return render_template("empty_classpage.html", class_info=class_info, class_id=class_id)
+        return render_template("empty_classpage.html", class_info=general_cohort_info, class_id=class_id)
 
     students = sorted(students, key=lambda x: x['total_time'], reverse=True)
 
     return render_template('classpage.html',
-                           title=class_info['name'],
+                           title=general_cohort_info['name'],
                            students=students,
-                           class_info=class_info,
+                           class_info=general_cohort_info,
                            class_id=class_id,
-                           students_time=get_correct_time(time),
+                           display_time_interval=human_readable_time(time),
                            messages=messages
                            )
 
@@ -77,7 +77,7 @@ def edit_class(class_id):
     :param class_id: The id number of the class.
     :return: Renders and returns an edit class page.
     """
-    class_info = load_class_info(class_id)
+    class_info = get_general_cohort_info(class_id)
 
     form = EditCohort(class_info["inv_code"], request.form, **class_info)
 
