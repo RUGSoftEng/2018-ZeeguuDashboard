@@ -22,12 +22,18 @@ def student_page(class_id, student_id):
     time = request.cookies.get('time')
     if not time or time == "None":
         time = app.config["DEFAULT_STUDENT_TIME"]
-    bookmarks = load_user_data(user_id=student_id, time=time)
+
+    articles_by_date = load_user_data(user_id=student_id, time=time)
+
+    total_articles_count = 0
+    for each in articles_by_date:
+        total_articles_count += len(each['article_list'])
+
     info = load_user_info(student_id, time)
     time = get_correct_time(time)
     class_name = load_class_info(class_id)["name"]
-    if not info:
-        return render_template("empty_student_page.html", info=info, title=info['name'], student_id=student_id,
-                               time=time, class_name=class_name, class_id=class_id)
-    return render_template("studentpage.html", title=info['name'], info=info, stats=bookmarks, student_id=student_id,
+
+    return render_template("studentpage.html", title=info['name'], info=info, articles_by_date=articles_by_date,
+                           student_id=student_id,
+                           total_articles_count=total_articles_count,
                            time=time, class_name=class_name, class_id=class_id)

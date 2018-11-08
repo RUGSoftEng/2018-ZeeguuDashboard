@@ -2,12 +2,24 @@
 
 {% block content %}
 
-    {% for block in stats %}
+    <div class="container-fluid"
+         style="border-radius: 10px; width: 800px; margin: 0 auto; float: none; margin-top: 15px">
+        <hr/>
+        <b>{{ total_articles_count }} Articles in the last {{ time }}.</b>
+        <hr/>
+        <br/>
+    </div>
+
+
+    {% for each in articles_by_date %}
         <div class="container-fluid"
              style="border-radius: 10px; width: 800px; margin: 0 auto; float: none; margin-top: 15px">
-            {{ block.date }}
+            {{ each.date }}
         </div>
-        {% for article in block.article_list %}
+
+
+        {% for article in each.article_list %}
+
             <div class="card"
                  style="border-radius: 10px; width: 800px; margin: 0 auto; float: none; margin-bottom: 10px">
                 <a href={{ article.url }}>
@@ -33,8 +45,12 @@
                     </div>
                     <br/>
                     <br/>
+
+
+
                 {% endfor %}
             </div>
+
         {% endfor %}
         <hr>
     {% endfor %}
