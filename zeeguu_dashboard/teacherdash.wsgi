@@ -16,7 +16,7 @@ except:
     print ("didn't find env_var_defs. hopefully there's envvars defined")
 
 
-application.config.from_pyfile(os.environ['TEACHER_DASHBOARD_CONFIG'], silent=False)
+application.config.from_pyfile(os.environ['ZEEGUU_DASHBOARD_CONFIG'], silent=False)
 
 
 bootstrap = Bootstrap(application)
