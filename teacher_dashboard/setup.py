@@ -17,7 +17,6 @@ setuptools.setup(
     install_requires=(
         "Flask",
         "Flask-WTF",
-        "Flask-Bootstrap",
         "Flask-Migrate",
         "Flask-SQLAlchemy",
         "Jinja2",

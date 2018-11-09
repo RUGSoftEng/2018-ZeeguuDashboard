@@ -1,8 +1,6 @@
 import os
 import sys
 
-from flask_bootstrap import Bootstrap
-
 from teacher_dashboard import app
 
 arguments = sys.argv
@@ -14,7 +12,6 @@ if len(arguments) > 0:
 print(os.environ.get("TEACHER_DASHBOARD_CONFIG"))
 
 app.config.from_pyfile(os.environ.get("TEACHER_DASHBOARD_CONFIG"), silent=False)
-bootstrap = Bootstrap(app)
 
 print("Running Teacher Dashboard with config: ")
 print (app.config)

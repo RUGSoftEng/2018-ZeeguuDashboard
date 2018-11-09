@@ -1,7 +1,6 @@
 import os
 import sys
 
-from flask_bootstrap import Bootstrap
 from teacher_dashboard import app as application
 
 # when running as WSGI environment variables can't be set
@@ -17,10 +16,6 @@ except:
 
 
 application.config.from_pyfile(os.environ['TEACHER_DASHBOARD_CONFIG'], silent=False)
-
-
-bootstrap = Bootstrap(application)
-
 
 from raven.contrib.flask import Sentry
 sentry = Sentry(application, dsn=application.config['SENTRY_DSN'])
