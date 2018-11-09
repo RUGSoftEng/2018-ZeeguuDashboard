@@ -11,3 +11,5 @@ mysqlclient
 pytest
 pytest-cov
 coveralls
+blinker
+raven
