@@ -16,7 +16,7 @@ The current Zeeguu system is not set up for teachers, individuals can sign up to
 
  1. Clone this repo
  2. Make a python virtual environment with the following packages by running the command `pip3 install -r requirements.txt` and generate output suitable for a requirements file by running `pip freeze > requirements.txt`
- 3. Set environment variables 'ZEEGUU_DASHBOARD_CONFIG' and 'ZEEGUU_API'. You can set 'ZEEGUU_DASHBOARD_CONFIG' to the path with default.cfg in the project. The ZEEGUU_API must include a http protocol, an ip and a port. This is hidden to protect the API server. 
+ 3. Set environment variables 'TEACHER_DASHBOARD_CONFIG' and 'ZEEGUU_API'. You can set 'TEACHER_DASHBOARD_CONFIG' to the path with default.cfg in the project. The ZEEGUU_API must include a http protocol, an ip and a port. This is hidden to protect the API server. 
  4. Run using flask
 
 For information of the project check out the documents directory!

@@ -11,9 +11,9 @@ if len(arguments) > 0:
         if arg == 'Debug':
             app.debug = True
 
-print(os.environ.get("ZEEGUU_DASHBOARD_CONFIG"))
+print(os.environ.get("TEACHER_DASHBOARD_CONFIG"))
 
-app.config.from_pyfile(os.environ.get("ZEEGUU_DASHBOARD_CONFIG"), silent=False)
+app.config.from_pyfile(os.environ.get("TEACHER_DASHBOARD_CONFIG"), silent=False)
 bootstrap = Bootstrap(app)
 
 print("Running Teacher Dashboard with config: ")
