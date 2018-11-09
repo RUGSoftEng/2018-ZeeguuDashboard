@@ -3,7 +3,7 @@ import sys
 
 from flask_bootstrap import Bootstrap
 
-from zeeguu_teacher_dashboard import app
+from teacher_dashboard import app
 
 arguments = sys.argv
 if len(arguments) > 0:

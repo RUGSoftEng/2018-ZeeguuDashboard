@@ -1,6 +1,6 @@
 import json
 
-from zeeguu_teacher_dashboard.api.api_connection import api_get
+from teacher_dashboard.api.api_connection import api_get
 
 """
 This file contains all of the utility functions for loading and formatting user data.

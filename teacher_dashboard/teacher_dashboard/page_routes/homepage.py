@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for
 
-from zeeguu_teacher_dashboard import app
-from zeeguu_teacher_dashboard.util.classroom import load_classes
-from zeeguu_teacher_dashboard.util.permissions import has_session
+from teacher_dashboard import app
+from teacher_dashboard.util.classroom import load_classes
+from teacher_dashboard.util.permissions import has_session
 
 """
 This file contains the routes for the homepage.

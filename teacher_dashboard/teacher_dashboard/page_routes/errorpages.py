@@ -1,7 +1,7 @@
 from flask import render_template
 from requests import HTTPError
 
-from zeeguu_teacher_dashboard import app
+from teacher_dashboard import app
 
 """
 This file contains all of the error page routes.

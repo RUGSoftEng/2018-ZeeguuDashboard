@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import redirect, session
-from zeeguu_teacher_dashboard.api.api_connection import api_get
-from zeeguu_teacher_dashboard import app
+from teacher_dashboard.api.api_connection import api_get
+from teacher_dashboard import app
 
 """
 This file contains all of the functions responsible for validating the user on different page_routes.

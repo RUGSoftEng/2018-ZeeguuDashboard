@@ -1,9 +1,9 @@
 from flask import render_template, request
 
-from zeeguu_teacher_dashboard import app
-from zeeguu_teacher_dashboard.util.classroom import get_general_cohort_info
-from zeeguu_teacher_dashboard.util.permissions import has_student_permission
-from zeeguu_teacher_dashboard.util.user import load_user_data, load_user_info, human_readable_time
+from teacher_dashboard import app
+from teacher_dashboard.util.classroom import get_general_cohort_info
+from teacher_dashboard.util.permissions import has_student_permission
+from teacher_dashboard.util.user import load_user_data, load_user_info, human_readable_time
 
 """
 This file contains the routes for a student page.
