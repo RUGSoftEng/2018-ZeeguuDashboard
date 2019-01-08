@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired, InputRequired
-from teacher_dashboard.util.classroom import verify_invite_code_exists
+from zeeguu_teacher_dashboard.util.classroom import verify_invite_code_exists
 
 one_to_ten = [('0', '-')] + [(str(each), str(each)) for each in range(1, 11)]
 

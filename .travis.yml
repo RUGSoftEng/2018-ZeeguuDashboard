@@ -7,11 +7,11 @@ env:
   - FLASK_APP=main.py
 
 install:
-  - pip install -r ./zeeguu_dashboard/requirements.txt
+  - pip install -r ./src/requirements.txt
 
 script:
-  - cd zeeguu_dashboard
-  - py.test --cov=./ tests/
+  - cd src
+  - py.test --cov=./ zeeguu_teacher_dashboard_test/
 
 after_success:
   - coveralls

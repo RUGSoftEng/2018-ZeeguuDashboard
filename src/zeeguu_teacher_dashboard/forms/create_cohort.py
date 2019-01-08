@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 
-from teacher_dashboard.util.classroom import verify_invite_code_exists
+from zeeguu_teacher_dashboard.util.classroom import verify_invite_code_exists
 
 from .edit_cohort import one_to_ten
 

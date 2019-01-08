@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import patch
 
-from teacher_dashboard import app
-from teacher_dashboard.forms.create_cohort import CreateCohort
+from zeeguu_teacher_dashboard import app
+from zeeguu_teacher_dashboard.forms.create_cohort import CreateCohort
 
 """
 This file contains a test for the validate method of the form create_cohort.py. Testing is done via unittest and 
@@ -19,8 +19,8 @@ class TestCreateCohort(unittest.TestCase):
     def tearDown(self):
         pass
 
-    @patch('teacher_dashboard.forms.create_cohort.FlaskForm')
-    @patch('teacher_dashboard.forms.create_cohort.verify_invite_code_exists')
+    @patch('zeeguu_teacher_dashboard.forms.create_cohort.FlaskForm')
+    @patch('zeeguu_teacher_dashboard.forms.create_cohort.verify_invite_code_exists')
     def test_validate(self, mock_verify, mock_form):
         app.config['SECRET_KEY'] = 'testing'
 

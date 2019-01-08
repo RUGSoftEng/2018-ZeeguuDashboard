@@ -1,7 +1,7 @@
 import json
 from datetime import datetime, timedelta
 
-from teacher_dashboard.api.api_connection import api_post, api_get
+from zeeguu_teacher_dashboard.api.api_connection import api_post, api_get
 
 """
 This file contains all of the utility functions required to get and format the data for the classroom page,

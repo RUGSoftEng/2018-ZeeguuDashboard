@@ -1,7 +1,7 @@
 import os
 import sys
 
-from teacher_dashboard import app
+from zeeguu_teacher_dashboard import app
 
 arguments = sys.argv
 if len(arguments) > 0:

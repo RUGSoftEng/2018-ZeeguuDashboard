@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 
-from teacher_dashboard.util import permissions
+from zeeguu_teacher_dashboard.util import permissions
 
 """
 This file contains a test function for every function inside the utility permissions.py. Testing is done via unittest and 
@@ -18,8 +18,8 @@ class TestPermissions(unittest.TestCase):
     def tearDown(self):
         pass
 
-    @patch('teacher_dashboard.util.permissions.session')
-    @patch('teacher_dashboard.util.permissions.api_get')
+    @patch('zeeguu_teacher_dashboard.util.permissions.session')
+    @patch('zeeguu_teacher_dashboard.util.permissions.api_get')
     def test_check_session(self, mock_api_get, mock_sesison):
         mock_object = MagicMock()
         mock_object.text = 'OK'
@@ -30,7 +30,7 @@ class TestPermissions(unittest.TestCase):
         mock_object.text = 'NOT OK'
         assert not permissions.check_session()
 
-    @patch('teacher_dashboard.util.permissions.check_session')
+    @patch('zeeguu_teacher_dashboard.util.permissions.check_session')
     def test_has_session(func, mock_check_session):
         mock_check_session.return_value = True
 
@@ -42,8 +42,8 @@ class TestPermissions(unittest.TestCase):
         mock_check_session.return_value = False
         assert test_function().status_code == 302
 
-    @patch('teacher_dashboard.util.permissions.check_session')
-    @patch('teacher_dashboard.util.permissions.api_get')
+    @patch('zeeguu_teacher_dashboard.util.permissions.check_session')
+    @patch('zeeguu_teacher_dashboard.util.permissions.api_get')
     def test_has_class_permission(self, mock_api_get, mock_check_session):
         @permissions.has_class_permission
         def test_function(class_id):
@@ -73,9 +73,9 @@ class TestPermissions(unittest.TestCase):
 
         mock_api_get.assert_called_with('has_permission_for_cohort/' + str(class_id))
 
-    @patch('teacher_dashboard.util.permissions.app')
-    @patch('teacher_dashboard.util.permissions.check_session')
-    @patch('teacher_dashboard.util.permissions.api_get')
+    @patch('zeeguu_teacher_dashboard.util.permissions.app')
+    @patch('zeeguu_teacher_dashboard.util.permissions.check_session')
+    @patch('zeeguu_teacher_dashboard.util.permissions.api_get')
     def test_has_student_permission(self, mock_api_get, mock_check_session, mock_app):
         @permissions.has_student_permission
         def test_function(student_id, time):

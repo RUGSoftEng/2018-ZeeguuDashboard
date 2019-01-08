@@ -4,9 +4,9 @@ from unittest.mock import patch, MagicMock
 
 import flask
 
-from teacher_dashboard.util import user
+from zeeguu_teacher_dashboard.util import user
 
-import teacher_dashboard
+import zeeguu_teacher_dashboard
 
 """
 This file contains a test function for every function inside the utility user.py. Testing is done via unittest and 
@@ -22,7 +22,7 @@ class TestUser(unittest.TestCase):
     def tearDown(self):
         pass
 
-    @patch('teacher_dashboard.util.user.api_get')
+    @patch('zeeguu_teacher_dashboard.util.user.api_get')
     def test_load_user_info(self, mock_api_get):
         user_id = 0
         duration = 0
@@ -34,7 +34,7 @@ class TestUser(unittest.TestCase):
             mock_api_get.return_value = mock
             assert user.load_user_info(user_id, duration) == json.loads(mock.text)
 
-    @patch('teacher_dashboard.util.user.api_get')
+    @patch('zeeguu_teacher_dashboard.util.user.api_get')
     def test_load_user_data(self, mock_api_get):
         fake_user_json = """[{
                 "date": "Sunday, 18 June 2017",

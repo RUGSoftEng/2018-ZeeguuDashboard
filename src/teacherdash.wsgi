@@ -1,7 +1,7 @@
 import os
 import sys
 
-from teacher_dashboard import app as application
+from zeeguu_teacher_dashboard import app as application
 
 # when running as WSGI environment variables can't be set
 # for such a case we expect the env_var_defs.py in the 

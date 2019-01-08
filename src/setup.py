@@ -4,7 +4,7 @@
 import setuptools
 
 setuptools.setup(
-    name="teacher_dashboard",
+    name="zeeguu_teacher_dashboard",
     version="0.1",
     packages=setuptools.find_packages(),
     include_package_data=True,

@@ -4,7 +4,7 @@ import flask
 import requests
 from requests import HTTPError
 
-from teacher_dashboard import app
+from zeeguu_teacher_dashboard import app
 
 """
 This file contains the functions responsible for making calls to the Zeeguu server.
