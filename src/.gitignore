@@ -4,8 +4,11 @@
 __pycache__
 *.pyc
 *.idea*
-*.cache*
-*.coverage*
+venv
+.idea
+*build*
+*.egg-info*
+*.egg
 # Text editor backup files #
 ############################
 *~
