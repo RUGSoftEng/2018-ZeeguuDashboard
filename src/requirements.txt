@@ -8,7 +8,7 @@ WTForms
 requests
 Werkzeug
 mysqlclient
-pytest
+pytest=3.6
 pytest-cov
 coveralls
 blinker
